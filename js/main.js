@@ -48,6 +48,10 @@ let mouseNormX = 0;
 let mouseNormY = 0;
 
 document.addEventListener('mousemove', function(e) {
+    /* On mobile/touch screens there's no real mouse — skip parallax entirely.
+       Objects stay locked at their CSS positions instead of drifting. */
+    if (window.innerWidth < 768) return;
+
     /* Normalise to -1 → +1 range. Center of screen = 0 (no movement). */
     mouseNormX = (e.clientX / window.innerWidth  - 0.5) * 2;
     mouseNormY = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -278,8 +282,10 @@ document.addEventListener('mousemove', function(e) {
 if (preview && alphinRow) {
     animatePreview();   /* start the smooth-follow loop */
 
-    /* Show preview when cursor enters the Alphin row */
+    /* Show preview when cursor enters the Alphin row.
+       On mobile there's no cursor, so return early to keep preview hidden. */
     alphinRow.addEventListener('mouseenter', function() {
+        if (window.innerWidth < 768) return;
         preview.classList.add('visible');
     });
 

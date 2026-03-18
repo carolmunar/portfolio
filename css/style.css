@@ -783,190 +783,226 @@ a.case-study--link:hover {
    768px wide or narrower (phones, small tablets).
    Desktop browsers skip this entire block.
 
-   Source: Figma mobile artboard (node 1:29)
-   iPhone 16 artboard = 390px wide × ~844px tall
+   Reference artboard: iPhone 16 — 390px wide × 844px tall.
+   Position math: left px ÷ 390 = %, top px ÷ 844 = vh.
    ============================================================ */
 @media (max-width: 768px) {
 
+    /* ── PREVENT HORIZONTAL SCROLL ──
+       Absolutely-positioned hero objects can overflow the viewport.
+       overflow-x:hidden clips anything that sticks out the sides. */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* ── HERO: ensure it clips overflowing objects ── */
+    .hero {
+        width: 100vw;
+        overflow: hidden;
+    }
+
     /* ── HIDDEN OBJECTS ──
-       #lamp and #chair don't appear in the mobile Figma design.
-       display:none removes them completely from the layout. */
+       lamp:    not in the mobile Figma design.
+       plantbig: large right-side monstera — too wide for mobile.
+       chair:   not in the mobile Figma design. */
     #lamp,
+    #plantbig,
     #chair {
         display: none;
     }
 
+    /* ── DISABLE PARALLAX on mobile ──
+       The JS mousemove handler is guarded with a width check (see main.js),
+       so --px and --py never change on touch devices.
+       This rule resets the transform to make absolutely sure objects
+       start at their CSS positions, not offset by stale JS values. */
+    .hero-object {
+        transform: none;
+    }
+
     /* ── REGAL (bookshelf) ──
-       On mobile the regal is MUCH larger (144.6vw = wider than the screen).
-       It extends off the left edge (-65.9%) to show only the right portion.
-       The .hero { overflow: hidden } we set earlier clips what goes off-screen.
-       Figma: x:-257px, y:78px, width:564px on 390px artboard */
+       Half-visible on the left edge, intentionally cropped.
+       Spec: left:-254px, top:30px, width:564px */
     #regal {
-        left: -65.9%;   /* -257px ÷ 390 */
-        top: 9.25vh;    /* 78px ÷ 844 */
-        width: 144.6vw; /* 564px ÷ 390 — yes, wider than the screen! */
+        left: -65.1%;   /* -254px ÷ 390 */
+        top: 3.55vh;    /* 30px ÷ 844 */
+        width: 144.6vw; /* 564px ÷ 390 — wider than screen; left edge crops it */
     }
 
-    /* ── FRAME (portrait/collage) ──
-       Figma: x:116px, y:46px, width:304px */
+    /* ── PORTRAIT FRAME ──
+       Spec: left:119px, top:-2px, width:304px */
     #frame {
-        left: 29.7%;    /* 116px ÷ 390 */
-        top: 5.45vh;    /* 46px ÷ 844 */
-        width: 77.9vw;  /* 304px ÷ 390 */
-    }
-
-    /* ── MONSTERA (plantbig) ──
-       Almost full-screen width plant on the right side.
-       Figma: x:197px, y:-26px (slightly above top), width:389px */
-    #plantbig {
-        left: 50.5%;    /* 197px ÷ 390 */
-        top: -3.1vh;    /* -26px ÷ 844 — negative = slightly above top edge */
-        width: 99.7vw;  /* 389px ÷ 390 */
-    }
-
-    /* ── PLANTSMALL (white ribbed pot) ──
-       Sits partially off the right edge of the screen.
-       Figma: x:392px, y:394px, width:192px */
-    #plantsmall {
-        left: 100.5%;   /* 392px ÷ 390 — just barely off right edge */
-        top: 46.7vh;    /* 394px ÷ 844 */
-        width: 49.2vw;  /* 192px ÷ 390 */
-    }
-
-    /* ── VINE PLANT (plant.png) ──
-       Extends off the left edge.
-       Figma: x:-106px, y:165px, width:154px */
-    #plant {
-        left: -27.2%;   /* -106px ÷ 390 */
-        top: 19.6vh;    /* 165px ÷ 844 */
-        width: 39.5vw;  /* 154px ÷ 390 */
-    }
-
-    /* ── PULP FICTION (book in regal) ──
-       Figma: x:45px, y:189px, width:77px */
-    #pulpfiction {
-        left: 11.5%;    /* 45px ÷ 390 */
-        top: 22.4vh;    /* 189px ÷ 844 */
-        width: 19.7vw;  /* 77px ÷ 390 */
-    }
-
-    /* ── CAMERA ──
-       Figma: x:48px, y:305px, width:71px */
-    #camera {
-        left: 12.3%;    /* 48px ÷ 390 */
-        top: 36.1vh;    /* 305px ÷ 844 */
-        width: 18.2vw;  /* 71px ÷ 390 */
+        left: 30.5%;    /* 119px ÷ 390 */
+        top: -0.24vh;   /* -2px ÷ 844 — slightly above top edge */
+        width: 78vw;    /* 304px ÷ 390 */
     }
 
     /* ── CHIVA (colorful toy bus) ──
-       Figma: x:1px, y:370px, width:148px */
+       Spec: left:4px, top:322px */
     #chiva {
-        left: 0.3%;     /* 1px ÷ 390 */
-        top: 43.8vh;    /* 370px ÷ 844 */
-        width: 37.9vw;  /* 148px ÷ 390 */
+        left: 1%;       /* 4px ÷ 390 */
+        top: 38.2vh;    /* 322px ÷ 844 */
+        width: 37.9vw;  /* unchanged from desktop */
     }
 
-    /* ── SUCCULENT ──
-       Figma: x:48px, y:487px, width:62px */
-    #plantsuculent {
+    /* ── CAMERA ──
+       Spec: left:51px, top:257px */
+    #camera {
+        left: 13.1%;    /* 51px ÷ 390 */
+        top: 30.5vh;    /* 257px ÷ 844 */
+        width: 18.2vw;  /* unchanged */
+    }
+
+    /* ── PULP FICTION ──
+       Spec: left:48px, top:141px */
+    #pulpfiction {
         left: 12.3%;    /* 48px ÷ 390 */
-        top: 57.7vh;    /* 487px ÷ 844 */
-        width: 15.9vw;  /* 62px ÷ 390 */
+        top: 16.7vh;    /* 141px ÷ 844 */
+        width: 19.7vw;  /* unchanged */
     }
 
-    /* ── BOOK2 ──
-       Figma: x:-30px, y:501px, width:55px */
+    /* ── VINE PLANT — small plant inside the shelf ──
+       Spec: left:-103px, top:117px
+       Partially off the left edge, hangs over the regal shelf. */
+    #plant {
+        left: -26.4%;   /* -103px ÷ 390 */
+        top: 13.9vh;    /* 117px ÷ 844 */
+        width: 39.5vw;  /* unchanged */
+    }
+
+    /* ── PLANTSMALL — right of portrait frame ──
+       Spec: left:214px, top:344px, width:192px */
+    #plantsmall {
+        left: 54.9%;    /* 214px ÷ 390 */
+        top: 40.8vh;    /* 344px ÷ 844 */
+        width: 49.2vw;  /* 192px ÷ 390 */
+    }
+
+    /* ── SUCCULENT — keep existing mobile position ── */
+    #plantsuculent {
+        left: 12.3%;
+        top: 57.7vh;
+        width: 15.9vw;
+    }
+
+    /* ── BOOKS — keep existing mobile positions ── */
     #book2 {
-        left: -7.7%;    /* -30px ÷ 390 */
-        top: 59.4vh;    /* 501px ÷ 844 */
-        width: 14.1vw;  /* 55px ÷ 390 */
+        left: -7.7%;
+        top: 59.4vh;
+        width: 14.1vw;
     }
 
-    /* ── BOOK ──
-       Figma: x:-24px, y:523px, width:50px */
     #book {
-        left: -6.2%;    /* -24px ÷ 390 */
-        top: 62vh;      /* 523px ÷ 844 */
-        width: 12.8vw;  /* 50px ÷ 390 */
+        left: -6.2%;
+        top: 62vh;
+        width: 12.8vw;
     }
 
     /* ── HERO TEXT ──
-       On mobile the text block sits lower and spans most of the width.
-       We use flex + flex-direction:column so we can control each line separately.
-       Figma: greeting at x:178px, y:530px — h1 at y:616px */
+       Greeting spec: left:30px, top:584px, font-size:32px
+       H1 spec:       left:26px, top:637px, width:308px, font-size:24px
+
+       The container sits at the greeting's top (584px = 69.2vh).
+       The 4px left difference (30 vs 26) is handled with margin-left on .greeting. */
     .hero-text {
-        left: 5%;           /* small left margin on both sides */
-        top: 63vh;          /* 530px ÷ 844 — where the greeting starts */
-        width: 90%;         /* fills almost the full screen width */
-        max-width: none;    /* remove the desktop max-width limit */
+        left: 26px;
+        top: 69.2vh;        /* 584px ÷ 844 */
+        width: 308px;
+        max-width: none;    /* override desktop percentage max-width */
         display: flex;
-        flex-direction: column; /* stacks greeting on top, h1 below */
+        flex-direction: column;
     }
 
-    /* The greeting "Hola! I'm Carol Munar." — pushed to the RIGHT side.
-       Figma: x:178px on 390px artboard = starts at 45.6%, which is right-ish.
-       align-self:flex-end pushes just this line to the right within the column. */
+    /* "Hola! I'm Carol Munar." — left-aligned, slightly inset */
     .hero-text .greeting {
-        align-self: flex-end;
+        font-size: 32px;
+        align-self: flex-start;  /* left side (overrides any previous flex-end) */
+        margin-left: 4px;        /* 30px position − 26px container = 4px */
     }
 
-    /* The h1 "I help startups..." — takes full width of the text block.
-       Figma: width:345px on 390px = 88.5vw */
+    /* Big h1 statement — 24px, full container width */
     .hero-text h1 {
-        max-width: none;    /* remove desktop max-width */
-        width: 88.5vw;
+        font-size: 24px;
+        width: 308px;
+        max-width: none;
     }
 
-    /* ── SECTION PADDING ──
-       Desktop uses 13.9vw (200px) left margin — way too wide for a phone.
-       Mobile Figma uses 26px on both sides. */
+    /* ── SECTIONS: swap 13.9vw desktop margin for 24px mobile padding ──
+       24px each side on 390px viewport leaves 342px of content width. */
     .section-currently-working,
     .section-recently,
     .section-playground,
     .section-about {
-        padding-left: 26px;
-        padding-right: 26px;
+        padding-left: 24px;
+        padding-right: 24px;
     }
 
-    /* ── SECTION TITLE FONT SIZE FIX ──
-       The desktop rule uses clamp(1rem, 1.67vw, 1.5rem).
-       At 390px: 1.67vw = 6.5px, so clamp() picks the minimum: 1rem = 16px.
-       But Figma mobile shows section titles at 24px.
-       This override forces 1.5rem (24px) on mobile. */
+    /* ── SECTION TITLES: 24px on mobile ──
+       clamp(1rem, 1.67vw, 1.5rem) at 390px resolves to 1rem (16px) —
+       too small. This override forces the intended 24px. */
     .section-title {
-        font-size: 1.5rem;
+        font-size: 24px;
     }
 
-    /* ── CURRENTLY WORKING — body text ──
-       Remove the desktop max-width so text fills the screen. */
+    /* ── CURRENTLY WORKING: body text fills full width ── */
     .work-body {
         max-width: 100%;
+        font-size: 16px;
     }
 
-    /* ── CASE STUDIES — stack vertically ──
-       On desktop each row is: [logo] → [title] (side by side, flex row).
-       On mobile the logo sits ABOVE the title (flex column). */
+    /* ── CASE STUDIES: stack vertically ──
+       Desktop: [logo] → [title] in a row.
+       Mobile:  logo above title, both left-aligned. */
     .case-study {
         flex-direction: column;
-        align-items: flex-start; /* left-align both logo and title */
+        align-items: flex-start;
     }
 
-    /* ── PLAYGROUND — stack vertically ──
-       On desktop: two images side by side.
-       On mobile: one image above the other, each full width. */
+    /* Project title: constrained width, 16px */
+    .case-title {
+        width: 333px;
+        max-width: 100%;    /* shrinks on very narrow phones */
+        font-size: 16px;
+    }
+
+    /* ── PLAYGROUND: stack vertically, images 339×294 ── */
     .playground-grid {
         flex-direction: column;
+        gap: 24px;
     }
 
-    /* Both playground items take full width on mobile */
+    /* Each project item takes full column width */
     .playground-item:first-child,
     .playground-item:last-child {
         width: 100%;
     }
 
-    /* Captions can also go full width */
+    /* Images: 339×294px, cover-crop (no empty space) */
+    .playground-item img {
+        width: 339px;
+        max-width: 100%;
+        height: 294px;
+        object-fit: cover;
+    }
+
     .playground-caption {
         max-width: 100%;
+    }
+
+    /* ── ABOUT: text width 339px, 16px ── */
+    .about-paragraphs {
+        max-width: 339px;
+    }
+
+    .about-text {
+        font-size: 16px;
+    }
+
+    /* ── PROJECT PREVIEW: hidden on mobile ──
+       The cursor-following preview only works with a mouse.
+       JS also returns early on narrow screens (see main.js). */
+    .project-preview {
+        display: none;
     }
 
 } /* end @media (max-width: 768px) */
