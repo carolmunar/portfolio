@@ -1,0 +1,560 @@
+/* ============================================================
+   ALPHIN CASE STUDY — alphin.css
+   ─────────────────────────────────────────────────────────────
+   Styles specific to the Alphin case study page.
+   Uses the same font stack as the main portfolio.
+   All values derived from Figma node 68:43 (1440px artboard).
+   ============================================================ */
+
+/* ── RESET & BASE ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ffffff;
+    color: #1e1e1e;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Load Williwaw font (same as main portfolio) */
+@font-face {
+    font-family: 'Williwaw';
+    src: url('../fonts/Williwaw-Book.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* ── HEADER ──
+   Matches the Figma header: name + role on left, contact on right.
+   Figma: name at top:40px left:97px, role at top:57px, contact at top:54px right */
+.cs-header {
+    position: fixed;         /* stays at top while scrolling */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #ffffff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 40px 68px 20px 97px;
+}
+
+.cs-header-name {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: #1e1e1e;
+    letter-spacing: -0.12px;
+    line-height: 1.5;
+    text-decoration: none;
+}
+
+.cs-header-role {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+    letter-spacing: -0.12px;
+    line-height: 1.5;
+    margin-top: 2px;
+}
+
+.cs-header-contact {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+    letter-spacing: -0.154px;
+    line-height: 1.75;
+    text-decoration: underline;
+    margin-top: 14px;  /* aligns with Figma top:54px */
+}
+
+/* ── MAIN WRAPPER ──
+   Starts below the fixed header (73px in Figma) */
+.cs-main {
+    padding-top: 73px;  /* header height */
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* ── BACK LINK ──
+   Figma: "Link" node at top:66.5px left:96.5px within the main div */
+.cs-back {
+    display: inline-block;
+    padding: 24px 0 0 96px;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    letter-spacing: -0.154px;
+}
+
+.cs-back:hover {
+    color: #1e1e1e;
+}
+
+/* ── TITLE AREA ──
+   Two-column: "alphin" (company name, Williwaw) on left,
+   H1 + metadata on right.
+   Figma: alphin at left:97px top:132px, h1 at left:615px top:106px */
+.cs-title-area {
+    display: grid;
+    grid-template-columns: 519px 1fr;  /* 615-96=519px for left col */
+    padding: 60px 68px 0 96px;
+    align-items: start;
+    gap: 24px;
+}
+
+.cs-company-name {
+    font-family: 'Williwaw', serif;
+    font-size: 64px;
+    font-weight: 400;
+    color: #1e1e1e;
+    letter-spacing: -0.176px;
+    line-height: 1;
+    padding-top: 26px;  /* aligns baseline with H1 which sits higher */
+}
+
+.cs-h1 {
+    font-family: 'Williwaw', serif;
+    font-size: 56px;
+    font-weight: 400;
+    color: #1e1e1e;
+    letter-spacing: -1.056px;
+    line-height: 1.1;
+    width: 586px;
+}
+
+/* ── METADATA ROW ──
+   Year / Industry / Scope — sits below the H1
+   Figma: top offset from h1 baseline, 3 items horizontally */
+.cs-meta {
+    display: flex;
+    gap: 0;
+    margin-top: 24px;
+    color: #666;
+    font-size: 14px;
+    letter-spacing: -0.176px;
+    line-height: 1.4;
+}
+
+.cs-meta-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 232px;  /* Figma: industry starts at ~518px, scope at ~750px from container */
+}
+
+.cs-meta-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.cs-meta-value {
+    font-size: 16px;
+    color: #666;
+}
+
+/* ── FULL-WIDTH IMAGE CONTAINERS ──
+   No fixed height — image sets its own height at full natural width.
+   overflow: hidden clips the image to the rounded corners. */
+.cs-image-wrap {
+    border-radius: 10px;
+    margin-top: 92px;
+    overflow: hidden;   /* clips image to the rounded corners */
+}
+
+.cs-image-wrap img {
+    width: 100%;        /* fills the full container width */
+    height: auto;       /* lets the image keep its natural proportions */
+    display: block;     /* removes the small gap that appears under inline images */
+}
+
+/* ── SECTION LAYOUT ──
+   Two-column grid: section label on left, content on right.
+   Figma: label at ~96px from page, content at 96 + 336 = 432px from page
+   Label width = 364px (content left within container) - (96-68)px = 336px */
+.cs-section {
+    display: grid;
+    grid-template-columns: 336px 1fr;   /* label | content */
+    padding: 92px 68px 0 96px;          /* 92px top = consistent section spacing */
+    gap: 0;
+}
+
+.cs-section-label h2 {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 24px;
+    font-weight: 400;
+    color: #666;
+    letter-spacing: -0.264px;
+    line-height: 1.4;
+}
+
+/* ── SECTION CONTENT ──
+   Right column: paragraphs and sub-sections */
+.cs-section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;           /* 24px between paragraphs, matches Figma gap:24px */
+    max-width: 940px;
+}
+
+.cs-section-content p {
+    font-size: 16px;
+    color: #1e1e1e;
+    letter-spacing: -0.176px;
+    line-height: 1.5;
+}
+
+/* ── ORANGE LABEL (The Brief, Key Decisions) ──
+   Figma: color:#fd5400, size:14px */
+.cs-label-orange {
+    font-size: 14px !important;
+    color: #fd5400 !important;
+    letter-spacing: -0.154px !important;
+    line-height: 1.4 !important;
+}
+
+/* ── THE BRIEF block ──
+   Small sub-section with orange label + larger body text */
+.cs-brief {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 16px;
+}
+
+.cs-brief-text {
+    font-size: 18px !important;   /* Figma: 18px for the brief statement */
+    color: #1e1e1e !important;
+    letter-spacing: -0.176px !important;
+    line-height: 1.4 !important;
+}
+
+/* ── KEY DECISIONS block ──
+   Each decision: bold title + explanation */
+.cs-decisions {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 16px;
+}
+
+.cs-decision-title {
+    font-size: 16px !important;
+    font-weight: 400;
+    color: #1e1e1e !important;
+    letter-spacing: -0.176px !important;
+    line-height: 1.7 !important;
+}
+
+/* ── IMPACT TABLE ──
+   Metric / Before / After
+   Figma: border:#e5e7eb, header bg:#f9fafb, border-radius:10px */
+.cs-table-wrap {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 14px;
+}
+
+.cs-table thead {
+    background: #f9fafb;
+}
+
+.cs-table thead th {
+    font-size: 14px;
+    font-weight: 400;
+    color: #1e1e1e;
+    letter-spacing: -0.154px;
+    text-align: left;
+    padding: 16px 24px;
+}
+
+.cs-table tbody tr {
+    border-top: 1px solid #e5e7eb;
+}
+
+.cs-table tbody td {
+    font-size: 16px;
+    color: #1e1e1e;
+    letter-spacing: -0.176px;
+    padding: 16px 24px;
+}
+
+/* ── FOOTER ──
+   Role description + "Next: Adjust →"
+   Figma: border-top at #e5e7eb, role text gray 14px */
+.cs-footer {
+    margin: 92px 68px 0;                /* 92px top = consistent section spacing */
+    border-top: 1px solid #e5e7eb;
+    padding-top: 65px;
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.cs-footer-role {
+    font-size: 14px;
+    color: #666;
+    letter-spacing: -0.154px;
+    line-height: 1.6;
+}
+
+.cs-next-link {
+    font-size: 16px;
+    color: #1e1e1e;
+    text-decoration: none;
+    letter-spacing: -0.176px;
+}
+
+.cs-next-link:hover {
+    text-decoration: underline;
+}
+
+/* ── FOOTER NAV (two-way: prev + next) ──
+   Used on Adjust and future pages that have both directions.
+   Puts Previous on the left, Next on the right. */
+.cs-footer-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ── STEPS GUIDE BLOCK ──
+   Used in Estylar Solution: a light gray rounded box listing
+   the 4 illustrated scanning steps.
+   bg:#f9fafb matches the table header color for visual consistency. */
+.cs-steps-block {
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ── BULLET LIST ──
+   Used in Estylar Research and Solution sections.
+   pl-[24px] matches Figma indentation. */
+.cs-list {
+    padding-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: disc;
+}
+
+.cs-list li {
+    font-size: 16px;
+    color: #1e1e1e;
+    letter-spacing: -0.176px;
+    line-height: 1.5;
+}
+
+/* ── ADJUST TITLE AREA OVERRIDES ──
+   Adjust's company name and H1 are both Williwaw 56px (same size).
+   The left column is narrower than Alphin's (518px vs 519px from Figma).
+   Figma: "Adjust" at left:96.5px, H1 starts at left:614px
+   → left column width = 614 - 96.5 = 517.5px ≈ 518px */
+.cs-title-area--adjust {
+    grid-template-columns: 518px 1fr;
+}
+
+/* Adjust company name is 56px (same as H1), not 64px like Alphin */
+.cs-company-name--adjust {
+    font-size: 56px;
+    padding-top: 11.5px;   /* Figma: "Adjust" text top:11.5px within the h1 block */
+}
+
+/* Adjust H1 is wider (786px vs Alphin's 586px) to fit the longer title */
+.cs-h1--adjust {
+    width: 786px;
+}
+
+
+/* ── TWO-IMAGE SIDE BY SIDE (gray container) ──
+   Used for research images (adjust6 + adjust7).
+   Fixed height container, images fill 50% each. */
+.cs-image-pair {
+    margin-top: 92px;                   /* matches section spacing */
+    height: 810px;
+    border-radius: 10px;
+    display: flex;
+}
+
+.cs-image-pair img {
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* ── MIRO BOARD EMBED ──
+   Interactive iframe that lets visitors zoom and pan the Miro board.
+   Matches the section side margins (96px left, 68px right).
+   Height 500px gives enough room to read sticky notes without being overwhelming. */
+.cs-miro-embed {
+    margin: 92px 68px 0 96px;       /* same as cs-section side padding */
+    border-radius: 10px;
+    overflow: hidden;                /* clips iframe to rounded corners */
+    height: 600px;                   /* taller = more of the board is visible in preview */
+}
+
+.cs-miro-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: none;                    /* removes the default iframe border */
+    display: block;                  /* removes the gap below inline iframes */
+}
+
+
+/* ── IMAGE CAPTION LINK ──
+   Small link that sits below an image container (e.g. "Miro board link").
+   Uses the same left padding as .cs-back (96px) to align with page content.
+   Figma spec: TestSohneMono 14px, color #737373 */
+.cs-image-caption-link {
+    display: block;                          /* sits on its own line */
+    margin-top: 12px;                        /* small gap below the image */
+    padding-left: 96px;                      /* aligns with the rest of the page content */
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 14px;
+    color: #737373;
+    text-decoration: underline;
+    letter-spacing: -0.154px;
+}
+
+.cs-image-caption-link:hover {
+    color: #1e1e1e;                          /* darkens on hover for feedback */
+}
+
+
+/* ── SOLUTION GALLERY (white cards with drop shadows) ──
+   Used for the redesigned product screenshots ("New Adjust" in Figma).
+   Figma node 140:217: flex-col container, 42px gap between rows.
+   Each image sits inside a white rounded card with a soft shadow. */
+.cs-solution-gallery {
+    margin: 92px 68px 0;                /* 92px top = consistent section spacing */
+    display: flex;
+    flex-direction: column;
+    gap: 42px;              /* Figma: gap between the three rows */
+}
+
+/* One row = one horizontal group of cards */
+.cs-solution-row {
+    display: flex;
+    gap: 24px;              /* Figma: gap between cards within a row */
+    align-items: flex-start; /* cards grow to their own natural height */
+}
+
+/* Single-item row: left-aligned at half width.
+   Matches Figma row 3: one card occupies the left half, right side is empty.
+   calc(50% - 12px) = half the row width minus half the 24px gap. */
+.cs-solution-row--single {
+    max-width: calc(50% - 12px);
+}
+
+/* The white card that holds each screenshot.
+   Shadow is on the card (not the img) so overflow:hidden doesn't clip it. */
+.cs-solution-card {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;       /* clips image corners to match border-radius */
+    box-shadow: 0px 15px 25px 0px rgba(0, 0, 0, 0.15);  /* Figma drop shadow */
+    /* no padding — images fill edge-to-edge, matching Figma */
+}
+
+/* The screenshot image inside each card — fills the full card */
+.cs-solution-card img {
+    width: 100%;
+    height: auto;
+    display: block;         /* removes the small gap below inline images */
+}
+
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+    .cs-header {
+        padding: 24px 20px;
+    }
+
+    .cs-main {
+        padding-top: 80px;
+    }
+
+    .cs-back {
+        padding: 16px 0 0 20px;
+    }
+
+    .cs-title-area {
+        grid-template-columns: 1fr;  /* stack vertically on mobile */
+        padding: 40px 20px 0;
+    }
+
+    .cs-company-name {
+        font-size: 40px;
+        padding-top: 0;
+    }
+
+    .cs-h1 {
+        font-size: 32px;
+        width: 100%;
+    }
+
+    .cs-meta {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .cs-image-wrap {
+        margin-top: 48px;             /* mobile: proportional to 92px desktop */
+        /* no fixed height — image flows at natural proportions */
+    }
+
+    .cs-section {
+        grid-template-columns: 1fr;  /* stack label above content */
+        padding: 48px 20px 0;        /* mobile: proportional to 92px desktop */
+        gap: 16px;
+    }
+
+    .cs-footer {
+        margin: 48px 20px 0;         /* mobile: proportional to 92px desktop */
+    }
+
+    /* New image layouts — stack vertically on mobile */
+    .cs-image-pair {
+        margin-top: 48px;             /* mobile: proportional to 92px desktop */
+        flex-direction: column;
+    }
+
+    .cs-image-pair img {
+        width: 100%;
+    }
+
+    .cs-solution-gallery {
+        margin: 48px 20px 0;          /* mobile: proportional to 92px desktop */
+        gap: 24px;
+    }
+
+    .cs-solution-row {
+        flex-direction: column;
+    }
+
+    .cs-solution-row--single {
+        max-width: 100%;
+    }
+}

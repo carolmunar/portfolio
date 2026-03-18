@@ -1,0 +1,1010 @@
+/* ============================================================
+   CAROL MUNAR — PORTFOLIO
+   style.css
+   ============================================================ */
+
+
+/* ============================================================
+   FONTS — @font-face declarations
+   ─────────────────────────────────
+   @font-face tells the browser "here is a font file to load"
+   before we can use it anywhere in the CSS.
+
+   FONT STATUS:
+   ✅ Williwaw-Book.otf — file is in /fonts/ folder, ACTIVE
+   ⏳ Test Söhne Mono   — file NOT found in /fonts/ yet.
+                          Using Space Mono as placeholder.
+                          When you have the file, drop it in /fonts/
+                          and uncomment the TestSohneMono block below.
+   ============================================================ */
+
+/* Williwaw — used for the greeting "Hola! I'm Carol Munar." */
+@font-face {
+    font-family: 'Williwaw';
+    src: url('../fonts/Williwaw-Book.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap; /* Shows fallback font until Williwaw loads */
+}
+
+/*
+   Test Söhne Mono — used for the h1 big statement
+   Uncomment this block once you drop the font file into /fonts/
+   The filename must match exactly!
+
+@font-face {
+    font-family: 'TestSohneMono';
+    src: url('../fonts/TestSohneMono-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+*/
+
+
+/* ============================================================
+   1. DESIGN TOKENS (CSS Variables)
+   ─────────────────────────────────
+   Think of these as global settings.
+   Change here → updates everywhere on the site.
+   ============================================================ */
+:root {
+    --color-text: #3E3E42;
+    --color-bg:   #FFFFFF;
+}
+
+
+/* ============================================================
+   2. RESET & BASE
+   ──────────────────
+   Removes browser default margins/padding so we start from zero.
+   ============================================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { font-size: 16px; }
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* ============================================================
+   3. HERO SECTION
+   ──────────────────
+   Full viewport. "position: relative" makes it the anchor
+   for all the absolutely positioned objects inside.
+   ============================================================ */
+.hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--color-bg);
+}
+
+
+/* ============================================================
+   4. HERO OBJECTS — shared styles
+   ─────────────────────────────────
+   All decorative items share these. Each also has its own
+   position values via its #id below.
+   ============================================================ */
+.hero-object {
+    position: absolute;
+    /* Parallax offset — set each frame by the JS lerp loop via --px and --py */
+    transform: translate(var(--px, 0px), var(--py, 0px));
+}
+
+.hero-object img {
+    pointer-events: none;    /* Clicks pass through */
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+
+/* ============================================================
+   5. INDIVIDUAL POSITIONS
+   ─────────────────────────────────────────────────────────────
+   ✅ All values taken directly from the Figma design file.
+   Artboard size: 1440px wide × 1054px tall.
+
+   How to read these:
+   left: X%  →  X divided by 1440 (viewport width)
+   top:  Y%  →  Y divided by 1054 (artboard height)
+   width: Xvw → X divided by 1440 (scales with screen width)
+   ============================================================ */
+
+/* ── LAMP ── center, hangs from the top (partly off-screen) */
+#lamp {
+    left: 26.3%;    /* 379px ÷ 1440 */
+    top: -16.1%;    /* -170px ÷ 1054 — negative pushes it above the screen */
+    width: 12.2vw;  /* 176px ÷ 1440 */
+    z-index: 2;
+}
+
+/* ── REGAL (bookshelf) ──
+   Starts slightly off the left edge of the screen (-27px = -1.9%).
+   Much larger than before — 564px wide = 39vw at 1440px viewport. */
+#regal {
+    left: -1.9%;    /* -27px ÷ 1440 */
+    top: 24.0%;     /* 253px ÷ 1054 */
+    width: 39.2vw;  /* 564px ÷ 1440 */
+    z-index: 1;
+}
+
+/* ── VINE PLANT (plant.png) ──
+   Sits inside the regal, cascading down from the top area. */
+#plant {
+    left: 8.6%;     /* 124px ÷ 1440 */
+    top: 36.1%;     /* was 32.3% — moved 40px down (40 ÷ 1054 = 3.8%) */
+    width: 10.7vw;
+    z-index: 2;
+}
+
+/* ── PULP FICTION ── upper area of the regal */
+#pulpfiction {
+    left: 19.2%;    /* 276px ÷ 1440 */
+    top: 77.24%;    /* was 71.55% — moved 60px down (60 ÷ 1054 = 5.69%) */
+    width: 5.3vw;
+    z-index: 2;
+}
+
+/* ── CAMERA ── middle shelf of the regal */
+#camera {
+    left: 19.3%;    /* 278px ÷ 1440 */
+    top: 43.6%;     /* was 45.5% (480px) — moved 20px up → 460px ÷ 1054 */
+    width: 4.9vw;
+    z-index: 2;
+}
+
+/* ── HOVER ANIMATIONS — Pulp Fiction & Camera ────────────────────────────
+   WHY target the <img> inside, not the .hero-object div itself?
+   → The JS parallax sets transform directly on .hero-object via style.transform.
+     If we also set transform on the div via CSS :hover, they would conflict.
+   → By targeting the inner <img>, the two transforms live on DIFFERENT elements
+     and stack independently: outer div handles parallax, inner img handles hover.
+
+   HOW the two transitions work:
+   → The BASE state defines the LEAVE transition (ease-out = snaps back crisply).
+   → The :HOVER state defines the ENTER transition (cubic-bezier = springy lift).
+   → CSS always uses the transition defined on the STATE you are MOVING TO. */
+
+/* Base state — defines how elements animate back on mouse leave */
+[data-element="pulp-fiction"] img,
+[data-element="camera"] img,
+[data-element="chiva"] img {
+    transition: transform 0.25s ease-out, filter 0.25s ease-out;
+}
+
+/* Show a pointer cursor on the interactive hero objects */
+[data-element="pulp-fiction"],
+[data-element="camera"],
+[data-element="chiva"] {
+    cursor: pointer;
+}
+
+/* Pulp Fiction: lift + rotate +3deg + scale — springy enter */
+[data-element="pulp-fiction"]:hover img {
+    transform: translateY(-12px) rotate(3deg) scale(1.05);
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter    0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Camera: lift + rotate -3deg (mirrored) + scale — springy enter */
+[data-element="camera"]:hover img {
+    transform: translateY(-12px) rotate(-3deg) scale(1.05);
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter    0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Chiva: same lift + scale, slight rotation to the right — springy enter */
+[data-element="chiva"]:hover img {
+    transform: translateY(-12px) rotate(3deg) scale(1.05);
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                filter    0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+/* ── CHIVA ── colorful toy bus, lower-middle shelf of the regal */
+#chiva {
+    left: 16.0%;    /* 231px ÷ 1440 */
+    top: 51.7%;     /* 545px ÷ 1054 */
+    width: 10.3vw;
+    z-index: 2;
+}
+
+/* ── CHIVA HOVER TOOLTIP ─────────────────────────────────────────────────────
+   The tooltip card is a child of #chiva, positioned ABOVE it with absolute CSS.
+
+   WHY position: absolute?
+   → #chiva is already "position: absolute" (from .hero-object).
+   → Children of a positioned element are positioned relative to THAT element.
+   → So bottom: calc(100% + 8px) means "8px above the top edge of #chiva".
+
+   WHY pointer-events: none when hidden?
+   → An invisible element can still block mouse clicks if pointer-events is on.
+   → Setting pointer-events: none when hidden lets mouse events pass through it.
+   → We re-enable it on hover so the user can move their mouse onto the tooltip
+     without it disappearing (hovering a child = still hovering the parent div).
+
+   The ::after pseudo-element creates an invisible "bridge" between the chiva
+   and the tooltip. Without it, moving the mouse through the 8px gap would
+   briefly leave the hover area → tooltip flickers. The bridge covers that gap.
+*/
+
+/* Tooltip card — hidden by default */
+.chiva-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);  /* floats 8px above the chiva image */
+    left: -80px;                /* shifted 80px left of the chiva */
+    width: 224px;               /* from Figma */
+
+    /* Visual style from Figma */
+    background: #e5e7eb;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0px 12px 50px 0px rgba(0,0,0,0.15);
+
+    /* Typography from Figma */
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 16px;
+    line-height: 1.18;
+    color: #000000;
+
+    /* Hidden state */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);  /* starts 6px lower, floats up when shown */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    /* Stays in front of other hero objects */
+    z-index: 10;
+}
+
+/* Small gap between the two text lines ("I'm from Colombia..." / "Based in Berlin") */
+.chiva-tooltip p + p {
+    margin-top: 6px;
+}
+
+/* Invisible bridge covering the 8px gap between tooltip and chiva image.
+   This prevents the tooltip from flickering when the mouse crosses the gap. */
+.chiva-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;    /* starts at the bottom edge of the tooltip */
+    left: 0;
+    width: 100%;
+    height: 16px; /* covers the 8px gap plus a small safety buffer */
+}
+
+/* Elevate the chiva's stacking context on hover so the tooltip
+   renders IN FRONT of other hero objects (frame z:3, chair z:4).
+   Without this, the tooltip would appear behind those elements. */
+[data-element="chiva"]:hover {
+    z-index: 10;
+}
+
+/* Visible state — triggered when hovering #chiva (the parent div) */
+[data-element="chiva"]:hover .chiva-tooltip {
+    opacity: 1;
+    pointer-events: auto;   /* now the tooltip is interactive (hover-stable) */
+    transform: translateY(0);
+}
+
+
+/* ── SUCCULENT ── lower shelf of the regal */
+#plantsuculent {
+    left: 19.3%;    /* 278px ÷ 1440 */
+    top: 65.65%;    /* moved another 20px down (20 ÷ 1054 = +1.9%) */
+    width: 4.3vw;
+    z-index: 2;
+}
+
+/* ── BOOK2 ── bottom shelf of the regal */
+#book2 {
+    left: 13.9%;    /* 200px ÷ 1440 */
+    top: 67.9%;     /* was 66.0% — moved 20px down (20 ÷ 1054 = 1.9%) */
+    width: 3.8vw;
+    z-index: 2;     /* behind #book */
+}
+
+/* ── BOOK ── bottom shelf, next to book2 */
+#book {
+    left: 14.3%;    /* 206px ÷ 1440 */
+    top: 70.0%;     /* was 68.1% — moved 20px down */
+    width: 3.5vw;
+    z-index: 3;     /* in front of #book2 */
+}
+
+/* ── FRAME ── center, the portrait/collage focal point */
+#frame {
+    left: 39.4%;    /* 568px ÷ 1440 */
+    top: 7.7%;      /* moved 20px up from 101px → 80px ÷ 1054 */
+    width: 21.1vw;  /* 304px ÷ 1440 */
+    z-index: 3;
+    overflow: hidden; /* clips the image when it scales up during Ken Burns */
+}
+
+/* ── KEN BURNS — portrait frame hover ──
+   On hover, the image slowly zooms in and drifts slightly.
+   "forwards" keeps the zoomed state when you stop mid-animation.
+   The base transition on img resets it smoothly when you mouse out. */
+@keyframes ken-burns {
+    0%   { transform: scale(1)    translate(0,    0);   }
+    100% { transform: scale(1.08) translate(-2%, -1%);  }
+}
+
+.portrait-frame:hover img {
+    animation: ken-burns 4s ease-out forwards;
+}
+
+.portrait-frame img {
+    transition: transform 0.5s ease; /* smooth return to scale(1) on mouse-out */
+}
+
+/* ── MONSTERA (plantbig) ── right side, tall */
+#plantbig {
+    left: 56.5%;    /* 813px ÷ 1440 */
+    top: -0.8%;     /* was -5.5% (-58px) — moved 50px down → -8px ÷ 1054 */
+    width: 21.6vw;  /* was 27vw — reduced 20% */
+    z-index: 2;
+}
+
+/* ── PLANTSMALL (white ribbed planter pot) ──
+   This is on the RIGHT SIDE of the hero, next to the chair.
+   NOT on the regal shelf. */
+#plantsmall {
+    left: 67.22%;   /* was 69.3% — moved 30px left (30 ÷ 1440 = 2.08%) */
+    top: 37.75%;    /* was 38.7% — moved 10px up */
+    width: 13.3vw;  /* 192px ÷ 1440 */
+    z-index: 3;
+}
+
+/* ── CHAIR ── center-left, lower area */
+#chair {
+    left: 25.2%;    /* 363px ÷ 1440 — corrected from Figma */
+    top: 48.9%;     /* 515px ÷ 1054 */
+    width: 32vw;    /* 461px ÷ 1440 */
+    z-index: 4;
+}
+
+
+/* ============================================================
+   6. HERO TEXT
+   ─────────────
+   Bottom-right area. z-index: 10 keeps it above all images.
+   ============================================================ */
+.hero-text {
+    position: absolute;
+    left: 57.6%;    /* 829px ÷ 1440 — corrected from Figma */
+    top: 70.5%;     /* 743px ÷ 1054 — corrected from Figma */
+    max-width: 28.5%; /* 411px ÷ 1440 — width of the text block */
+    z-index: 10;
+    /* ↑ z-index:10 = text appears IN FRONT of all the hero images.
+       The highest z-index among the objects is chair at z-index:4,
+       so z-index:10 guarantees the text is always visible on top. */
+}
+
+/* ── "Hola! I'm Carol Munar." ── Williwaw (matches Figma) */
+.hero-text .greeting {
+    font-family: 'Williwaw', Georgia, serif;
+    font-size: clamp(1rem, 1.67vw, 1.5rem); /* 24px ÷ 1440 = 1.67vw */
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.011em;
+    line-height: 1.5;
+}
+
+/* ── "I help startups and series A—D teams..." ── Test Söhne Mono (matches Figma) */
+/* ⏳ Font file not in /fonts/ yet — Space Mono is the placeholder until you add it */
+.hero-text h1 {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: clamp(1rem, 1.67vw, 1.5rem); /* 24px — same size as greeting per Figma */
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--color-text);
+    letter-spacing: -0.022em;
+}
+
+
+/* ============================================================
+   7. SHARED SECTION STYLES
+   ─────────────────────────────────────────────────────────────
+   All three content sections (Currently Working, Recently
+   Experiences, My Playground) share these base rules.
+
+   padding-left: 13.9vw = 200px at 1440px viewport.
+   This matches the consistent left margin in the Figma design.
+   ============================================================ */
+
+/* Section headings — "Currently working", "Recently experiences",
+   "My Playground" — all use the same style as the hero h1 */
+.section-title {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: clamp(1rem, 1.67vw, 1.5rem); /* 24px — same as hero text */
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+    margin-bottom: 2.6rem; /* ~42px — Figma gap from heading to first content item */
+}
+
+
+/* ============================================================
+   8. CURRENTLY WORKING SECTION
+   ─────────────────────────────────────────────────────────────
+   padding-top: 7.5rem (120px) matches the Figma:
+   This section starts at y:1019px, and the hero ends at y:900px.
+   1019 − 900 = 119px → rounded to 120px (7.5rem).
+   ============================================================ */
+.section-currently-working {
+    padding-top: 7.5rem;    /* 120px gap between hero bottom and this section */
+    padding-left: 13.9vw;   /* 200px left margin (200 ÷ 1440 = 13.9%) */
+    padding-right: 5vw;     /* small right breathing room */
+}
+
+/* "Designing something new called"
+   Smaller label above the body description */
+.work-label {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 1rem;         /* 16px — Figma uses 16px for body-level text */
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+    margin-bottom: 1rem;     /* 16px gap before the description paragraph */
+}
+
+/* The full description paragraph */
+.work-body {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 1rem;         /* 16px */
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+    max-width: 53.75vw;      /* 774px ÷ 1440 — text block width from Figma */
+}
+
+
+/* ============================================================
+   9. RECENTLY EXPERIENCES SECTION
+   ─────────────────────────────────────────────────────────────
+   margin-top: 5.75rem (92px) — gap between this section and
+   the "Currently working" section, derived from Figma:
+   y:1270 (this heading) − y:1178 (approx end of prev section).
+
+   Each case study row is a flex container:
+   [90×90px logo box] ← 24px gap → [project title text]
+   ============================================================ */
+.section-recently {
+    margin-top: 5.75rem;     /* 92px gap above this section */
+    padding-left: 13.9vw;    /* same 200px left margin */
+    padding-right: 5vw;
+}
+
+/* One case study row — logo + title side by side */
+.case-study {
+    display: flex;           /* puts logo and text in a row */
+    align-items: center;     /* vertically centers them */
+    gap: 1.5rem;             /* 24px gap between logo box and title text */
+    margin-bottom: 1.5rem;   /* 24px between rows.
+                                Why 24px? Figma spacing between row tops = 114px.
+                                Logo height = 90px. Gap between rows = 114 − 90 = 24px. */
+}
+
+/* When a case-study row is wrapped in an <a> link,
+   remove the default link styling (blue color, underline)
+   so it looks identical to a plain div. */
+a.case-study--link {
+    text-decoration: none;   /* removes the blue underline from links */
+    color: inherit;          /* inherits the dark text color instead of link blue */
+    cursor: pointer;         /* keeps the hand cursor to signal it's clickable */
+    transition: opacity 0.15s ease;
+}
+
+a.case-study--link:hover {
+    opacity: 0.75;           /* subtle dimming on hover to show interactivity */
+}
+
+/* The colored square that holds the company logo */
+.case-logo {
+    width: 90px;             /* fixed size from Figma */
+    height: 90px;
+    min-width: 90px;         /* prevents flexbox from shrinking it */
+    border-radius: 4px;      /* slight rounding from Figma */
+    display: flex;           /* centers the logo image inside */
+    align-items: center;
+    justify-content: center;
+}
+
+/* The logo image inside the colored box */
+.case-logo img {
+    max-width: 75%;          /* keeps logo proportional inside the box */
+    max-height: 65%;
+    display: block;
+}
+
+/* The project title text next to the logo */
+.case-title {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 1rem;         /* 16px */
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+    max-width: 377px;        /* widest title width from Figma */
+}
+
+
+/* ============================================================
+   10. MY PLAYGROUND SECTION
+   ─────────────────────────────────────────────────────────────
+   margin-top: 6rem (96px) — gap above this section, from Figma:
+   y:1874 (heading) − y:1778 (approx end of case studies) = 96px.
+
+   Two projects sit side by side using flexbox:
+   Left item width: 35.3vw = 508px at 1440px (from Figma).
+   Right item: flex:1 = takes all remaining space.
+   ============================================================ */
+.section-playground {
+    margin-top: 6rem;        /* 96px gap above this section */
+    padding-left: 13.9vw;    /* same 200px left margin */
+    padding-bottom: 6rem;    /* breathing room at the very bottom of the page */
+}
+
+/* Row of two project items */
+.playground-grid {
+    display: flex;           /* side by side */
+    gap: 1.5rem;             /* 24px gap between the two projects */
+    align-items: flex-start; /* items align at the top, not stretched */
+    margin-top: 2.6rem;      /* ~42px gap from the section title */
+}
+
+/* Each project card (image + caption) */
+.playground-item {
+    display: flex;
+    flex-direction: column;  /* image on top, caption below */
+}
+
+/* Both projects — fixed 508px width to match Figma */
+.playground-item:first-child,
+.playground-item:last-child {
+    width: 508px;
+}
+
+/* Project screenshot image — fixed 508×441px per Figma */
+.playground-item img {
+    width: 100%;             /* fills the 508px column width */
+    height: 441px;           /* fixed height — both images same size */
+    object-fit: cover;       /* crops to fill without stretching */
+    display: block;
+}
+
+/* Caption text below each image */
+.playground-caption {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 1rem;         /* 16px */
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+    max-width: 356px;        /* from Figma: both captions use w-[356px] */
+    margin-top: 1.5rem;      /* 24px gap between image bottom and caption */
+}
+
+
+/* ============================================================
+   11. ABOUT SECTION — CSS GLITCH + CHROMATIC ABERRATION
+   ─────────────────────────────────────────────────────────────
+   How the glitch effect works:
+
+   Each paragraph has two invisible "copies" layered on top
+   (::before = red channel, ::after = cyan channel).
+   These copies are positioned absolutely and use clip-path to
+   show only a thin horizontal "slice" at a time.
+   All three layers animate with step-end timing — no smooth
+   blending, just instant jumps — which gives the digital feel.
+
+   animation-iteration-count: 3 → plays 3 times then stops.
+   data-text attribute (set by JS) is what feeds the text into
+   the pseudo-elements via content: attr(data-text).
+   ============================================================ */
+
+
+/* ── KEYFRAME 1: Main text — rapid position jitter ── */
+@keyframes glitch-move {
+    /* Active glitch: 0–15% of the 4s cycle (= first 0.6s) */
+    0%   { transform: translate(0); }
+    4%   { transform: translate(-2px, 0); }
+    8%   { transform: translate(2px, 0.5px); }
+    11%  { transform: translate(-1px, -0.5px); }
+    14%  { transform: translate(1px, 0); }
+    /* Rest period: stays still until the cycle repeats */
+    15%  { transform: translate(0); }
+    100% { transform: translate(0); }
+}
+
+/* ── KEYFRAME 2: Red channel (::before) — left-offset slices ──
+   clip-path: inset(top right bottom left)
+   e.g. inset(15% 0 55% 0) = show only the band from 15% to 45% of height */
+@keyframes glitch-red {
+    /* Hidden during rest period */
+    0%, 15%, 100% {
+        opacity: 0;
+        transform: translate(0);
+        clip-path: inset(0 0 100% 0);   /* fully hidden */
+    }
+    /* Softer opacity (0.4 vs old 0.9) and smaller translate (3px vs 5px) */
+    4%  {
+        opacity: 0.4;
+        transform: translate(-3px, 0);
+        clip-path: inset(15% 0 55% 0);  /* top-third band */
+    }
+    8% {
+        opacity: 0.35;
+        transform: translate(2px, 0);
+        clip-path: inset(60% 0 10% 0);  /* lower band */
+    }
+    11% {
+        opacity: 0.4;
+        transform: translate(-2px, -0.5px);
+        clip-path: inset(30% 0 40% 0);  /* middle band */
+    }
+    14% {
+        opacity: 0.3;
+        transform: translate(1px, 0);
+        clip-path: inset(70% 0 5% 0);   /* thin sliver at bottom */
+    }
+}
+
+/* ── KEYFRAME 3: Cyan channel (::after) — right-offset slices ── */
+@keyframes glitch-cyan {
+    /* Hidden during rest period */
+    0%, 15%, 100% {
+        opacity: 0;
+        transform: translate(0);
+        clip-path: inset(0 0 100% 0);   /* fully hidden */
+    }
+    /* Softer opacity and smaller translate, opposite direction from red */
+    4%  {
+        opacity: 0.4;
+        transform: translate(3px, 0);
+        clip-path: inset(50% 0 20% 0);  /* lower-half band */
+    }
+    8% {
+        opacity: 0.35;
+        transform: translate(-2px, 0);
+        clip-path: inset(20% 0 45% 0);  /* upper-third band */
+    }
+    11% {
+        opacity: 0.4;
+        transform: translate(2px, 0.5px);
+        clip-path: inset(70% 0 5% 0);   /* thin sliver at bottom */
+    }
+    14% {
+        opacity: 0.3;
+        transform: translate(-1px, 0);
+        clip-path: inset(10% 0 55% 0);  /* near-top band */
+    }
+}
+
+
+.section-about {
+    margin-top: 6rem;
+    padding-left: 13.9vw;
+    padding-right: 13.9vw;
+    padding-bottom: 8rem;
+}
+
+.about-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+}
+
+/* ── PARAGRAPH BASE + GLITCH ANIMATION ──
+   position: relative is required so ::before and ::after
+   can sit exactly on top of this element. */
+.about-text {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.6;
+    position: relative;  /* anchor for absolutely-positioned pseudo-elements */
+    /* 4s cycle: 0.6s glitch burst, then 3.4s rest, loops forever */
+    animation: glitch-move 2.5s step-end infinite both;
+}
+
+/* ── SHARED PSEUDO-ELEMENT SETUP ──
+   content: attr(data-text) reads the paragraph text from a
+   data attribute we set in JS — this is how CSS duplicates text.
+   background: white hides the areas outside the clip-path slice,
+   so only the "glitch slice" is visible at any moment. */
+.about-text::before,
+.about-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;      /* matches page background — masks outside the slice */
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+}
+
+/* Red channel — shifts left */
+.about-text::before {
+    color: #ff2020;
+    animation: glitch-red 2.5s step-end infinite both;
+}
+
+/* Cyan channel — shifts right */
+.about-text::after {
+    color: #00e5ff;
+    animation: glitch-cyan 2.5s step-end infinite both;
+}
+
+/* ── STAGGER DELAYS ──
+   Spread 1s apart within the 4s cycle — so they stay offset every loop.
+   The delay must be set on the element AND both pseudo-elements. */
+/* All paragraphs glitch at the same time — no stagger */
+.about-paragraphs .about-text,
+.about-paragraphs .about-text::before,
+.about-paragraphs .about-text::after { animation-delay: 0s; }
+
+
+/* ============================================================
+   12. MOBILE RESPONSIVE — @media (max-width: 768px)
+   ─────────────────────────────────────────────────────────────
+   Everything inside this block ONLY applies to screens
+   768px wide or narrower (phones, small tablets).
+   Desktop browsers skip this entire block.
+
+   Source: Figma mobile artboard (node 1:29)
+   iPhone 16 artboard = 390px wide × ~844px tall
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* ── HIDDEN OBJECTS ──
+       #lamp and #chair don't appear in the mobile Figma design.
+       display:none removes them completely from the layout. */
+    #lamp,
+    #chair {
+        display: none;
+    }
+
+    /* ── REGAL (bookshelf) ──
+       On mobile the regal is MUCH larger (144.6vw = wider than the screen).
+       It extends off the left edge (-65.9%) to show only the right portion.
+       The .hero { overflow: hidden } we set earlier clips what goes off-screen.
+       Figma: x:-257px, y:78px, width:564px on 390px artboard */
+    #regal {
+        left: -65.9%;   /* -257px ÷ 390 */
+        top: 9.25vh;    /* 78px ÷ 844 */
+        width: 144.6vw; /* 564px ÷ 390 — yes, wider than the screen! */
+    }
+
+    /* ── FRAME (portrait/collage) ──
+       Figma: x:116px, y:46px, width:304px */
+    #frame {
+        left: 29.7%;    /* 116px ÷ 390 */
+        top: 5.45vh;    /* 46px ÷ 844 */
+        width: 77.9vw;  /* 304px ÷ 390 */
+    }
+
+    /* ── MONSTERA (plantbig) ──
+       Almost full-screen width plant on the right side.
+       Figma: x:197px, y:-26px (slightly above top), width:389px */
+    #plantbig {
+        left: 50.5%;    /* 197px ÷ 390 */
+        top: -3.1vh;    /* -26px ÷ 844 — negative = slightly above top edge */
+        width: 99.7vw;  /* 389px ÷ 390 */
+    }
+
+    /* ── PLANTSMALL (white ribbed pot) ──
+       Sits partially off the right edge of the screen.
+       Figma: x:392px, y:394px, width:192px */
+    #plantsmall {
+        left: 100.5%;   /* 392px ÷ 390 — just barely off right edge */
+        top: 46.7vh;    /* 394px ÷ 844 */
+        width: 49.2vw;  /* 192px ÷ 390 */
+    }
+
+    /* ── VINE PLANT (plant.png) ──
+       Extends off the left edge.
+       Figma: x:-106px, y:165px, width:154px */
+    #plant {
+        left: -27.2%;   /* -106px ÷ 390 */
+        top: 19.6vh;    /* 165px ÷ 844 */
+        width: 39.5vw;  /* 154px ÷ 390 */
+    }
+
+    /* ── PULP FICTION (book in regal) ──
+       Figma: x:45px, y:189px, width:77px */
+    #pulpfiction {
+        left: 11.5%;    /* 45px ÷ 390 */
+        top: 22.4vh;    /* 189px ÷ 844 */
+        width: 19.7vw;  /* 77px ÷ 390 */
+    }
+
+    /* ── CAMERA ──
+       Figma: x:48px, y:305px, width:71px */
+    #camera {
+        left: 12.3%;    /* 48px ÷ 390 */
+        top: 36.1vh;    /* 305px ÷ 844 */
+        width: 18.2vw;  /* 71px ÷ 390 */
+    }
+
+    /* ── CHIVA (colorful toy bus) ──
+       Figma: x:1px, y:370px, width:148px */
+    #chiva {
+        left: 0.3%;     /* 1px ÷ 390 */
+        top: 43.8vh;    /* 370px ÷ 844 */
+        width: 37.9vw;  /* 148px ÷ 390 */
+    }
+
+    /* ── SUCCULENT ──
+       Figma: x:48px, y:487px, width:62px */
+    #plantsuculent {
+        left: 12.3%;    /* 48px ÷ 390 */
+        top: 57.7vh;    /* 487px ÷ 844 */
+        width: 15.9vw;  /* 62px ÷ 390 */
+    }
+
+    /* ── BOOK2 ──
+       Figma: x:-30px, y:501px, width:55px */
+    #book2 {
+        left: -7.7%;    /* -30px ÷ 390 */
+        top: 59.4vh;    /* 501px ÷ 844 */
+        width: 14.1vw;  /* 55px ÷ 390 */
+    }
+
+    /* ── BOOK ──
+       Figma: x:-24px, y:523px, width:50px */
+    #book {
+        left: -6.2%;    /* -24px ÷ 390 */
+        top: 62vh;      /* 523px ÷ 844 */
+        width: 12.8vw;  /* 50px ÷ 390 */
+    }
+
+    /* ── HERO TEXT ──
+       On mobile the text block sits lower and spans most of the width.
+       We use flex + flex-direction:column so we can control each line separately.
+       Figma: greeting at x:178px, y:530px — h1 at y:616px */
+    .hero-text {
+        left: 5%;           /* small left margin on both sides */
+        top: 63vh;          /* 530px ÷ 844 — where the greeting starts */
+        width: 90%;         /* fills almost the full screen width */
+        max-width: none;    /* remove the desktop max-width limit */
+        display: flex;
+        flex-direction: column; /* stacks greeting on top, h1 below */
+    }
+
+    /* The greeting "Hola! I'm Carol Munar." — pushed to the RIGHT side.
+       Figma: x:178px on 390px artboard = starts at 45.6%, which is right-ish.
+       align-self:flex-end pushes just this line to the right within the column. */
+    .hero-text .greeting {
+        align-self: flex-end;
+    }
+
+    /* The h1 "I help startups..." — takes full width of the text block.
+       Figma: width:345px on 390px = 88.5vw */
+    .hero-text h1 {
+        max-width: none;    /* remove desktop max-width */
+        width: 88.5vw;
+    }
+
+    /* ── SECTION PADDING ──
+       Desktop uses 13.9vw (200px) left margin — way too wide for a phone.
+       Mobile Figma uses 26px on both sides. */
+    .section-currently-working,
+    .section-recently,
+    .section-playground,
+    .section-about {
+        padding-left: 26px;
+        padding-right: 26px;
+    }
+
+    /* ── SECTION TITLE FONT SIZE FIX ──
+       The desktop rule uses clamp(1rem, 1.67vw, 1.5rem).
+       At 390px: 1.67vw = 6.5px, so clamp() picks the minimum: 1rem = 16px.
+       But Figma mobile shows section titles at 24px.
+       This override forces 1.5rem (24px) on mobile. */
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    /* ── CURRENTLY WORKING — body text ──
+       Remove the desktop max-width so text fills the screen. */
+    .work-body {
+        max-width: 100%;
+    }
+
+    /* ── CASE STUDIES — stack vertically ──
+       On desktop each row is: [logo] → [title] (side by side, flex row).
+       On mobile the logo sits ABOVE the title (flex column). */
+    .case-study {
+        flex-direction: column;
+        align-items: flex-start; /* left-align both logo and title */
+    }
+
+    /* ── PLAYGROUND — stack vertically ──
+       On desktop: two images side by side.
+       On mobile: one image above the other, each full width. */
+    .playground-grid {
+        flex-direction: column;
+    }
+
+    /* Both playground items take full width on mobile */
+    .playground-item:first-child,
+    .playground-item:last-child {
+        width: 100%;
+    }
+
+    /* Captions can also go full width */
+    .playground-caption {
+        max-width: 100%;
+    }
+
+} /* end @media (max-width: 768px) */
+
+
+/* ── PROJECT PREVIEW (cursor-following with lag) ──
+   Shows 3 stacked screenshots when hovering the Alphin row.
+   JS updates left/top each frame using lerp → smooth lag behind cursor.
+   CSS only handles: width, stacking, and the fade+scale show/hide animation.
+
+   Why translate(-50%, -105%)?
+   - X: -50% of its own width → centers the preview horizontally on the cursor
+   - Y: -105% of its own height → floats it just ABOVE the cursor tip */
+.project-preview {
+    position: fixed;          /* fixed to viewport — moves with cursor via JS */
+    pointer-events: none;     /* clicks pass through to the row below */
+    opacity: 0;               /* invisible by default */
+    z-index: 999;             /* sits on top of everything */
+    width: 284px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transform: translate(-50%, -105%) scale(0.95);  /* hidden: slightly shrunk */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* When JS adds .visible → fade in and snap to full scale */
+.project-preview.visible {
+    opacity: 1;
+    transform: translate(-50%, -105%) scale(1);
+}
+
+/* Each screenshot image inside the preview */
+.project-preview img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    display: block;
+}
+
+

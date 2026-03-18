@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Claude Code local settings (contains API tokens — never push these)
+.claude/
+
+# Local dev server
+server.py

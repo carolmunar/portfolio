@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carol Munar — Product Designer</title>
+
+    <!-- SEO: This text appears under your link in Google search results (max ~155 characters) -->
+    <meta name="description" content="Carol Munar is a product designer helping startups and series A–D teams build stronger connections between their product and customers.">
+
+    <!--
+        FONTS (TEMPORARY PLACEHOLDERS)
+        ================================
+        Right now we're using Google Fonts as stand-ins.
+        Once you have the font files downloaded, we'll replace these.
+
+        Space Mono  →  placeholder for "Test Söhne Mono"
+        We'll add Williwaw via @font-face once you have the .ttf file
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Our main stylesheet -->
+    <link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body>
+
+<!-- <main> wraps all the visible page content — tells search engines "this is the main content" -->
+<main>
+
+    <!-- ============================================
+         HERO SECTION
+         This is the full-screen landing section.
+         All the decorative objects live inside here.
+         ============================================ -->
+    <section class="hero">
+
+        <!--
+            HOW THE OBJECTS WORK:
+            ─────────────────────
+            Each image is wrapped in a div with class "hero-object".
+            They are positioned absolutely (like stickers on a board).
+
+            data-speed="0.2" — controls how much the object moves
+            when the mouse moves. Higher number = moves more = feels closer.
+            Lower number = moves less = feels farther away.
+        -->
+
+        <!-- LAMP: hangs from the top center -->
+        <div class="hero-object lamp" id="lamp" data-speed="0.25">
+            <img src="header/lamp.webp" alt="">
+        </div>
+
+        <!-- REGAL (bookshelf): left side -->
+        <div class="hero-object bookshelf" id="regal" data-speed="0.06">
+            <img src="header/regal.webp" alt="">
+        </div>
+
+        <!-- Items ON the bookshelf — same speed as regal so they move together -->
+        <div class="hero-object" id="plantsuculent" data-speed="0.06">
+            <img src="header/plantsuculent.webp" alt="">
+        </div>
+
+        <div class="hero-object camera" id="camera" data-speed="0.06" data-element="camera">
+            <img src="header/camera.webp" alt="">
+        </div>
+
+        <div class="hero-object" id="book" data-speed="0.06">
+            <img src="header/book.webp" alt="">
+        </div>
+
+        <div class="hero-object" id="book2" data-speed="0.06">
+            <img src="header/book2.webp" alt="">
+        </div>
+
+        <div class="hero-object pulp-fiction" id="pulpfiction" data-speed="0.06" data-element="pulp-fiction">
+            <img src="header/pulpfiction.webp" alt="">
+        </div>
+
+        <!-- FRAME: center portrait collage — no .webp available yet, using .png -->
+        <div class="hero-object portrait-frame" id="frame" data-speed="0.18">
+            <img src="header/frame.webp" alt="Carol Munar portrait">
+        </div>
+
+        <!-- PLANTS: right side, front layer -->
+        <div class="hero-object monstera" id="plantbig" data-speed="0.12">
+            <img src="header/plantbig.webp" alt="">
+        </div>
+
+        <!-- vine plant: lives inside the regal, so moves at regal speed -->
+        <div class="hero-object" id="plant" data-speed="0.06">
+            <img src="header/plant.webp" alt="">
+        </div>
+
+        <!-- plantsmall = white ribbed planter on the RIGHT side of the hero (not on the regal) -->
+        <div class="hero-object" id="plantsmall" data-speed="0.18">
+            <img src="header/plantsmall.webp" alt="">
+        </div>
+
+        <!-- chiva = colorful toy bus, lower-middle shelf of the regal -->
+        <!-- data-element="chiva" lets CSS target it for the hover tooltip -->
+        <div class="hero-object chiva" id="chiva" data-speed="0.06" data-element="chiva">
+            <img src="header/chiva.webp" alt="">
+            <!-- chivaHover tooltip — hidden by default, shows on hover via CSS -->
+            <div class="chiva-tooltip">
+                <p>I'm from Colombia, lived 13 years in Argentina.</p>
+                <p>Based in Berlin</p>
+            </div>
+        </div>
+
+        <div class="hero-object armchair" id="chair" data-speed="0.1">
+            <img src="header/chair.webp" alt="">
+        </div>
+
+        <!-- ============================================
+             HERO TEXT: bottom right area
+             ============================================ -->
+        <div class="hero-text">
+            <!--
+                "greeting" is the small line at the top: "Hola! I'm Carol Munar."
+                "h1" is the big main message below it
+            -->
+            <p class="greeting">Hola! I'm Carol Munar.</p>
+            <h1>I help startups and series A—D&nbsp;teams to establish a strong connection between their product and&nbsp;customers</h1>
+        </div>
+
+    </section>
+
+
+    <!-- ============================================
+         CURRENTLY WORKING SECTION
+         ============================================ -->
+    <section class="section-currently-working">
+
+        <!-- Section heading — same font/size as hero h1 -->
+        <h2 class="section-title">Currently working</h2>
+
+        <!-- Small label above the description -->
+        <p class="work-label">Designing something new called</p>
+
+        <!-- Project description -->
+        <p class="work-body">
+            A community to aim on helping families going trough bureaucracy in Berlin to make better decisions.<br>
+            Stay tuned for the big launch. ✈️
+        </p>
+
+    </section>
+
+
+    <!-- ============================================
+         RECENTLY EXPERIENCES SECTION
+         Each case study = [colored box with logo] + [project title]
+         ============================================ -->
+    <section class="section-recently">
+
+        <h2 class="section-title">Recently experiences</h2>
+
+        <!-- Case study 1: Alphin — dark navy -->
+        <!-- Wrapped in <a> so clicking anywhere on the row opens the case study -->
+        <!-- data-project="alphin" lets JS find this row for the hover preview -->
+        <a href="projects/alphin.html" class="case-study case-study--link" data-project="alphin">
+            <div class="case-logo" style="background-color: #1e1a4d;">
+                <img src="logos/alphin.svg" alt="Alphin" loading="lazy">
+            </div>
+            <p class="case-title">AI-Powered Review Replies for Local Businesses</p>
+        </a>
+
+        <!-- Case study 2: Adjust — black -->
+        <a href="projects/adjust.html" class="case-study case-study--link">
+            <div class="case-logo" style="background-color: #010101;">
+                <img src="logos/adjust.svg" alt="Adjust" loading="lazy">
+            </div>
+            <p class="case-title">Reducing Mobile Analytics Onboarding from 3 Hours to 20 Minutes</p>
+        </a>
+
+        <!-- Case study 3: Agrofy — green -->
+        <a href="projects/agrofy.html" class="case-study case-study--link">
+            <div class="case-logo" style="background-color: #81ba42;">
+                <img src="logos/agrofy.svg" alt="Agrofy" loading="lazy">
+            </div>
+            <p class="case-title">From Quotations to Online Sales in Agribusiness</p>
+        </a>
+
+        <!-- Case study 4: Estylar — dark purple -->
+        <a href="projects/estylar.html" class="case-study case-study--link">
+            <div class="case-logo" style="background-color: #333366;">
+                <img src="logos/estylar.svg" alt="Estylar" loading="lazy">
+            </div>
+            <p class="case-title">AI Body Scanner for Size Recommendations</p>
+        </a>
+
+    </section>
+
+
+    <!-- ============================================
+         MY PLAYGROUND SECTION
+         Two projects side by side: image + caption below each
+         ============================================ -->
+    <section class="section-playground">
+
+        <h2 class="section-title">My Playground</h2>
+
+        <!-- Two-column grid for the two projects -->
+        <div class="playground-grid">
+
+            <!-- Project 1: Are you kidding me (Lovable) -->
+            <div class="playground-item">
+                <img src="playground/kiddingme.png" alt="Are you kidding me — mental load test for partners" loading="lazy">
+                <p class="playground-caption">
+                    Because is not easy to talk about this topics, so let's make a test.<br>
+                    Made in Lovable
+                </p>
+            </div>
+
+            <!-- Project 2: Style library (Figma Make) -->
+            <div class="playground-item">
+                <img src="playground/library.webp" alt="Extreme Neo-Brutalism style library" loading="lazy">
+                <p class="playground-caption">
+                    Since internet appears we have had an important amount of styles, that I summarized in this library.<br>
+                    Made in Figma Make
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================================
+         ABOUT SECTION
+         ─────────────────────────────────────────
+         Each paragraph starts invisible (opacity:0).
+         JavaScript watches the page scroll and adds
+         the class .is-visible when each paragraph
+         enters the viewport — that triggers a CSS
+         transition (fade in + slide up).
+         ============================================ -->
+    <section class="section-about">
+
+        <h2 class="section-title">About</h2>
+
+        <div class="about-paragraphs">
+
+            <p class="about-text">
+                I'm a product designer (she/her) who loves crafting meaningful interactions and bringing fun ideas to life. Currently based in Paris, France.
+            </p>
+
+            <p class="about-text">
+                While I value the aesthetic and emotional aspects of design, my recent work has centered on leveraging design psychology to achieve measurable user and business outcomes.
+            </p>
+
+            <p class="about-text">
+                Before relocating to France, I earned my Master's in Human-Computer Interaction from Carnegie Mellon University and a B.S. in Interactive Media Arts from NYU Shanghai.
+            </p>
+
+            <p class="about-text">
+                I design to make people smile ☺.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main><!-- end of <main> content -->
+
+
+    <!-- PROJECT PREVIEW: cursor-following image stack shown when hovering Alphin row -->
+    <div id="project-preview" class="project-preview">
+        <img id="preview-img-1" src="projects/img/hover/hover_alphin1.webp" alt="">
+        <img id="preview-img-2" src="projects/img/hover/hover_alphin2.webp" alt="">
+        <img id="preview-img-3" src="projects/img/hover/hover_alphin3.webp" alt="">
+    </div>
+
+    <!-- Our JavaScript file (loaded at the bottom so HTML loads first) -->
+    <script src="js/main.js?v=7"></script>
+
+</body>
+</html>

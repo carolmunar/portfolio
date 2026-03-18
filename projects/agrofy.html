@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrofy — Carol Munar</title>
+
+    <!-- SEO: This text appears under your link in Google search results -->
+    <meta name="description" content="How Carol Munar built Agrofy's first online checkout for agribusiness, enabling real transactions across Argentina and Brazil.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Shared case study styles -->
+    <link rel="stylesheet" href="alphin.css">
+</head>
+<body>
+
+    <header class="cs-header">
+        <div>
+            <a href="../index.html" class="cs-header-name">Carol Munar</a>
+            <p class="cs-header-role">Product Designer</p>
+        </div>
+        <a href="mailto:hello@carolmunar.com" class="cs-header-contact">Start a project</a>
+    </header>
+
+
+    <main class="cs-main">
+
+        <a href="../index.html" class="cs-back">← Work</a>
+
+
+        <!-- ============================================
+             TITLE AREA
+             Same column split as Adjust (518px left col).
+             Figma: "Agrofy" at left:0.5px, H1 at left:518.5px
+             ============================================ -->
+        <div class="cs-title-area cs-title-area--adjust">
+            <div>
+                <span class="cs-company-name cs-company-name--adjust">Agrofy</span>
+            </div>
+            <div>
+                <h1 class="cs-h1">From Quotations to Online Sales in Agribusiness</h1>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Year</span>
+                        <span class="cs-meta-value">2019</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Industry:</span>
+                        <span class="cs-meta-value">B2B/B2C - SaaS. AgroTech</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Scope</span>
+                        <span class="cs-meta-value">Senior Product Designer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ── IMAGE 1 ── -->
+        <!-- TODO: add agrofy hero image → save as projects/img/ag1.webp and uncomment:
+        <div class="cs-image-wrap">
+            <img src="img/ag1.webp" alt="Agrofy — agribusiness marketplace">
+        </div>
+        -->
+
+
+        <!-- ============================================
+             SECTION: PROBLEM
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Problem</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    Agrofy was generating 6,000+ quotations across Argentina and Brazil.
+                    Buyers were interested. Merchants were responding. But every transaction
+                    happened offline.
+                </p>
+                <p>
+                    No visibility into conversions. No transaction fees. No leverage to
+                    attract new merchants.
+                </p>
+                <p>
+                    The business team saw the opportunity: shift to real online sales. But
+                    selling agricultural products online in Latin America was complicated.
+                </p>
+                <p>
+                    In Argentina, hyperinflation meant prices changed week to week. Merchants
+                    didn't want to lock in prices. Payment methods ranged from credit cards to
+                    canje (bartering). Delivery? 50-ton tractors and truckloads of seeds.
+                </p>
+                <p>
+                    Brazil was more stable but expected boleto—a payment method that doesn't
+                    exist in Argentina.
+                </p>
+
+                <div class="cs-brief">
+                    <p class="cs-label-orange">The Brief</p>
+                    <p class="cs-brief-text">
+                        Replicate an offline sales process that's messy, region-specific,
+                        and relationship-dependent—and make it work online.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ── IMAGE 2 ── -->
+        <!-- TODO: add agrofy research image → save as projects/img/ag2.webp and uncomment:
+        <div class="cs-image-wrap">
+            <img src="img/ag2.webp" alt="Agrofy — field research in rural Argentina" loading="lazy">
+        </div>
+        -->
+
+
+        <!-- ============================================
+             SECTION: RESEARCH
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Research</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    I talked to solution consultants across São Paulo, Tokyo, San Francisco,
+                    Paris, and Berlin. Then I went to rural Argentina and spent time with
+                    farmers and merchants. I watched how they negotiated prices, discussed
+                    logistics, structured payments.
+                </p>
+
+                <!-- What I Learned callout -->
+                <div class="cs-brief">
+                    <p class="cs-label-orange">What I Learned</p>
+                    <p>
+                        Prices are negotiated, not fixed. Locking in a price felt risky
+                        to merchants.
+                    </p>
+                    <p>
+                        Delivery requires coordination. Buyers needed to arrange transport
+                        to farms hundreds of kilometers away.
+                    </p>
+                    <p>
+                        Payment methods vary wildly. Credit cards in Brazil, canje in
+                        Argentina, extended terms tied to harvest cycles.
+                    </p>
+                    <p>
+                        Seeds are seasonal. Farmers buy based on planting seasons, not
+                        year-round.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ── IMAGE 3 ── -->
+        <!-- TODO: add agrofy solution image → save as projects/img/ag3.webp and uncomment:
+        <div class="cs-image-wrap">
+            <img src="img/ag3.webp" alt="Agrofy — checkout flow redesign" loading="lazy">
+        </div>
+        -->
+
+
+        <!-- ============================================
+             SECTION: SOLUTION
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Solution</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    I mapped the quotation flow and the desired checkout flow. Aligning
+                    stakeholders—customer success, support, engineering, product, CTO,
+                    CEO—took weeks of meetings.
+                </p>
+                <p>I designed a checkout flow that respected how agribusiness actually works:</p>
+
+                <!-- Four key decisions -->
+                <div class="cs-decisions">
+                    <div>
+                        <p class="cs-decision-title">Flexible pricing.</p>
+                        <p>
+                            Merchants could set prices online but also require a conversation
+                            before finalizing.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="cs-decision-title">Direct communication for delivery.</p>
+                        <p>
+                            Buyers and merchants could message to coordinate pickup. We used
+                            farmers' language: "puesto en el campo" (delivered to the field).
+                        </p>
+                    </div>
+                    <div>
+                        <p class="cs-decision-title">Localized payment methods.</p>
+                        <p>
+                            Boleto in Brazil. Credit cards, checks, canje in Argentina.
+                            Merchants could specify terms like "30/60/90 days post-harvest."
+                        </p>
+                    </div>
+                    <div>
+                        <p class="cs-decision-title">Category-specific flows.</p>
+                        <p>
+                            Seeds and machinery had different needs, so we built variations.
+                        </p>
+                    </div>
+                </div>
+
+                <p>
+                    We launched a beta with machinery and seeds. I monitored 6,186 Hotjar
+                    recordings to see where users got stuck.
+                </p>
+
+                <!-- Biggest Drop-offs callout -->
+                <div class="cs-brief">
+                    <p class="cs-label-orange">Biggest Drop-offs</p>
+                    <p>
+                        Payment methods (48.78% abandonment). Users confused about which
+                        options applied.
+                    </p>
+                    <p>
+                        Delivery options (23.56% abandonment). UI didn't make it obvious
+                        who arranges transport.
+                    </p>
+                </div>
+
+                <p>
+                    I iterated: clarified payment descriptions, turned logos into selectable
+                    buttons, surfaced delivery summary earlier.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             SECTION: IMPACT
+             2-column table (Metric + Result) — no "Before" column.
+             Plus a "Business Impact" sub-section below the table.
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Impact</h2>
+            </div>
+            <div class="cs-section-content">
+
+                <!-- 2-column table -->
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>First online sale</td>
+                                <td>Tractor (Brazil), 4 months post-launch</td>
+                            </tr>
+                            <tr>
+                                <td>Checkout completion</td>
+                                <td>14.5% during beta (8 of 55)</td>
+                            </tr>
+                            <tr>
+                                <td>Payment abandonment</td>
+                                <td>48.78% → ~35%</td>
+                            </tr>
+                            <tr>
+                                <td>Delivery abandonment</td>
+                                <td>23.56% → ~18%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Business Impact sub-section -->
+                <div class="cs-brief">
+                    <p class="cs-label-orange">Business Impact</p>
+                    <p>New revenue stream: transaction fees on completed sales</p>
+                    <p>
+                        Merchant acquisition improved: real checkout made Agrofy competitive
+                    </p>
+                    <p>Checkout scaled to tools, fertilizers, and other categories</p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             SECTION: LEARNINGS
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Learnings</h2>
+            </div>
+            <div class="cs-section-content">
+                <div>
+                    <p class="cs-decision-title">Offline processes need translation, not copying.</p>
+                    <p>
+                        Farmers don't "add to cart." They negotiate, coordinate, plan around
+                        harvests. The design had to respect that rhythm.
+                    </p>
+                </div>
+                <div>
+                    <p class="cs-decision-title">Context-specific design beats one-size-fits-all.</p>
+                    <p>
+                        Boleto in Brazil, canje in Argentina. Localization wasn't
+                        translation—it was understanding regional economics.
+                    </p>
+                </div>
+                <div>
+                    <p class="cs-decision-title">Data tells you where users break, research tells you why.</p>
+                    <p>
+                        Hotjar showed abandonment. Field research explained it: distrust of
+                        locked prices, confusion about payment terms, need to coordinate
+                        delivery.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             FOOTER
+             Agrofy is the LAST case study.
+             Two role lines + "Back to home" instead of a Next project.
+             ============================================ -->
+        <footer class="cs-footer">
+            <div>
+                <p class="cs-footer-role">
+                    Role: Product Designer · 0-to-1 checkout system, field research across
+                    Argentina, stakeholder alignment (CTO/CEO), Hotjar analysis
+                </p>
+                <p class="cs-footer-role">
+                    Timeline: 7 months (Dec 2019 - Jun 2020) · Team: Product Owner,
+                    Agricultural Engineer, 2 Frontend, 4 Backend, PM, CTO, CEO
+                </p>
+            </div>
+            <div class="cs-footer-nav">
+                <a href="estylar.html" class="cs-next-link">← Previous: Estylar</a>
+                <a href="../index.html" class="cs-next-link">Back to home</a>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>

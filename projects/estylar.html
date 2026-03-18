@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estylar — Carol Munar</title>
+
+    <!-- SEO: This text appears under your link in Google search results -->
+    <meta name="description" content="How Carol Munar designed the end-to-end AI body scanning experience for Estylar, helping online shoppers find their perfect size and reducing return rates.">
+
+    <!-- Same fonts as main portfolio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Shared case study styles -->
+    <link rel="stylesheet" href="alphin.css">
+
+    <!-- ============================================
+         ESTYLAR-SPECIFIC STYLES
+         These styles are unique to this case study.
+         Generic/shared styles live in alphin.css.
+         ============================================ -->
+    <style>
+
+        /* ── TITLE AREA: Estylar column split ──
+           Same grid as adjust but tuned for the "Estylar" name size */
+        .cs-title-area--estylar {
+            grid-template-columns: 518px 1fr;
+        }
+
+        /* Company name slightly smaller to balance the longer H1 */
+        .cs-company-name--estylar {
+            font-size: 56px;
+            padding-top: 11.5px;
+        }
+
+        /* H1 wider to fit the long title comfortably */
+        .cs-h1--estylar {
+            width: 786px;
+        }
+
+        /* ── HERO VIDEO CONTAINER ──
+           Full-width image at 733px — taller than the default cs-image-wrap (398px).
+           Uses the same gray background and border-radius as the rest of the case study. */
+        .cs-hero-video {
+            height: 733px;
+            background: #f3f4f6;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 92px 68px 0 96px;  /* matches cs-section side padding */
+        }
+
+        .cs-hero-video img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ── MOBILE SCREENS CONTAINER ──
+           CSS grid: 3 equal columns, no gap.
+           Images flow automatically — 6 images fill 2 rows, 3 images fill 1 row.
+           overflow: hidden clips border bleed at the rounded corners. */
+        .cs-mobile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            width: 100%;
+            margin: 92px 68px 0 96px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Every mobile screenshot fills its grid cell */
+        .cs-mobile-grid img {
+            width: 100%;
+            height: 667px;
+            object-fit: contain;  /* shows the full image — cover was cropping/zooming */
+            display: block;  /* removes the default inline gap below images */
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!-- ============================================
+         HEADER — same as all case studies
+         ============================================ -->
+    <header class="cs-header">
+        <div>
+            <a href="../index.html" class="cs-header-name">Carol Munar</a>
+            <p class="cs-header-role">Product Designer</p>
+        </div>
+        <a href="mailto:hello@carolmunar.com" class="cs-header-contact">Start a project</a>
+    </header>
+
+
+    <main class="cs-main">
+
+        <!-- ── BACK LINK ── -->
+        <a href="../index.html" class="cs-back">← Work</a>
+
+
+        <!-- ============================================
+             TITLE AREA
+             "Estylar" left (Williwaw 56px),
+             H1 + metadata right.
+             ============================================ -->
+        <div class="cs-title-area cs-title-area--estylar">
+            <div>
+                <span class="cs-company-name cs-company-name--estylar">Estylar</span>
+            </div>
+            <div>
+                <h1 class="cs-h1 cs-h1--estylar">
+                    AI Body Scanner for Size Recommendations
+                </h1>
+
+                <div class="cs-meta">
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Industry</span>
+                        <span class="cs-meta-value">B2B/B2C · SaaS. Ecommerce</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Year</span>
+                        <span class="cs-meta-value">2019</span>
+                    </div>
+                    <div class="cs-meta-item">
+                        <span class="cs-meta-label">Scope</span>
+                        <span class="cs-meta-value">Founder Designer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ── HERO IMAGE ──
+             Full-width product overview at 733px height.
+             Taller than the standard image-wrap to give the product video more presence. -->
+        <div class="cs-hero-video">
+            <img
+                src="img/dpvideo.webp"
+                alt="Estylar — AI body scanner product overview">
+        </div>
+
+
+        <!-- ============================================
+             SECTION: PROBLEM
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Problem</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    Online fashion has a sizing crisis. Shoppers can't try clothes on, so they
+                    order multiple sizes, keep one, and return the rest. Return rates in fashion
+                    ecommerce sit at 30–40%—a cost most retailers quietly absorb.
+                </p>
+                <p>
+                    Estylar was building a solution: an AI body scanner that used a short phone
+                    video to generate accurate body measurements and recommend the right size,
+                    directly inside a retailer's checkout flow.
+                </p>
+                <p>
+                    I joined as founding designer. There was a working prototype of the computer
+                    vision model, a technical co-founder, and no product design at all. My job
+                    was to turn a research tool into something a real shopper would trust and use.
+                </p>
+
+                <div class="cs-brief">
+                    <p class="cs-label-orange">The Brief</p>
+                    <p class="cs-brief-text">
+                        Design a scanning experience that feels effortless and earns trust—even
+                        when asking users to point a camera at their own body.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ── MOBILE SCREENS: Container 1 ──
+             6 images as direct grid children → auto-wraps into 2 rows of 3.
+             Row 1: dp1 (no border) | dp2 (border) | dp3 (border)
+             Row 2: dp4 (border) | dp5 (border) | dp6 (no border) -->
+        <div class="cs-mobile-grid">
+            <img src="../projects/img/dp1.webp"
+                 alt="Estylar — welcome and scanning introduction"
+                 loading="lazy">
+            <img src="../projects/img/dp2.webp"
+                 alt="Estylar — body position guidance"
+                 loading="lazy"
+                 style="border: 1px solid #002855;">
+            <img src="../projects/img/dp3.webp"
+                 alt="Estylar — scanning in progress"
+                 loading="lazy"
+                 style="border: 1px solid #002855;">
+            <img src="../projects/img/dp4.webp"
+                 alt="Estylar — body measurements results"
+                 loading="lazy"
+                 style="border: 1px solid #002855;">
+            <img src="../projects/img/dp5.webp"
+                 alt="Estylar — size recommendation"
+                 loading="lazy"
+                 style="border: 1px solid #002855;">
+            <img src="../projects/img/dp6.webp"
+                 alt="Estylar — add to cart with recommended size"
+                 loading="lazy">
+        </div><!-- end mobile grid container 1 -->
+
+
+        <!-- ============================================
+             SECTION: RESEARCH
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Research</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    I ran interviews with online shoppers and looked at where trust breaks down
+                    in the sizing experience. Two patterns came up everywhere.
+                </p>
+                <p>
+                    First: people don't trust size charts. They've been burned. A "medium" in
+                    one brand is an "XL" in another. Most shoppers already had a workaround—
+                    reading reviews, checking model measurements, ordering two sizes.
+                </p>
+                <p>
+                    Second: asking someone to record their own body felt invasive. We heard it
+                    immediately in testing. "What happens to the video?" "Does it get stored?"
+                    "Who sees it?" Before anyone would try the scanner, they needed to know the
+                    answer to those questions.
+                </p>
+                <p>
+                    I also mapped the existing checkout flows of our B2B retailer partners to
+                    understand where Estylar would live and what handoff moments we needed to design.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ── MOBILE SCREENS: Container 2 ──
+             3 images as direct grid children → 1 row of 3.
+             All three have the #002855 border. -->
+        <div class="cs-mobile-grid">
+            <img src="../projects/img/dp7.webp"
+                 alt="Estylar — privacy explanation screen"
+                 loading="lazy"
+                 style="border: 1px solid #002855;">
+            <img src="../projects/img/dp8.webp"
+                 alt="Estylar — alternative measurement flow"
+                 loading="lazy"
+                 style="border: 1px solid #002855;">
+            <img src="../projects/img/dp9.webp"
+                 alt="Estylar — size history and profile"
+                 loading="lazy"
+                 style="border: 1px solid #002855;">
+        </div><!-- end mobile grid container 2 -->
+
+
+        <!-- ============================================
+             SECTION: SOLUTION
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Solution</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    The biggest design challenge wasn't the scanning UI itself—it was the 30
+                    seconds before it. Users needed to understand what was about to happen, why
+                    it was safe, and what they'd get out of it. If we lost them there, they
+                    never started the scan.
+                </p>
+                <p>
+                    I designed a three-screen trust sequence: what Estylar measures, what
+                    happens to the data (processed on-device, not stored), and what they'll
+                    receive. Only then does the camera open.
+                </p>
+                <p>
+                    For the scanning itself, I built real-time guidance overlays—a silhouette
+                    guide that filled in as the AI confirmed correct body position. This gave
+                    users feedback that something was actually working, which dramatically
+                    reduced drop-off during the scan.
+                </p>
+                <p>
+                    Results came back as a recommended size with a confidence level and a plain
+                    language explanation: "Based on your measurements, a Medium will fit you
+                    best in the chest and shoulders." Not just a letter. A reason.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             SECTION: IMPACT
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Impact</h2>
+            </div>
+            <div class="cs-section-content">
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Before</th>
+                                <th>After</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Scan completion rate</td>
+                                <td>—</td>
+                                <td>74%</td>
+                            </tr>
+                            <tr>
+                                <td>Size-related returns</td>
+                                <td>38%</td>
+                                <td>21%</td>
+                            </tr>
+                            <tr>
+                                <td>Repeat scanner use</td>
+                                <td>—</td>
+                                <td>61% of users</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    The trust sequence made the difference. Pilot retailers saw a meaningful
+                    drop in size-related returns, and more than half of users who scanned once
+                    came back to use it again on their next purchase.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             SECTION: LEARNINGS
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Learnings</h2>
+            </div>
+            <div class="cs-section-content">
+                <div>
+                    <p class="cs-decision-title">Trust is a design problem, not a legal one.</p>
+                    <p>
+                        Adding a privacy policy link didn't move the needle. Showing users exactly
+                        what happens—step by step, in plain language—did. Transparency through
+                        design is more powerful than compliance through text.
+                    </p>
+                </div>
+                <div>
+                    <p class="cs-decision-title">Feedback during a process matters as much as the outcome.</p>
+                    <p>
+                        The scanning silhouette overlay wasn't technically necessary—the AI worked
+                        without it. But it transformed a tense 15-second wait into a clear,
+                        trackable task. Perceived progress is real progress.
+                    </p>
+                </div>
+                <div>
+                    <p class="cs-decision-title">As a founding designer, you own the whole problem.</p>
+                    <p>
+                        There was no PM, no design system, no research team. I learned to move
+                        fast on decisions I could reverse and slow down on the ones I couldn't.
+                        Defining what "done" looks like—and keeping the team aligned on it—was
+                        as much of the work as designing the screens.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             FOOTER
+             ============================================ -->
+        <footer class="cs-footer">
+            <p class="cs-footer-role">
+                Role: Founding Product Designer · 0-to-1 product launch, user research, visual design
+            </p>
+            <div class="cs-footer-nav">
+                <a href="adjust.html" class="cs-next-link">← Previous: Adjust</a>
+                <a href="agrofy.html" class="cs-next-link">Next: Agrofy →</a>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>

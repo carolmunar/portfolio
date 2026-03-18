@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Home page -->
+    <url>
+        <loc>https://carolmunar.com/</loc>
+        <lastmod>2026-03-08</lastmod>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Case study: Alphin -->
+    <url>
+        <loc>https://carolmunar.com/projects/alphin</loc>
+        <lastmod>2026-03-08</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Case study: Adjust -->
+    <url>
+        <loc>https://carolmunar.com/projects/adjust</loc>
+        <lastmod>2026-03-08</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Case study: Estylar -->
+    <url>
+        <loc>https://carolmunar.com/projects/estylar</loc>
+        <lastmod>2026-03-08</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Case study: Agrofy -->
+    <url>
+        <loc>https://carolmunar.com/projects/agrofy</loc>
+        <lastmod>2026-03-08</lastmod>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>
