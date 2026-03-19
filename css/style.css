@@ -1020,97 +1020,109 @@ a.case-study--link:hover {
        So: 13.9vw + 515px ≈ 715px — matches Figma's x=710. */
     left: calc(13.9vw + 515px);
     top: 0;
-    width: 408px;   /* 340px × 1.2 */
+    width: 572px;   /* 340px × 1.2 × 1.4 */
     height: 100%;
     pointer-events: none;
 }
 
 /* Each .preview-set holds the images for ONE project.
-   Images inside are absolutely positioned to match the Figma mosaic.
-   All sets start hidden (opacity:0). JS adds .visible on hover. */
+   Images are absolutely positioned inside. The container itself has no
+   background — the images handle their own visibility via animation. */
 .preview-set {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);  /* vertically centered in the area */
-    width: 408px;   /* 340px × 1.2 */
-    opacity: 0;                   /* hidden by default */
-    transition: opacity 0.3s ease;
-    /* No flex — images are absolutely positioned inside */
+    width: 572px;   /* 340px × 1.2 × 1.4 */
+    /* No opacity here — each image animates independently */
 }
 
-/* JS adds this class on mouseenter → fades the set in */
-.preview-set.visible {
-    opacity: 1;
-}
-
-/* All images are positioned absolutely within their .preview-set */
+/* All images start hidden and 12px below their final position.
+   This transition is the EXIT — quick fade out when mouse leaves. */
 .preview-set img {
     position: absolute;
     border-radius: 8px;
     display: block;
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     object-fit: cover;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+/* ENTER animation — triggered when JS adds .visible to the parent set.
+   Each image slides up + fades in with a springy ease.
+   The stagger delays make them appear one after the other, not all at once. */
+.preview-set.visible img {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease,
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* spring ease */
+}
 
-/* ── ALPHIN — 3-image mosaic (all values × 1.2)
+/* Stagger: each image enters 70ms after the previous one */
+.preview-set.visible img:nth-child(1) { transition-delay: 0s;     }
+.preview-set.visible img:nth-child(2) { transition-delay: 0.07s;  }
+.preview-set.visible img:nth-child(3) { transition-delay: 0.14s;  }
+
+
+/* ── ALPHIN — 3-image mosaic (all values × 1.2 × 1.4)
    Layout: wide banner on top, two panels side-by-side below */
-#preview-alphin { height: 302px; }
+#preview-alphin { height: 423px; }
 
 #preview-alphin img:nth-child(1) {   /* hover1 — top banner */
     left: 0;    top: 0;
-    width: 284px; height: 107px;
+    width: 398px; height: 150px;
 }
 #preview-alphin img:nth-child(2) {   /* hover2 — bottom right */
-    left: 175px; top: 116px;
-    width: 166px; height: 146px;
+    left: 245px; top: 162px;
+    width: 232px; height: 204px;
 }
 #preview-alphin img:nth-child(3) {   /* hover3 — bottom left, tallest */
-    left: 0;    top: 116px;
-    width: 166px; height: 185px;
+    left: 0;    top: 162px;
+    width: 232px; height: 259px;
 }
 
 
-/* ── ADJUST — 2 images stacked (all values × 1.2) */
-#preview-adjust { height: 252px; }
+/* ── ADJUST — 2 images stacked (all values × 1.2 × 1.4) */
+#preview-adjust { height: 353px; }
 
 #preview-adjust img:nth-child(1) {   /* hover1 — thin strip */
-    left: 0; top: 49px;
-    width: 404px; height: 65px;
+    left: 0; top: 69px;
+    width: 566px; height: 91px;
 }
 #preview-adjust img:nth-child(2) {   /* hover2 — main card below */
-    left: 0; top: 124px;
-    width: 408px; height: 128px;
+    left: 0; top: 174px;
+    width: 571px; height: 179px;
 }
 
 
-/* ── AGROFY — 2 images side by side (all values × 1.2) */
-#preview-agrofy { height: 278px; }
+/* ── AGROFY — 2 images side by side (all values × 1.2 × 1.4) */
+#preview-agrofy { height: 389px; }
 
 #preview-agrofy img:nth-child(1) {   /* hover1 — left, tall */
-    left: 6px;   top: 23px;
-    width: 191px; height: 256px;
+    left: 8px;   top: 32px;
+    width: 267px; height: 358px;
 }
 #preview-agrofy img:nth-child(2) {   /* hover2 — right, shorter */
-    left: 211px; top: 23px;
-    width: 191px; height: 124px;
+    left: 295px; top: 32px;
+    width: 267px; height: 174px;
 }
 
 
-/* ── ESTYLAR — 3 images (all values × 1.2) */
-#preview-estylar { height: 293px; }
+/* ── ESTYLAR — 3 images (all values × 1.2 × 1.4) */
+#preview-estylar { height: 410px; }
 
 #preview-estylar img:nth-child(1) {  /* hover1 — top strip */
-    left: 60px;  top: 7px;
-    width: 198px; height: 48px;
+    left: 84px;  top: 10px;
+    width: 277px; height: 67px;
 }
 #preview-estylar img:nth-child(2) {  /* hover2 — center-left */
-    left: 60px;  top: 83px;
-    width: 178px; height: 208px;
+    left: 84px;  top: 116px;
+    width: 249px; height: 291px;
 }
 #preview-estylar img:nth-child(3) {  /* hover3 — right narrow strip */
-    left: 283px; top: 84px;
-    width: 66px;  height: 210px;
+    left: 396px; top: 118px;
+    width: 92px;  height: 294px;
 }
 
 
