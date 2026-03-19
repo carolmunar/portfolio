@@ -1081,25 +1081,33 @@ a.case-study--link:hover {
 }
 
 
-/* ── AGROFY — 1 image (hover1 not yet available)
-   hover2 sits on the right half per Figma layout */
-#preview-agrofy { height: 122px; }
+/* ── AGROFY — 2 images side by side
+   hover1: tall form on the left | hover2: product card on the right */
+#preview-agrofy { height: 232px; }
 
-#preview-agrofy img:nth-child(1) {   /* hover2 — right side */
+#preview-agrofy img:nth-child(1) {   /* hover1 — left, tall */
+    left: 5px;   top: 19px;
+    width: 159px; height: 213px;
+}
+#preview-agrofy img:nth-child(2) {   /* hover2 — right, shorter */
     left: 176px; top: 19px;
     width: 159px; height: 103px;
 }
 
 
-/* ── ESTYLAR — 2 images side by side (hover1 not yet available)
-   hover2 is center-left, hover3 is a narrow strip on the right */
+/* ── ESTYLAR — 3 images
+   hover1: thin top strip | hover2: center-left | hover3: right narrow strip */
 #preview-estylar { height: 244px; }
 
-#preview-estylar img:nth-child(1) {  /* hover2 — center-left */
+#preview-estylar img:nth-child(1) {  /* hover1 — top strip */
+    left: 50px;  top: 6px;
+    width: 165px; height: 40px;
+}
+#preview-estylar img:nth-child(2) {  /* hover2 — center-left */
     left: 50px;  top: 69px;
     width: 148px; height: 173px;
 }
-#preview-estylar img:nth-child(2) {  /* hover3 — right narrow strip */
+#preview-estylar img:nth-child(3) {  /* hover3 — right narrow strip */
     left: 236px; top: 70px;
     width: 55px;  height: 175px;
 }
