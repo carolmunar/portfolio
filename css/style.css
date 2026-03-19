@@ -1020,7 +1020,7 @@ a.case-study--link:hover {
        So: 13.9vw + 515px ≈ 715px — matches Figma's x=710. */
     left: calc(13.9vw + 515px);
     top: 0;
-    width: 340px;
+    width: 408px;   /* 340px × 1.2 */
     height: 100%;
     pointer-events: none;
 }
@@ -1032,7 +1032,7 @@ a.case-study--link:hover {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);  /* vertically centered in the area */
-    width: 340px;
+    width: 408px;   /* 340px × 1.2 */
     opacity: 0;                   /* hidden by default */
     transition: opacity 0.3s ease;
     /* No flex — images are absolutely positioned inside */
@@ -1053,67 +1053,64 @@ a.case-study--link:hover {
 }
 
 
-/* ── ALPHIN — 3-image mosaic (700×518 Figma frame, scaled ×0.486 to 340px)
+/* ── ALPHIN — 3-image mosaic (all values × 1.2)
    Layout: wide banner on top, two panels side-by-side below */
-#preview-alphin { height: 252px; }
+#preview-alphin { height: 302px; }
 
 #preview-alphin img:nth-child(1) {   /* hover1 — top banner */
     left: 0;    top: 0;
-    width: 237px; height: 89px;
+    width: 284px; height: 107px;
 }
 #preview-alphin img:nth-child(2) {   /* hover2 — bottom right */
-    left: 146px; top: 97px;
-    width: 138px; height: 122px;
+    left: 175px; top: 116px;
+    width: 166px; height: 146px;
 }
 #preview-alphin img:nth-child(3) {   /* hover3 — bottom left, tallest */
-    left: 0;    top: 97px;
-    width: 138px; height: 154px;
+    left: 0;    top: 116px;
+    width: 166px; height: 185px;
 }
 
 
-/* ── ADJUST — 2 images stacked
-   Both span nearly full width, with a vertical gap between them */
-#preview-adjust { height: 210px; }
+/* ── ADJUST — 2 images stacked (all values × 1.2) */
+#preview-adjust { height: 252px; }
 
 #preview-adjust img:nth-child(1) {   /* hover1 — thin strip */
-    left: 0; top: 41px;
-    width: 337px; height: 54px;
+    left: 0; top: 49px;
+    width: 404px; height: 65px;
 }
 #preview-adjust img:nth-child(2) {   /* hover2 — main card below */
-    left: 0; top: 103px;
-    width: 340px; height: 107px;
+    left: 0; top: 124px;
+    width: 408px; height: 128px;
 }
 
 
-/* ── AGROFY — 2 images side by side
-   hover1: tall form on the left | hover2: product card on the right */
-#preview-agrofy { height: 232px; }
+/* ── AGROFY — 2 images side by side (all values × 1.2) */
+#preview-agrofy { height: 278px; }
 
 #preview-agrofy img:nth-child(1) {   /* hover1 — left, tall */
-    left: 5px;   top: 19px;
-    width: 159px; height: 213px;
+    left: 6px;   top: 23px;
+    width: 191px; height: 256px;
 }
 #preview-agrofy img:nth-child(2) {   /* hover2 — right, shorter */
-    left: 176px; top: 19px;
-    width: 159px; height: 103px;
+    left: 211px; top: 23px;
+    width: 191px; height: 124px;
 }
 
 
-/* ── ESTYLAR — 3 images
-   hover1: thin top strip | hover2: center-left | hover3: right narrow strip */
-#preview-estylar { height: 244px; }
+/* ── ESTYLAR — 3 images (all values × 1.2) */
+#preview-estylar { height: 293px; }
 
 #preview-estylar img:nth-child(1) {  /* hover1 — top strip */
-    left: 50px;  top: 6px;
-    width: 165px; height: 40px;
+    left: 60px;  top: 7px;
+    width: 198px; height: 48px;
 }
 #preview-estylar img:nth-child(2) {  /* hover2 — center-left */
-    left: 50px;  top: 69px;
-    width: 148px; height: 173px;
+    left: 60px;  top: 83px;
+    width: 178px; height: 208px;
 }
 #preview-estylar img:nth-child(3) {  /* hover3 — right narrow strip */
-    left: 236px; top: 70px;
-    width: 55px;  height: 175px;
+    left: 283px; top: 84px;
+    width: 66px;  height: 210px;
 }
 
 
