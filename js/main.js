@@ -240,57 +240,39 @@ if (chivaEl) {
 }
 
 
-/* ── PROJECT PREVIEW: cursor-following with smooth lag ──
-   Like jackiehu.design — image follows your cursor but with a gentle delay.
+/* ── PROJECT PREVIEW (multi-image sets, right-aligned) ──
+   When hovering a project row, the matching .preview-set fades in.
+   All other sets are hidden. No cursor following — opacity only.
+   On mobile (< 768px) we skip everything — CSS also hides the area. */
 
-   The lag is created with LERP (linear interpolation):
-   - mouseX/Y = where your cursor actually IS right now
-   - curX/Y   = where the preview IS right now (starts at 0,0)
-   - Each animation frame: move curX/Y 12% closer to mouseX/Y
-   - 12% per frame means: fast at first, slows as it approaches → feels organic
+if (window.innerWidth > 768) {
 
-   The preview is positioned via CSS transform: translate(-50%, -105%)
-   which floats it centered just ABOVE the cursor tip. */
+    /* Map each data-project value to its preview-set element */
+    const previewMap = {
+        'alphin':  document.getElementById('preview-alphin'),
+        'adjust':  document.getElementById('preview-adjust'),
+        'agrofy':  document.getElementById('preview-agrofy'),
+        'estylar': document.getElementById('preview-estylar')
+    };
 
-const preview = document.getElementById('project-preview');
-const alphinRow = document.querySelector('[data-project="alphin"]');
+    document.querySelectorAll('[data-project]').forEach(function(row) {
 
-/* Two sets of coordinates: target (mouse) and current (lagged) */
-let mouseX = 0, mouseY = 0;
-let curX = 0,   curY = 0;
+        row.addEventListener('mouseenter', function() {
+            /* Hide all sets first, then show the matching one.
+               .filter(Boolean) skips any null entries (missing IDs) */
+            Object.values(previewMap).filter(Boolean).forEach(function(p) {
+                p.classList.remove('visible');
+            });
+            var preview = previewMap[row.dataset.project];
+            if (preview) preview.classList.add('visible');
+        });
 
-/* Lerp helper: returns a value t% of the way between a and b */
-function lerp(a, b, t) {
-    return a + (b - a) * t;
-}
+        row.addEventListener('mouseleave', function() {
+            /* Hide all sets when the mouse leaves a row */
+            Object.values(previewMap).filter(Boolean).forEach(function(p) {
+                p.classList.remove('visible');
+            });
+        });
 
-/* Runs every animation frame (~60fps) — smoothly chases the cursor */
-function animatePreview() {
-    curX = lerp(curX, mouseX, 0.12);   /* 0.12 = lag amount; lower = slower */
-    curY = lerp(curY, mouseY, 0.12);
-    preview.style.left = curX + 'px';
-    preview.style.top  = curY + 'px';
-    requestAnimationFrame(animatePreview);
-}
-
-/* Update target position on every mouse move */
-document.addEventListener('mousemove', function(e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-if (preview && alphinRow) {
-    animatePreview();   /* start the smooth-follow loop */
-
-    /* Show preview when cursor enters the Alphin row.
-       On mobile there's no cursor, so return early to keep preview hidden. */
-    alphinRow.addEventListener('mouseenter', function() {
-        if (window.innerWidth < 768) return;
-        preview.classList.add('visible');
-    });
-
-    /* Hide preview when cursor leaves the Alphin row */
-    alphinRow.addEventListener('mouseleave', function() {
-        preview.classList.remove('visible');
     });
 }

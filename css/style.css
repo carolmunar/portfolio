@@ -496,6 +496,7 @@ img {
     margin-top: 5.75rem;     /* 92px gap above this section */
     padding-left: 13.9vw;    /* same 200px left margin */
     padding-right: 5vw;
+    position: relative;      /* needed so the static preview can be positioned inside */
 }
 
 /* One case study row — logo + title side by side */
@@ -999,48 +1000,108 @@ a.case-study--link:hover {
     }
 
     /* ── PROJECT PREVIEW: hidden on mobile ──
-       The cursor-following preview only works with a mouse.
-       JS also returns early on narrow screens (see main.js). */
-    .project-preview {
+       The preview area is desktop-only. JS also guards against this. */
+    .project-preview-area {
         display: none;
     }
 
 } /* end @media (max-width: 768px) */
 
 
-/* ── PROJECT PREVIEW (cursor-following with lag) ──
-   Shows 3 stacked screenshots when hovering the Alphin row.
-   JS updates left/top each frame using lerp → smooth lag behind cursor.
-   CSS only handles: width, stacking, and the fade+scale show/hide animation.
-
-   Why translate(-50%, -105%)?
-   - X: -50% of its own width → centers the preview horizontally on the cursor
-   - Y: -105% of its own height → floats it just ABOVE the cursor tip */
-.project-preview {
-    position: fixed;          /* fixed to viewport — moves with cursor via JS */
-    pointer-events: none;     /* clicks pass through to the row below */
-    opacity: 0;               /* invisible by default */
-    z-index: 999;             /* sits on top of everything */
-    width: 284px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transform: translate(-50%, -105%) scale(0.95);  /* hidden: slightly shrunk */
-    transition: opacity 0.2s ease, transform 0.2s ease;
+/* ── PROJECT PREVIEW AREA (multi-image mosaic, right-aligned) ──
+   Sits to the right of the project list inside .section-recently.
+   position:absolute works because .section-recently has position:relative.
+   pointer-events:none lets clicks pass through to the rows below. */
+.project-preview-area {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 340px;
+    height: 100%;
+    pointer-events: none;
 }
 
-/* When JS adds .visible → fade in and snap to full scale */
-.project-preview.visible {
+/* Each .preview-set holds the images for ONE project.
+   Images inside are absolutely positioned to match the Figma mosaic.
+   All sets start hidden (opacity:0). JS adds .visible on hover. */
+.preview-set {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);  /* vertically centered in the area */
+    width: 340px;
+    opacity: 0;                   /* hidden by default */
+    transition: opacity 0.3s ease;
+    /* No flex — images are absolutely positioned inside */
+}
+
+/* JS adds this class on mouseenter → fades the set in */
+.preview-set.visible {
     opacity: 1;
-    transform: translate(-50%, -105%) scale(1);
 }
 
-/* Each screenshot image inside the preview */
-.project-preview img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+/* All images are positioned absolutely within their .preview-set */
+.preview-set img {
+    position: absolute;
+    border-radius: 8px;
     display: block;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    object-fit: cover;
+}
+
+
+/* ── ALPHIN — 3-image mosaic (700×518 Figma frame, scaled ×0.486 to 340px)
+   Layout: wide banner on top, two panels side-by-side below */
+#preview-alphin { height: 252px; }
+
+#preview-alphin img:nth-child(1) {   /* hover1 — top banner */
+    left: 0;    top: 0;
+    width: 237px; height: 89px;
+}
+#preview-alphin img:nth-child(2) {   /* hover2 — bottom right */
+    left: 146px; top: 97px;
+    width: 138px; height: 122px;
+}
+#preview-alphin img:nth-child(3) {   /* hover3 — bottom left, tallest */
+    left: 0;    top: 97px;
+    width: 138px; height: 154px;
+}
+
+
+/* ── ADJUST — 2 images stacked
+   Both span nearly full width, with a vertical gap between them */
+#preview-adjust { height: 210px; }
+
+#preview-adjust img:nth-child(1) {   /* hover1 — thin strip */
+    left: 0; top: 41px;
+    width: 337px; height: 54px;
+}
+#preview-adjust img:nth-child(2) {   /* hover2 — main card below */
+    left: 0; top: 103px;
+    width: 340px; height: 107px;
+}
+
+
+/* ── AGROFY — 1 image (hover1 not yet available)
+   hover2 sits on the right half per Figma layout */
+#preview-agrofy { height: 122px; }
+
+#preview-agrofy img:nth-child(1) {   /* hover2 — right side */
+    left: 176px; top: 19px;
+    width: 159px; height: 103px;
+}
+
+
+/* ── ESTYLAR — 2 images side by side (hover1 not yet available)
+   hover2 is center-left, hover3 is a narrow strip on the right */
+#preview-estylar { height: 244px; }
+
+#preview-estylar img:nth-child(1) {  /* hover2 — center-left */
+    left: 50px;  top: 69px;
+    width: 148px; height: 173px;
+}
+#preview-estylar img:nth-child(2) {  /* hover3 — right narrow strip */
+    left: 236px; top: 70px;
+    width: 55px;  height: 175px;
 }
 
 

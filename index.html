@@ -167,7 +167,7 @@
         </a>
 
         <!-- Case study 2: Adjust — black -->
-        <a href="projects/adjust.html" class="case-study case-study--link">
+        <a href="projects/adjust.html" class="case-study case-study--link" data-project="adjust">
             <div class="case-logo" style="background-color: #010101;">
                 <img src="logos/adjust.svg" alt="Adjust" loading="lazy">
             </div>
@@ -175,7 +175,7 @@
         </a>
 
         <!-- Case study 3: Agrofy — green -->
-        <a href="projects/agrofy.html" class="case-study case-study--link">
+        <a href="projects/agrofy.html" class="case-study case-study--link" data-project="agrofy">
             <div class="case-logo" style="background-color: #81ba42;">
                 <img src="logos/agrofy.svg" alt="Agrofy" loading="lazy">
             </div>
@@ -183,12 +183,34 @@
         </a>
 
         <!-- Case study 4: Estylar — dark purple -->
-        <a href="projects/estylar.html" class="case-study case-study--link">
+        <a href="projects/estylar.html" class="case-study case-study--link" data-project="estylar">
             <div class="case-logo" style="background-color: #333366;">
                 <img src="logos/estylar.svg" alt="Estylar" loading="lazy">
             </div>
             <p class="case-title">AI Body Scanner for Size Recommendations</p>
         </a>
+
+        <!-- Preview area: sits to the right of the list.
+             Each .preview-set holds all images for one project.
+             JS fades in the right set on hover. -->
+        <div class="project-preview-area" id="project-preview-area">
+            <div class="preview-set" id="preview-alphin">
+                <img src="projects/img/hover/alphin_hover1.webp" alt="">
+                <img src="projects/img/hover/alphin_hover2.webp" alt="">
+                <img src="projects/img/hover/alphin_hover3.webp" alt="">
+            </div>
+            <div class="preview-set" id="preview-adjust">
+                <img src="projects/img/hover/adjust_hover1.webp" alt="">
+                <img src="projects/img/hover/adjust_hover2.webp" alt="">
+            </div>
+            <div class="preview-set" id="preview-agrofy">
+                <img src="projects/img/hover/agrofy_hover2.webp" alt="">
+            </div>
+            <div class="preview-set" id="preview-estylar">
+                <img src="projects/img/hover/estylar_hover2.webp" alt="">
+                <img src="projects/img/hover/estylar_hover3.webp" alt="">
+            </div>
+        </div>
 
     </section>
 
@@ -257,13 +279,6 @@
 
 </main><!-- end of <main> content -->
 
-
-    <!-- PROJECT PREVIEW: cursor-following image stack shown when hovering Alphin row -->
-    <div id="project-preview" class="project-preview">
-        <img id="preview-img-1" src="projects/img/hover/hover_alphin1.webp" alt="">
-        <img id="preview-img-2" src="projects/img/hover/hover_alphin2.webp" alt="">
-        <img id="preview-img-3" src="projects/img/hover/hover_alphin3.webp" alt="">
-    </div>
 
     <!-- Our JavaScript file (loaded at the bottom so HTML loads first) -->
     <script src="js/main.js?v=7"></script>
