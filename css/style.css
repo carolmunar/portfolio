@@ -1014,7 +1014,11 @@ a.case-study--link:hover {
    pointer-events:none lets clicks pass through to the rows below. */
 .project-preview-area {
     position: absolute;
-    right: 0;
+    /* Figma: hover frame starts at x=710 on a 1440px canvas.
+       That's right after the case list ends:
+       section left padding (13.9vw ≈ 200px) + logo (90px) + gap (24px) + title (377px) + gap (24px) = ~515px of content
+       So: 13.9vw + 515px ≈ 715px — matches Figma's x=710. */
+    left: calc(13.9vw + 515px);
     top: 0;
     width: 340px;
     height: 100%;
