@@ -157,6 +157,7 @@
                 src="https://miro.com/app/live-embed/uXjVIU2CTdI=/?embedMode=view_only_without_ui&moveToViewport=-41563%2C-3713%2C23385%2C43365&embedId=700073022943"
                 frameborder="0"
                 scrolling="no"
+                loading="lazy"
                 allow="fullscreen; clipboard-read; clipboard-write"
                 allowfullscreen
                 title="Agrofy — research Miro board">
@@ -278,19 +279,19 @@
                         <tbody>
                             <tr>
                                 <td>First online sale</td>
-                                <td>Tractor (Brazil), 4 months post-launch</td>
+                                <td data-label="Result">Tractor (Brazil), 4 months post-launch</td>
                             </tr>
                             <tr>
                                 <td>Checkout completion</td>
-                                <td>14.5% during beta (8 of 55)</td>
+                                <td data-label="Result">14.5% during beta (8 of 55)</td>
                             </tr>
                             <tr>
                                 <td>Payment abandonment</td>
-                                <td>48.78% → ~35%</td>
+                                <td data-label="Result">48.78% → ~35%</td>
                             </tr>
                             <tr>
                                 <td>Delivery abandonment</td>
-                                <td>23.56% → ~18%</td>
+                                <td data-label="Result">23.56% → ~18%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -384,12 +385,24 @@
             </a>
         </div>
         <p class="footer-copy">©2026 Carol Munar</p>
-        <p class="footer-made">Made it with 🖤 and Claude Code</p>
+        <p class="footer-made">Made it with 🖤 and <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></p>
     </footer>
 
     <!-- Progressive blur overlay — blur.js fills this with 8 inner layers -->
     <div id="scroll-blur" aria-hidden="true"></div>
     <script src="blur.js"></script>
+
+    <script>
+        /* MIRO SCROLL-CAPTURE FIX — same pattern as adjust.html */
+        document.querySelectorAll('.cs-miro-embed').forEach(function(embed) {
+            embed.addEventListener('click', function() {
+                embed.classList.add('is-active');
+            });
+            embed.addEventListener('mouseleave', function() {
+                embed.classList.remove('is-active');
+            });
+        });
+    </script>
 
 </body>
 </html>

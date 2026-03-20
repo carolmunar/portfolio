@@ -145,26 +145,13 @@
                 src="https://miro.com/app/live-embed/uXjVJ1FmU5M=/?embedMode=view_only_without_ui&moveToViewport=-27056,-24796,43300,17605&embedId=36658607263"
                 frameborder="0"
                 scrolling="no"
+                loading="lazy"
                 allow="fullscreen; clipboard-read; clipboard-write"
                 allowfullscreen
                 title="Adjust — research Miro board">
             </iframe>
         </div>
 
-        <!-- ── MIRO USER JOURNEY BOARD EMBED ──
-             Replaces the static ad4.webp image. Same embed style as the research board above. -->
-        <div class="cs-miro-embed">
-            <iframe
-                width="100%"
-                height="500"
-                src="https://miro.com/app/live-embed/uXjVJ1FmU5M=/?moveToWidget=3458764664126624260&cot=14"
-                frameborder="0"
-                scrolling="no"
-                allow="fullscreen; clipboard-read; clipboard-write"
-                allowfullscreen
-                title="Adjust — user journey Miro board">
-            </iframe>
-        </div>
 
 
         <!-- ============================================
@@ -270,18 +257,18 @@
                         <tbody>
                             <tr>
                                 <td>Completion time</td>
-                                <td>2–3 hours</td>
-                                <td>~20 min</td>
+                                <td data-label="Before">2–3 hours</td>
+                                <td data-label="After">~20 min</td>
                             </tr>
                             <tr>
                                 <td>Onboarding churn</td>
-                                <td>27%</td>
-                                <td>14%</td>
+                                <td data-label="Before">27%</td>
+                                <td data-label="After">14%</td>
                             </tr>
                             <tr>
                                 <td>Support tickets</td>
-                                <td>baseline</td>
-                                <td>-15%</td>
+                                <td data-label="Before">baseline</td>
+                                <td data-label="After">-15%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -363,12 +350,33 @@
             </a>
         </div>
         <p class="footer-copy">©2026 Carol Munar</p>
-        <p class="footer-made">Made it with 🖤 and Claude Code</p>
+        <p class="footer-made">Made it with 🖤 and <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></p>
     </footer>
 
     <!-- Progressive blur overlay — blur.js fills this with 8 inner layers -->
     <div id="scroll-blur" aria-hidden="true"></div>
     <script src="blur.js"></script>
+
+    <script>
+        /* MIRO SCROLL-CAPTURE FIX
+           Problem: when the mouse is over a Miro iframe, scrolling zooms the
+           board instead of scrolling the page — because the iframe captures
+           the scroll event before the page sees it.
+           Fix: an overlay (::after pseudo-element from alphin.css) sits on top
+           of the iframe by default, intercepting those events. The user clicks
+           once to activate the board, then the overlay is removed. When the
+           mouse leaves, the overlay comes back — ready for the next scroll. */
+        document.querySelectorAll('.cs-miro-embed').forEach(function(embed) {
+            // Click → activate: hide the overlay so the iframe is fully interactive
+            embed.addEventListener('click', function() {
+                embed.classList.add('is-active');
+            });
+            // Mouse leaves → deactivate: restore the overlay for the next scroll
+            embed.addEventListener('mouseleave', function() {
+                embed.classList.remove('is-active');
+            });
+        });
+    </script>
 
 </body>
 </html>

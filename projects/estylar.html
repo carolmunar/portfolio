@@ -35,6 +35,19 @@
             padding-top: 11.5px;
         }
 
+        /* ── META ROW ALIGNMENT ──
+           H1 starts at: 96px (grid padding-left) + 518px (col 1) = 614px from content edge.
+           Year meta starts at: 96px + 105px (meta padding-left) = 201px.
+           For Industry to sit under H1: first-item width = 614 - 201 = 413px. */
+        .cs-title-area--estylar .cs-meta-item:first-child {
+            width: 413px;
+        }
+
+        /* 24px breathing room between Industry and Scope */
+        .cs-title-area--estylar .cs-meta-item:nth-child(3) {
+            margin-left: 24px;
+        }
+
         /* H1 wider to fit the long title comfortably */
         .cs-h1--estylar {
             width: 786px;
@@ -51,10 +64,11 @@
             margin: 92px 68px 0;  /* 68px = content container margin */
         }
 
-        .cs-hero-video img {
+        .cs-hero-video iframe {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            display: block;
+            border: none;
         }
 
         /* ── MOBILE SCREENS CONTAINER ──
@@ -64,11 +78,11 @@
         .cs-mobile-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            width: 100%;
+            column-gap: 90px;   /* Figma: ~90px between the 3 phone columns */
+            row-gap: 67px;      /* Figma: ~67px between the 2 rows */
+            /* No width: 100% — lets the block auto-size to parent minus margins:
+               1440px − 68px − 68px = 1304px (the content column width) */
             margin: 92px 68px 0;
-            border-radius: 10px;
-            overflow: hidden;
         }
 
         /* Every mobile screenshot fills its grid cell */
@@ -76,49 +90,94 @@
             width: 100%;
             height: 667px;
             object-fit: contain;  /* shows the full image — cover was cropping/zooming */
-            display: block;  /* removes the default inline gap below images */
+            display: block;       /* removes the default inline gap below images */
+            border-radius: 10px;  /* round corners on each phone since container no longer clips */
         }
 
-        /* ── RESPONSIVE OVERRIDES ──────────────────────────────────
+        /* ── TABLET BREAKPOINT (769px – 1200px) ─────────────────────
+           At tablet sizes the fixed 518px column and 90px grid gap
+           create badly distorted layouts. Scale them down gracefully. */
+        @media (max-width: 1200px) {
+
+            /* Replace the fixed 518px first column with a flexible 50/50 split */
+            .cs-title-area--estylar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Year column no longer needs a fixed width — let flex size it */
+            .cs-title-area--estylar .cs-meta-item:first-child {
+                width: auto;
+            }
+
+            /* H1: let it fill the second column naturally */
+            .cs-h1--estylar {
+                width: 100%;
+                max-width: none;
+            }
+
+            /* Reduce phone grid gaps so images stay readable */
+            .cs-mobile-grid {
+                column-gap: 32px;
+                row-gap: 32px;
+            }
+
+            /* Phone images: let height scale with the narrower columns */
+            .cs-mobile-grid img {
+                height: auto;
+                aspect-ratio: 375 / 667; /* preserve phone proportions */
+            }
+        }
+
+        /* ── MOBILE BREAKPOINT (≤768px) ─────────────────────────────
            The generic rules in alphin.css handle the shared classes,
            but Estylar's custom modifier classes need their own mobile
            rules here — otherwise the desktop pixel values win. */
         @media (max-width: 768px) {
 
-            /* Title area: drop the fixed 518px left column, go single-column */
+            /* Title area: drop both columns, go single-column */
             .cs-title-area--estylar {
                 grid-template-columns: 1fr;
             }
 
-            /* Company name: match the generic .cs-company-name mobile size */
+            /* Reset desktop alignment fixes — not needed when stacked */
+            .cs-title-area--estylar .cs-meta-item:first-child {
+                width: auto;
+            }
+
+            .cs-title-area--estylar .cs-meta-item:nth-child(3) {
+                margin-left: 0;
+            }
+
+            /* Company name: match the generic mobile size */
             .cs-company-name--estylar {
                 font-size: 40px;
                 padding-top: 0;
             }
 
-            /* H1: remove the fixed 786px width so it fills the screen */
+            /* H1: fill the screen width */
             .cs-h1--estylar {
                 width: 100%;
+                max-width: none;
             }
 
-            /* Hero video: match the mobile margin pattern (48px top, 20px sides)
-               and let the height grow naturally from the image */
+            /* Hero video: compact height, 20px side margins */
             .cs-hero-video {
-                height: auto;
+                height: 220px;
                 margin: 48px 20px 0;
             }
 
-            /* Mobile grids: match the mobile margin pattern;
-               drop to 2 columns so phone screenshots stay readable */
+            /* Phone grids: 2 columns, tight gaps, 20px side margins */
             .cs-mobile-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+                column-gap: 12px;
+                row-gap: 12px;
                 margin: 48px 20px 0;
             }
 
-            /* Images: let height scale naturally instead of the fixed 667px */
+            /* Images: let height scale naturally */
             .cs-mobile-grid img {
                 height: auto;
+                aspect-ratio: 375 / 667;
             }
         }
 
@@ -173,13 +232,19 @@
         </div>
 
 
-        <!-- ── HERO IMAGE ──
-             Full-width product overview at 733px height.
-             Taller than the standard image-wrap to give the product video more presence. -->
+        <!-- ── HERO VIDEO ──
+             YouTube embed replacing the static hero image.
+             /embed/ URL is required for iframes — the /watch?v= URL doesn't work in embeds. -->
         <div class="cs-hero-video">
-            <img
-                src="img/dpvideo.webp"
-                alt="Estylar — AI body scanner product overview">
+            <iframe
+                src="https://www.youtube.com/embed/n3LanjGXWTE"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                title="Estylar — AI body scanner product overview">
+            </iframe>
         </div>
 
 
@@ -228,20 +293,16 @@
                  loading="lazy">
             <img src="../projects/img/dp2.webp"
                  alt="Estylar — body position guidance"
-                 loading="lazy"
-                 style="border: 1px solid #002855;">
+                 loading="lazy">
             <img src="../projects/img/dp3.webp"
                  alt="Estylar — scanning in progress"
-                 loading="lazy"
-                 style="border: 1px solid #002855;">
+                 loading="lazy">
             <img src="../projects/img/dp4.webp"
                  alt="Estylar — body measurements results"
-                 loading="lazy"
-                 style="border: 1px solid #002855;">
+                 loading="lazy">
             <img src="../projects/img/dp5.webp"
                  alt="Estylar — size recommendation"
-                 loading="lazy"
-                 style="border: 1px solid #002855;">
+                 loading="lazy">
             <img src="../projects/img/dp6.webp"
                  alt="Estylar — add to cart with recommended size"
                  loading="lazy">
@@ -285,16 +346,13 @@
         <div class="cs-mobile-grid">
             <img src="../projects/img/dp7.webp"
                  alt="Estylar — privacy explanation screen"
-                 loading="lazy"
-                 style="border: 1px solid #002855;">
+                 loading="lazy">
             <img src="../projects/img/dp8.webp"
                  alt="Estylar — alternative measurement flow"
-                 loading="lazy"
-                 style="border: 1px solid #002855;">
+                 loading="lazy">
             <img src="../projects/img/dp9.webp"
                  alt="Estylar — size history and profile"
-                 loading="lazy"
-                 style="border: 1px solid #002855;">
+                 loading="lazy">
         </div><!-- end mobile grid container 2 -->
 
 
@@ -352,18 +410,18 @@
                         <tbody>
                             <tr>
                                 <td>Scan completion rate</td>
-                                <td>—</td>
-                                <td>74%</td>
+                                <td data-label="Before">—</td>
+                                <td data-label="After">74%</td>
                             </tr>
                             <tr>
                                 <td>Size-related returns</td>
-                                <td>38%</td>
-                                <td>21%</td>
+                                <td data-label="Before">38%</td>
+                                <td data-label="After">21%</td>
                             </tr>
                             <tr>
                                 <td>Repeat scanner use</td>
-                                <td>—</td>
-                                <td>61% of users</td>
+                                <td data-label="Before">—</td>
+                                <td data-label="After">61% of users</td>
                             </tr>
                         </tbody>
                     </table>
@@ -446,7 +504,7 @@
             </a>
         </div>
         <p class="footer-copy">©2026 Carol Munar</p>
-        <p class="footer-made">Made it with 🖤 and Claude Code</p>
+        <p class="footer-made">Made it with 🖤 and <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></p>
     </footer>
 
     <!-- Progressive blur overlay — blur.js fills this with 8 inner layers -->

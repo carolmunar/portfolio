@@ -67,6 +67,15 @@
 
 html { font-size: 16px; }
 
+/* ── KEYBOARD FOCUS STYLES ──
+   Only shows when navigating by keyboard, not on mouse click. */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #1e1e1e;
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
 body {
     background-color: var(--color-bg);
     color: var(--color-text);
@@ -630,12 +639,16 @@ img {
 a.case-study--link {
     text-decoration: none;   /* removes the blue underline from links */
     color: inherit;          /* inherits the dark text color instead of link blue */
-    cursor: pointer;         /* keeps the hand cursor to signal it's clickable */
+    cursor: default;         /* no pointer on the text — only the logo signals "clickable" */
     transition: opacity 0.15s ease;
 }
 
 a.case-study--link:hover {
     opacity: 0.75;           /* subtle dimming on hover to show interactivity */
+}
+
+a.case-study--link .case-logo {
+    cursor: pointer;         /* pointer cursor only on the logo box */
 }
 
 /* The colored square that holds the company logo */
@@ -994,6 +1007,20 @@ a.case-study--link:hover {
     color: var(--color-text);
     letter-spacing: -0.011em;
     line-height: 1.4;
+}
+
+/* "Claude Code" link inside the footer credits */
+.footer-made a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Easter egg hint — subtle, italic, lighter than body text */
+.about-text--hint {
+    color: #999;
+    font-style: italic;
+    font-size: 0.875rem;
 }
 
 

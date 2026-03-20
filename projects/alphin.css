@@ -101,6 +101,24 @@ body {
     color: #1e1e1e;
 }
 
+/* ── KEYBOARD FOCUS STYLES ──
+   Visible focus ring for keyboard and screen reader users.
+   :focus-visible only shows when navigating by keyboard (not on mouse click),
+   so it doesn't interfere with the mouse experience. */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid #1e1e1e;
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+/* ── HEADER NAME: hint it's a link ──
+   The name in the top-left navigates back to the homepage.
+   An underline on hover signals this to users who explore. */
+.cs-header-name:hover {
+    text-decoration: underline;
+}
+
 /* ── TITLE AREA ──
    Row 1: company name | H1 title
    Row 2: meta row (Year / Industry / Scope) spanning both columns
@@ -168,11 +186,13 @@ body {
 
 /* ── FULL-WIDTH IMAGE CONTAINERS ──
    68px side margins match the content container left/right edge.
-   overflow: hidden clips the image to the rounded corners. */
+   overflow: hidden clips the image to the rounded corners.
+   background-color is a skeleton placeholder — visible while the image loads. */
 .cs-image-wrap {
     border-radius: 10px;
     margin: 92px 68px 0;  /* 68px sides = content container margin */
     overflow: hidden;
+    background-color: #f0f0f0;
 }
 
 .cs-image-wrap img {
@@ -307,11 +327,11 @@ body {
    padding-left: 132px aligns text at 68+132=200px from page edge
    (same x-position as the h2 section labels). */
 .cs-footer {
-    margin: 32px 68px 0;        /* 32px from last section to role text */
+    margin: 42px 68px 0;        /* 42px from last section to role text */
     padding: 0 0 0 132px;       /* 68px margin + 132px = 200px from page = inside layout */
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 49px;                  /* 49px gap + 1px border + 42px padding = 92px role→nav */
 }
 
 .cs-footer-role {
@@ -428,12 +448,45 @@ body {
 /* ── MIRO BOARD EMBED ──
    Interactive iframe that lets visitors zoom and pan the Miro board.
    Matches the section side margins (96px left, 68px right).
-   Height 500px gives enough room to read sticky notes without being overwhelming. */
+   Height 600px gives enough room to read sticky notes without being overwhelming. */
 .cs-miro-embed {
     margin: 92px 68px 0;            /* 68px sides = content container margin */
     border-radius: 10px;
     overflow: hidden;                /* clips iframe to rounded corners */
     height: 600px;                   /* taller = more of the board is visible in preview */
+    position: relative;              /* needed so the ::after overlay is positioned inside */
+}
+
+/* Transparent overlay — sits on top of the iframe by default.
+   This intercepts scroll events so they reach the page instead of
+   zooming the Miro board while the user is just scrolling through.
+   A subtle hint appears on hover to let the user know they can interact. */
+.cs-miro-embed::after {
+    content: 'Click to interact';
+    position: absolute;
+    inset: 0;                        /* covers the full iframe area */
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: -0.12px;
+    color: transparent;              /* text hidden until hover */
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+/* On hover: reveal a subtle hint so the user knows to click */
+.cs-miro-embed:hover::after {
+    color: #666;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* When the user has clicked to interact, hide the overlay entirely */
+.cs-miro-embed.is-active::after {
+    display: none;
 }
 
 .cs-miro-embed iframe {
@@ -490,10 +543,11 @@ body {
 }
 
 /* The white card that holds each screenshot.
-   Shadow is on the card (not the img) so overflow:hidden doesn't clip it. */
+   Shadow is on the card (not the img) so overflow:hidden doesn't clip it.
+   background-color is a skeleton placeholder while the image loads. */
 .cs-solution-card {
     flex: 1;
-    background: white;
+    background: #f0f0f0;
     border-radius: 10px;
     overflow: hidden;       /* clips image corners to match border-radius */
     box-shadow: 0px 15px 25px 0px rgba(0, 0, 0, 0.15);  /* Figma drop shadow */
@@ -530,6 +584,28 @@ body {
     .cs-company-name {
         font-size: 40px;
         padding-top: 0;
+        padding-left: 0;   /* remove desktop indent — title area padding handles spacing */
+    }
+
+    /* ── ADJUST / AGROFY title modifier — mobile overrides ──
+       Desktop: 518px left column, 56px company name, 786px h1 max-width.
+       Mobile: collapse to single column, same sizes as base title area. */
+    .cs-title-area--adjust {
+        grid-template-columns: 1fr;
+    }
+
+    .cs-title-area--adjust .cs-meta-item:first-child {
+        width: auto;        /* remove fixed column width — flex handles it */
+    }
+
+    .cs-company-name--adjust {
+        font-size: 40px;
+        padding-left: 0;
+    }
+
+    .cs-h1--adjust {
+        font-size: 32px;
+        max-width: 100%;
     }
 
     .cs-h1 {
@@ -562,17 +638,13 @@ body {
     }
 
     .cs-footer {
-        margin: 64px 20px 0;
-        padding: 32px 0 48px 0;      /* remove desktop indent on mobile */
+        margin: 92px 20px 0;         /* 92px from last section to role text on mobile */
+        padding: 0 0 48px 0;         /* remove desktop indent; margin handles top spacing */
+        gap: 16px;                   /* compact gap between role and nav on mobile */
     }
 
-    /* ── SITE FOOTER: stack vertically on mobile ── */
-    .site-footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1.5rem 20px 2.5rem;
-    }
+    /* ── SITE FOOTER mobile styles moved below base .site-footer
+       to avoid cascade override — see comment near .site-footer definition ── */
 
     /* New image layouts — stack vertically on mobile */
     .cs-image-pair {
@@ -596,6 +668,109 @@ body {
     .cs-solution-row--single {
         max-width: 100%;
     }
+
+    /* ── MIRO EMBED ── */
+    .cs-miro-embed {
+        height: 360px;          /* reduce from 600px — enough to show the board on mobile */
+        margin: 48px 20px 0;
+    }
+
+    /* On mobile there is no hover state, so the "Click to interact" hint is invisible.
+       Replace ::after content with a persistent badge so users know to tap. */
+    .cs-miro-embed::after {
+        content: 'Tap to explore board';
+        font-size: 11px;
+        color: #666;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid #e5e7eb;
+        /* Override desktop invisible-until-hover state */
+        opacity: 1;
+    }
+
+    /* When active on mobile, hide the badge just like desktop */
+    .cs-miro-embed.is-active::after {
+        display: none;
+    }
+
+    /* ── IMPACT TABLE → CARD layout ──
+       On mobile, each table row becomes its own card.
+       The metric name (first td) acts as the card title.
+       Before / After / Result values are labelled via data-label attribute. */
+    .cs-table-wrap {
+        border: none;           /* outer border removed — each row card has its own */
+        border-radius: 0;
+        overflow: visible;
+        background: transparent;
+    }
+
+    .cs-table,
+    .cs-table tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .cs-table thead {
+        display: none;          /* column headers hidden — data-label recreates context */
+    }
+
+    .cs-table tbody tr {
+        display: block;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+
+    .cs-table tbody tr:last-child {
+        margin-bottom: 0;
+    }
+
+    .cs-table tbody td {
+        display: block;
+        padding: 0;
+        border: none;
+    }
+
+    /* First td = metric name — small grey label at the top of each card */
+    .cs-table tbody td:first-child {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 8px;
+        letter-spacing: -0.12px;
+    }
+
+    /* Before / After / Result: show column name before the value */
+    .cs-table tbody td[data-label]::before {
+        content: attr(data-label) ': ';
+        font-size: 11px;
+        color: #999;
+        display: block;
+        margin-bottom: 2px;
+        letter-spacing: 0;
+    }
+
+    /* Value cells — larger, prominent */
+    .cs-table tbody td:not(:first-child) {
+        font-size: 16px;
+        color: #1e1e1e;
+        margin-top: 8px;
+    }
+
+    /* ── BODY: reduce blur padding on mobile ── */
+    body {
+        padding-bottom: 80px;   /* less than 120px desktop — blur overlay is shorter too */
+    }
+
+    /* ── NEXT LINK: less padding-top on mobile ── */
+    .cs-next-link {
+        padding-top: 24px;
+    }
+
+    .cs-footer-nav {
+        padding-top: 24px;
+    }
 }
 
 
@@ -607,7 +782,10 @@ body {
     align-items: center;
     justify-content: space-between;
     margin-top: 112px;
-    padding: 0 200px 2.5rem;
+    padding: 0 68px 2.5rem 200px;
+    /* Left 200px = matches where the nav line and role text start (68px margin + 132px indent).
+       Right 68px  = matches the cs-footer's right margin, so "Made it with" aligns
+                     with the right edge of "Next →" / "← Previous". */
 }
 
 .footer-logos {
@@ -638,6 +816,27 @@ body {
     color: #666;
     letter-spacing: -0.154px;
     line-height: 1.4;
+    text-align: left;
+}
+
+/* "Claude Code" link inside the project page footer credits */
+.footer-made a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* ── SITE FOOTER mobile override ──
+   Must come AFTER the base .site-footer rule above, otherwise
+   the cascade would let the desktop margin-top: 112px win on mobile. */
+@media (max-width: 768px) {
+    .site-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;              /* 16px between logos / copyright / credits */
+        margin-top: 92px;       /* 92px from end of project content to site footer */
+        padding: 0 20px 2.5rem;
+    }
 }
 
 

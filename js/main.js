@@ -321,7 +321,12 @@ if (window.innerWidth > 768) {
 
     document.querySelectorAll('[data-project]').forEach(function(row) {
 
-        row.addEventListener('mouseenter', function() {
+        /* Only the logo box (coloured square) triggers the preview —
+           not the title text. We find the .case-logo inside each row. */
+        var logo = row.querySelector('.case-logo');
+        if (!logo) return;
+
+        logo.addEventListener('mouseenter', function() {
             /* Hide all sets first, then show the matching one.
                .filter(Boolean) skips any null entries (missing IDs) */
             Object.values(previewMap).filter(Boolean).forEach(function(p) {
@@ -331,8 +336,8 @@ if (window.innerWidth > 768) {
             if (preview) preview.classList.add('visible');
         });
 
-        row.addEventListener('mouseleave', function() {
-            /* Hide all sets when the mouse leaves a row */
+        logo.addEventListener('mouseleave', function() {
+            /* Hide all sets when the mouse leaves the logo */
             Object.values(previewMap).filter(Boolean).forEach(function(p) {
                 p.classList.remove('visible');
             });
