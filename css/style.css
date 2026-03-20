@@ -334,12 +334,11 @@ img {
 
 /* Tooltip card — hidden by default */
 .plantbig-tooltip {
-    position: fixed;
-    /* plantsmall right edge = left(67.22vw) + width(13.3vw) = ~80.5vw
-       Add 12px gap → places tooltip immediately to the right of the pot */
-    left: calc(80.5vw + 12px);
-    /* plantsmall top = 37.75vh — align tooltip to the same vertical area */
-    top: 38vh;
+    position: absolute;
+    /* Place it immediately to the right of the plantsmall div */
+    left: calc(100% + 12px);
+    /* Align near the top of the plant */
+    top: 20px;
     width: 200px;
 
     /* Same visual style as chiva-tooltip */
@@ -394,14 +393,18 @@ img {
 
 /* No bridge needed — position:fixed tooltips aren't adjacent to their trigger element */
 
-/* Elevate stacking context so tooltip renders above other hero objects */
+/* Elevate stacking context so tooltip renders above other hero objects including hero-text (z:10) */
 [data-element="plantsmall"]:hover {
-    z-index: 10;
+    z-index: 20;
 }
 
-/* Visible state — controlled by JS (see main.js plantsmall section)
-   JS adds/removes class .is-visible on the tooltip element */
-.plantbig-tooltip.is-visible {
+/* Visible state — triggered by EITHER:
+   1. CSS :hover on the plant div (most reliable, no JS needed)
+   2. JS adding .is-visible class (handles the gap between plant and tooltip)
+   3. Mouse hovering the tooltip card itself (keeps it open while reading) */
+[data-element="plantsmall"]:hover .plantbig-tooltip,
+.plantbig-tooltip.is-visible,
+.plantbig-tooltip:hover {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0);
@@ -1250,6 +1253,9 @@ a.case-study--link:hover {
     top: 50%;
     transform: translateY(-50%);  /* vertically centered in the area */
     width: 572px;   /* 340px × 1.2 × 1.4 */
+    overflow: visible;  /* lets box-shadows on child images render outside the container */
+    padding: 8px;       /* gives shadow room so it isn't clipped at the container edge */
+    margin: -8px;       /* negative margin compensates for padding so layout stays unchanged */
     /* No opacity here — each image animates independently */
 }
 
@@ -1257,8 +1263,10 @@ a.case-study--link:hover {
    This transition is the EXIT — quick fade out when mouse leaves. */
 .preview-set img {
     position: absolute;
-    border-radius: 8px;
+    border-radius: 12px;
     display: block;
+    background: white;           /* fills behind transparent/white images */
+    border: 1px solid #e5e7eb;  /* subtle outline so white images don't bleed into page */
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     object-fit: cover;
     opacity: 0;

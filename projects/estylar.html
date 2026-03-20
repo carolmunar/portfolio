@@ -48,7 +48,7 @@
             background: #f3f4f6;
             border-radius: 10px;
             overflow: hidden;
-            margin: 92px 68px 0 96px;  /* matches cs-section side padding */
+            margin: 92px 68px 0;  /* 68px = content container margin */
         }
 
         .cs-hero-video img {
@@ -66,7 +66,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
             width: 100%;
-            margin: 92px 68px 0 96px;
+            margin: 92px 68px 0;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -141,10 +141,6 @@
 
     <main class="cs-main">
 
-        <!-- ── BACK LINK ── -->
-        <a href="../index.html" class="cs-back">← Work</a>
-
-
         <!-- ============================================
              TITLE AREA
              "Estylar" left (Williwaw 56px),
@@ -158,20 +154,20 @@
                 <h1 class="cs-h1 cs-h1--estylar">
                     AI Body Scanner for Size Recommendations
                 </h1>
-
-                <div class="cs-meta">
-                    <div class="cs-meta-item">
-                        <span class="cs-meta-label">Industry</span>
-                        <span class="cs-meta-value">B2B/B2C · SaaS. Ecommerce</span>
-                    </div>
-                    <div class="cs-meta-item">
-                        <span class="cs-meta-label">Year</span>
-                        <span class="cs-meta-value">2019</span>
-                    </div>
-                    <div class="cs-meta-item">
-                        <span class="cs-meta-label">Scope</span>
-                        <span class="cs-meta-value">Founder Designer</span>
-                    </div>
+            </div>
+            <!-- Meta spans both columns: Year aligns with company name, Industry with H1 -->
+            <div class="cs-meta">
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Year</span>
+                    <span class="cs-meta-value">2019</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Industry</span>
+                    <span class="cs-meta-value">B2B/B2C · SaaS. Ecommerce</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Scope</span>
+                    <span class="cs-meta-value">Founder Designer</span>
                 </div>
             </div>
         </div>

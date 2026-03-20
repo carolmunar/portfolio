@@ -270,7 +270,7 @@ if (plantsmallEl && plantsmallTooltip) {
     }
 
     function schedulePlantHide() {
-        // Wait 150ms — if mouse reaches the tooltip before then, cancel the hide
+        // Wait 300ms — gives the mouse time to travel from the plant to the tooltip card
         hideTimer = setTimeout(function() {
             if (!isOverPlant && !isOverTooltip) {
                 plantsmallTooltip.classList.remove('is-visible');

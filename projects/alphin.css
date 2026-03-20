@@ -102,15 +102,16 @@ body {
 }
 
 /* ── TITLE AREA ──
-   Two-column: "alphin" (company name, Williwaw) on left,
-   H1 + metadata on right.
-   Figma: alphin at left:97px top:132px, h1 at left:615px top:106px */
+   Row 1: company name | H1 title
+   Row 2: meta row (Year / Industry / Scope) spanning both columns
+   Figma: company name at 201px, H1 at 555px → left col = 555-96 = 459px */
 .cs-title-area {
     display: grid;
-    grid-template-columns: 519px 1fr;  /* 615-96=519px for left col */
-    padding: 60px 68px 0 96px;
+    grid-template-columns: 459px 1fr;
+    grid-template-rows: auto auto;
+    padding: 92px 68px 0 96px;
     align-items: start;
-    gap: 24px;
+    gap: 24px 0;
 }
 
 .cs-company-name {
@@ -120,7 +121,8 @@ body {
     color: #1e1e1e;
     letter-spacing: -0.176px;
     line-height: 1;
-    padding-top: 26px;  /* aligns baseline with H1 which sits higher */
+    padding-top: 26px;
+    padding-left: 105px;  /* 96px grid + 105px = 201px from page (matches Figma) */
 }
 
 .cs-h1 {
@@ -130,16 +132,18 @@ body {
     color: #1e1e1e;
     letter-spacing: -1.056px;
     line-height: 1.1;
-    width: 586px;
+    max-width: 586px;  /* flexible: won't overflow on narrower viewports */
 }
 
 /* ── METADATA ROW ──
-   Year / Industry / Scope — sits below the H1
-   Figma: top offset from h1 baseline, 3 items horizontally */
+   Spans both grid columns so Year aligns under the company name.
+   padding-left: 105px → Year starts at 96+105=201px from page (= company name x)
+   min-width: 354px per item → Industry starts at 201+354=555px (= H1 x) */
 .cs-meta {
+    grid-column: 1 / -1;   /* span both title-area columns */
     display: flex;
     gap: 0;
-    margin-top: 24px;
+    padding-left: 105px;
     color: #666;
     font-size: 14px;
     letter-spacing: -0.176px;
@@ -149,7 +153,7 @@ body {
 .cs-meta-item {
     display: flex;
     flex-direction: column;
-    min-width: 232px;  /* Figma: industry starts at ~518px, scope at ~750px from container */
+    width: 354px;   /* Year col: forces 354px wide → Industry aligns at 555px from page (= H1 x) */
 }
 
 .cs-meta-label {
@@ -163,12 +167,12 @@ body {
 }
 
 /* ── FULL-WIDTH IMAGE CONTAINERS ──
-   No fixed height — image sets its own height at full natural width.
+   68px side margins match the content container left/right edge.
    overflow: hidden clips the image to the rounded corners. */
 .cs-image-wrap {
     border-radius: 10px;
-    margin-top: 92px;
-    overflow: hidden;   /* clips image to the rounded corners */
+    margin: 92px 68px 0;  /* 68px sides = content container margin */
+    overflow: hidden;
 }
 
 .cs-image-wrap img {
@@ -178,13 +182,14 @@ body {
 }
 
 /* ── SECTION LAYOUT ──
-   Two-column grid: section label on left, content on right.
-   Figma: label at ~96px from page, content at 96 + 336 = 432px from page
-   Label width = 364px (content left within container) - (96-68)px = 336px */
+   Two-column grid: label on left, content on right.
+   Figma: container at 68px, h2 text at 132px (200px from page),
+          content at 398px from container (466px from page).
+   Label col = 398px; h2 text indented 132px within it. */
 .cs-section {
     display: grid;
-    grid-template-columns: 336px 1fr;   /* label | content */
-    padding: 92px 68px 0 96px;          /* 92px top = consistent section spacing */
+    grid-template-columns: 398px 1fr;   /* label col | content col */
+    padding: 92px 68px 0 68px;          /* 68px = content container margin */
     gap: 0;
 }
 
@@ -195,15 +200,17 @@ body {
     color: #666;
     letter-spacing: -0.264px;
     line-height: 1.4;
+    padding-left: 132px;  /* h2 text at 68+132=200px from page edge */
 }
 
 /* ── SECTION CONTENT ──
-   Right column: paragraphs and sub-sections */
+   Right column: paragraphs and sub-sections.
+   max-width: 774px matches the Figma content column width. */
 .cs-section-content {
     display: flex;
     flex-direction: column;
-    gap: 24px;           /* 24px between paragraphs, matches Figma gap:24px */
-    max-width: 940px;
+    gap: 24px;
+    max-width: 774px;
 }
 
 .cs-section-content p {
@@ -214,9 +221,9 @@ body {
 }
 
 /* ── ORANGE LABEL (The Brief, Key Decisions) ──
-   Figma: color:#fd5400, size:14px */
+   Figma: color:#fd5400, size:16px, tracking:-0.154px */
 .cs-label-orange {
-    font-size: 14px !important;
+    font-size: 16px !important;
     color: #fd5400 !important;
     letter-spacing: -0.154px !important;
     line-height: 1.4 !important;
@@ -232,7 +239,7 @@ body {
 }
 
 .cs-brief-text {
-    font-size: 18px !important;   /* Figma: 18px for the brief statement */
+    font-size: 16px !important;   /* Figma: 16px — same as body text */
     color: #1e1e1e !important;
     letter-spacing: -0.176px !important;
     line-height: 1.4 !important;
@@ -296,16 +303,15 @@ body {
 }
 
 /* ── FOOTER ──
-   Role description + "Next: Adjust →"
-   Figma: border-top at #e5e7eb, role text gray 14px */
+   Role description + "Next / Previous" navigation.
+   padding-left: 132px aligns text at 68+132=200px from page edge
+   (same x-position as the h2 section labels). */
 .cs-footer {
-    margin: 92px 68px 0;                /* 92px top = consistent section spacing */
-    border-top: 1px solid #e5e7eb;
-    padding-top: 65px;
-    padding-bottom: 80px;
+    margin: 32px 68px 0;        /* 32px from last section to role text */
+    padding: 0 0 0 132px;       /* 68px margin + 132px = 200px from page = inside layout */
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 24px;
 }
 
 .cs-footer-role {
@@ -320,6 +326,10 @@ body {
     color: #1e1e1e;
     text-decoration: none;
     letter-spacing: -0.176px;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 42px;                  /* 42px from line to nav text */
+    display: block;
+    max-width: 1040px;
 }
 
 .cs-next-link:hover {
@@ -327,11 +337,20 @@ body {
 }
 
 /* ── FOOTER NAV (two-way: prev + next) ──
-   Used on Adjust and future pages that have both directions.
-   Puts Previous on the left, Next on the right. */
+   Used on pages with both directions.
+   The border-top sits between the role text and the nav row. */
 .cs-footer-nav {
     display: flex;
     justify-content: space-between;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 42px;                  /* 42px from line to nav text */
+    max-width: 1040px;
+}
+
+/* When links are inside a nav row, the nav container already has the border */
+.cs-footer-nav .cs-next-link {
+    border-top: none;
+    padding-top: 0;
 }
 
 /* ── STEPS GUIDE BLOCK ──
@@ -365,22 +384,25 @@ body {
     line-height: 1.5;
 }
 
-/* ── ADJUST TITLE AREA OVERRIDES ──
-   Adjust's company name and H1 are both Williwaw 56px (same size).
-   The left column is narrower than Alphin's (518px vs 519px from Figma).
-   Figma: "Adjust" at left:96.5px, H1 starts at left:614px
-   → left column width = 614 - 96.5 = 517.5px ≈ 518px */
+/* ── ADJUST / AGROFY / ESTYLAR TITLE AREA OVERRIDES ──
+   These projects have 56px company names (same size as H1).
+   Column split: H1 at 614px → left col = 614-96 = 518px.
+   Meta Year item: 614-201 = 413px so Industry aligns exactly under the H1. */
 .cs-title-area--adjust {
     grid-template-columns: 518px 1fr;
 }
 
-/* Adjust company name is 56px (same as H1), not 64px like Alphin */
-.cs-company-name--adjust {
-    font-size: 56px;
-    padding-top: 11.5px;   /* Figma: "Adjust" text top:11.5px within the h1 block */
+.cs-title-area--adjust .cs-meta-item:first-child {
+    width: 413px;   /* forces 413px wide → Industry aligns at 614px from page (= H1 x for adjust/estylar/agrofy) */
 }
 
-/* Adjust H1 is wider (786px vs Alphin's 586px) to fit the longer title */
+/* 56px for Adjust, Agrofy, Estylar company names (Alphin uses 64px) */
+.cs-company-name--adjust {
+    font-size: 56px;
+    padding-top: 11.5px;
+}
+
+/* Wider H1 for longer titles (Adjust, Estylar, Agrofy) */
 .cs-h1--adjust {
     width: 786px;
 }
@@ -390,7 +412,7 @@ body {
    Used for research images (adjust6 + adjust7).
    Fixed height container, images fill 50% each. */
 .cs-image-pair {
-    margin-top: 92px;                   /* matches section spacing */
+    margin: 92px 68px 0;                /* 68px sides = content container margin */
     height: 810px;
     border-radius: 10px;
     display: flex;
@@ -408,7 +430,7 @@ body {
    Matches the section side margins (96px left, 68px right).
    Height 500px gives enough room to read sticky notes without being overwhelming. */
 .cs-miro-embed {
-    margin: 92px 68px 0 96px;       /* same as cs-section side padding */
+    margin: 92px 68px 0;            /* 68px sides = content container margin */
     border-radius: 10px;
     overflow: hidden;                /* clips iframe to rounded corners */
     height: 600px;                   /* taller = more of the board is visible in preview */
@@ -515,24 +537,33 @@ body {
         width: 100%;
     }
 
-    .cs-meta {
-        flex-direction: column;
-        gap: 12px;
-    }
-
     .cs-image-wrap {
-        margin-top: 48px;             /* mobile: proportional to 92px desktop */
-        /* no fixed height — image flows at natural proportions */
+        margin: 48px 20px 0;          /* mobile: 20px side margins */
     }
 
     .cs-section {
         grid-template-columns: 1fr;  /* stack label above content */
-        padding: 48px 20px 0;        /* mobile: proportional to 92px desktop */
+        padding: 48px 20px 0;
         gap: 16px;
     }
 
+    .cs-section-label h2 {
+        padding-left: 0;             /* remove desktop indent on mobile */
+    }
+
+    .cs-meta {
+        flex-direction: column;
+        gap: 12px;
+        padding-left: 0;             /* remove indent — full width on mobile */
+    }
+
+    .cs-meta-item {
+        min-width: unset;
+    }
+
     .cs-footer {
-        margin: 48px 20px 0;         /* mobile: proportional to 92px desktop */
+        margin: 64px 20px 0;
+        padding: 32px 0 48px 0;      /* remove desktop indent on mobile */
     }
 
     /* ── SITE FOOTER: stack vertically on mobile ── */
@@ -569,13 +600,14 @@ body {
 
 
 /* ── SITE FOOTER — same visual as the index page footer ──
-   Three columns: logos left | copyright center | credits right.
-   Padding (68px) matches the cs-footer side margin. */
+   200px padding each side matches the home page (13.9vw at 1440px)
+   and keeps logos/credits inside the same layout column as the content. */
 .site-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 68px 2.5rem;
+    margin-top: 112px;
+    padding: 0 200px 2.5rem;
 }
 
 .footer-logos {
@@ -621,7 +653,12 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 194px;   /* same height as sananes.co reference */
+    height: 100px;   /* shorter so it doesn't cover the footer */
     pointer-events: none;
     z-index: 50;
+}
+
+/* Push page content up so the footer always clears the blur overlay */
+body {
+    padding-bottom: 120px;
 }
