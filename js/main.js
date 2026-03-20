@@ -118,126 +118,116 @@ document.querySelectorAll('.about-text').forEach(function(el) {
 
 
 /* ============================================================
-   PULP FICTION — HOVER SOUND EFFECT
+   HOVER SOUND EFFECTS — DESKTOP ONLY
    ─────────────────────────────────────────────────────────────
-   When the mouse enters the Pulp Fiction image, it plays a short
-   audio clip. When the mouse leaves, it stops and resets.
+   Sounds only make sense with a mouse (hover). On touch devices
+   there is no hover, so we skip all audio setup entirely.
 
-   new Audio(path) — loads the sound file (but doesn't play it)
-   audio.volume   — 0 is silent, 1 is full volume
-   audio.currentTime = 0 — rewinds to the beginning each time
-                            so fast re-hovers always play from start
-   audio.play()   — starts playback
-   audio.pause()  — stops playback (but keeps position)
+   window.matchMedia('(hover: none)').matches — returns true when
+   the primary input cannot hover (phones, tablets). Returns false
+   on desktop with a real mouse. This is more reliable than
+   checking screen width because it detects input capability,
+   not just screen size.
    ============================================================ */
 
-// Load the sound (does NOT play automatically)
-const pulpFictionAudio = new Audio('/sounds/Voicy_This is a tasty burger.mp3');
-pulpFictionAudio.volume = 0.7; // 70% volume — not too loud
+const isTouchDevice = window.matchMedia('(hover: none)').matches;
 
-// Find the Pulp Fiction element using the data-element attribute we added
-const pulpFictionEl = document.querySelector('[data-element="pulp-fiction"]');
+if (!isTouchDevice) {
 
-// Only set up the listeners if the element actually exists on the page
-// (This is a safety check — if the element is missing, no error will crash the page)
-if (pulpFictionEl) {
-    // Mouse enters the image → rewind and play
-    pulpFictionEl.addEventListener('mouseenter', function() {
-        pulpFictionAudio.currentTime = 0; // always start from the beginning
-        pulpFictionAudio.play();
-    });
+    /* ─────────────────────────────────────────────────────────
+       PULP FICTION — play on hover, stop on leave
+       ───────────────────────────────────────────────────────── */
 
-    // Mouse leaves the image → stop and rewind
-    pulpFictionEl.addEventListener('mouseleave', function() {
-        pulpFictionAudio.pause();
-        pulpFictionAudio.currentTime = 0;
-    });
-}
+    // Load the sound (does NOT play automatically)
+    const pulpFictionAudio = new Audio('/sounds/Voicy_This is a tasty burger.mp3');
+    pulpFictionAudio.volume = 0.7; // 70% volume — not too loud
 
+    // Find the Pulp Fiction element using the data-element attribute we added
+    const pulpFictionEl = document.querySelector('[data-element="pulp-fiction"]');
 
-/* ============================================================
-   CAMERA — HOVER SOUND EFFECT
-   ─────────────────────────────────────────────────────────────
-   Same pattern as Pulp Fiction: play on hover, stop on leave.
-   ============================================================ */
-
-// Load the camera shutter sound (does NOT play automatically)
-const cameraAudio = new Audio('/sounds/camera.wav');
-cameraAudio.volume = 0.7;
-
-// Load the chiva sound (does NOT play automatically)
-const chivaAudio = new Audio('/sounds/chiva.mp3');
-chivaAudio.volume = 0.7;
-
-
-/* ============================================================
-   AUDIO UNLOCK — one-time fix for browser autoplay policy
-   ─────────────────────────────────────────────────────────────
-   Browsers block audio.play() unless the user has first made
-   an "activation gesture" — clicks, taps, or key presses count.
-   Hovering (mouseenter) does NOT count on its own.
-
-   Fix: on the very first click anywhere on the page, we silently
-   play-then-pause each audio file. This "registers" them with the
-   browser as user-approved. After that, play() works from any event,
-   including mouseenter.
-
-   { once: true } means this listener fires exactly once, then
-   removes itself automatically — no cleanup needed.
-   ============================================================ */
-document.addEventListener('click', function() {
-    // Play silently at volume 0 just to unlock each audio element
-    [pulpFictionAudio, cameraAudio, chivaAudio].forEach(function(audio) {
-        audio.volume = 0;
-        audio.play().then(function() {
-            audio.pause();
-            audio.currentTime = 0;
-            audio.volume = 0.7; // restore normal volume after unlock
-        }).catch(function() {
-            // Silently ignore any errors during unlock
+    // Only set up the listeners if the element actually exists on the page
+    // (This is a safety check — if the element is missing, no error will crash the page)
+    if (pulpFictionEl) {
+        pulpFictionEl.addEventListener('mouseenter', function() {
+            pulpFictionAudio.currentTime = 0; // always start from the beginning
+            pulpFictionAudio.play();
         });
-    });
-}, { once: true }); // fires once, then self-removes
+        pulpFictionEl.addEventListener('mouseleave', function() {
+            pulpFictionAudio.pause();
+            pulpFictionAudio.currentTime = 0;
+        });
+    }
 
 
-// Find the camera element using the data-element attribute
-const cameraEl = document.querySelector('[data-element="camera"]');
+    /* ─────────────────────────────────────────────────────────
+       CAMERA + CHIVA — same pattern as Pulp Fiction
+       ───────────────────────────────────────────────────────── */
 
-// Safety check — only add listeners if the element exists
-if (cameraEl) {
-    cameraEl.addEventListener('mouseenter', function() {
-        cameraAudio.currentTime = 0;
-        cameraAudio.play();
-    });
+    const cameraAudio = new Audio('/sounds/camera.wav');
+    cameraAudio.volume = 0.7;
 
-    cameraEl.addEventListener('mouseleave', function() {
-        cameraAudio.pause();
-        cameraAudio.currentTime = 0;
-    });
-}
+    const chivaAudio = new Audio('/sounds/chiva.mp3');
+    chivaAudio.volume = 0.7;
 
 
-/* ============================================================
-   CHIVA — HOVER SOUND EFFECT
-   ─────────────────────────────────────────────────────────────
-   Same pattern as Pulp Fiction and Camera: play on hover, stop on leave.
-   ============================================================ */
+    /* ─────────────────────────────────────────────────────────
+       AUDIO UNLOCK — one-time fix for browser autoplay policy
+       ─────────────────────────────────────────────────────────
+       Browsers block audio.play() unless the user has first made
+       an "activation gesture" (click, tap, or key press).
+       Hovering (mouseenter) does NOT count on its own.
 
-// Find the chiva element using the data-element attribute
-const chivaEl = document.querySelector('[data-element="chiva"]');
+       Fix: on the first click anywhere, silently play-then-pause
+       each file to register them as user-approved. After that,
+       play() works from any event including mouseenter.
+       { once: true } means this listener fires once then removes itself.
+       ───────────────────────────────────────────────────────── */
+    document.addEventListener('click', function() {
+        [pulpFictionAudio, cameraAudio, chivaAudio].forEach(function(audio) {
+            audio.volume = 0;
+            audio.play().then(function() {
+                audio.pause();
+                audio.currentTime = 0;
+                audio.volume = 0.7; // restore normal volume after unlock
+            }).catch(function() {
+                // Silently ignore any errors during unlock
+            });
+        });
+    }, { once: true });
 
-// Safety check — only add listeners if the element exists
-if (chivaEl) {
-    chivaEl.addEventListener('mouseenter', function() {
-        chivaAudio.currentTime = 0;
-        chivaAudio.play();
-    });
 
-    chivaEl.addEventListener('mouseleave', function() {
-        chivaAudio.pause();
-        chivaAudio.currentTime = 0;
-    });
-}
+    /* ─────────────────────────────────────────────────────────
+       CAMERA hover listeners
+       ───────────────────────────────────────────────────────── */
+    const cameraEl = document.querySelector('[data-element="camera"]');
+    if (cameraEl) {
+        cameraEl.addEventListener('mouseenter', function() {
+            cameraAudio.currentTime = 0;
+            cameraAudio.play();
+        });
+        cameraEl.addEventListener('mouseleave', function() {
+            cameraAudio.pause();
+            cameraAudio.currentTime = 0;
+        });
+    }
+
+
+    /* ─────────────────────────────────────────────────────────
+       CHIVA hover listeners
+       ───────────────────────────────────────────────────────── */
+    const chivaEl = document.querySelector('[data-element="chiva"]');
+    if (chivaEl) {
+        chivaEl.addEventListener('mouseenter', function() {
+            chivaAudio.currentTime = 0;
+            chivaAudio.play();
+        });
+        chivaEl.addEventListener('mouseleave', function() {
+            chivaAudio.pause();
+            chivaAudio.currentTime = 0;
+        });
+    }
+
+} // end !isTouchDevice
 
 
 /* ============================================================
