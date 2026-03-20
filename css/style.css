@@ -49,7 +49,7 @@
    Change here → updates everywhere on the site.
    ============================================================ */
 :root {
-    --color-text: #3E3E42;
+    --color-text: #1e1e1e;
     --color-bg:   #FFFFFF;
 }
 
@@ -306,6 +306,108 @@ img {
 }
 
 
+/* ── PLANTBIG HOVER TOOLTIP ──────────────────────────────────────────────────
+   Same concept as the chiva tooltip but positioned to the LEFT of the plant.
+   The plant lives on the right side of the hero, so the tooltip floats left.
+
+   WHY right: calc(100% + 16px)?
+   → The tooltip div is a child of #plantbig.
+   → `right: 100%` means "start at the left edge of the parent".
+   → The extra 16px adds a breathing gap between tooltip and plant image.
+
+   The reveal animation slides the tooltip in from the right (translateX(8px) → 0)
+   while fading in — same technique as the chiva tooltip's translateY. */
+
+/* Pointer cursor — signals the plant is interactive */
+[data-element="plantsmall"] {
+    cursor: pointer;
+}
+
+/* Subtle brightness lift on hover — confirms the interaction is triggering */
+[data-element="plantsmall"]:hover img {
+    filter: brightness(1.08);
+    transition: filter 0.2s ease;
+}
+[data-element="plantsmall"] img {
+    transition: filter 0.2s ease;
+}
+
+/* Tooltip card — hidden by default */
+.plantbig-tooltip {
+    position: fixed;
+    /* plantsmall right edge = left(67.22vw) + width(13.3vw) = ~80.5vw
+       Add 12px gap → places tooltip immediately to the right of the pot */
+    left: calc(80.5vw + 12px);
+    /* plantsmall top = 37.75vh — align tooltip to the same vertical area */
+    top: 38vh;
+    width: 200px;
+
+    /* Same visual style as chiva-tooltip */
+    background: #e5e7eb;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0px 12px 50px 0px rgba(0,0,0,0.15);
+
+    /* Same typography as chiva-tooltip */
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #000000;
+
+    /* Hidden state — slides in from the right */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    z-index: 999; /* above everything — hero objects, frame, chair, hero-text */
+}
+
+/* Gap between text lines */
+.plantbig-tooltip p + p {
+    margin-top: 6px;
+}
+
+/* Link group — stacked vertically, each on its own line */
+.plantbig-tooltip-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+    padding-top: 10px;
+}
+
+/* Links — same font, underlined to show they're clickable */
+.plantbig-tooltip-links a {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #000000;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.plantbig-tooltip-links a:hover {
+    opacity: 0.6;
+}
+
+/* No bridge needed — position:fixed tooltips aren't adjacent to their trigger element */
+
+/* Elevate stacking context so tooltip renders above other hero objects */
+[data-element="plantsmall"]:hover {
+    z-index: 10;
+}
+
+/* Visible state — controlled by JS (see main.js plantsmall section)
+   JS adds/removes class .is-visible on the tooltip element */
+.plantbig-tooltip.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+
 /* ── SUCCULENT ── lower shelf of the regal */
 #plantsuculent {
     left: 19.3%;    /* 278px ÷ 1440 */
@@ -399,14 +501,14 @@ img {
        so z-index:10 guarantees the text is always visible on top. */
 }
 
-/* ── "Hola! I'm Carol Munar." ── Williwaw (matches Figma) */
+/* ── "Hola! I'm Carol Munar." ── TestSohneMono Leicht (light weight) */
+/* Figma: Test Söhne Mono Leicht, 24px, #1e1e1e, line-height 1.5 */
 .hero-text .greeting {
-    font-family: 'Williwaw', Georgia, serif;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
     font-size: clamp(1rem, 1.67vw, 1.5rem); /* 24px ÷ 1440 = 1.67vw */
-    font-weight: 400;
+    font-weight: 300; /* Leicht = light weight */
     color: var(--color-text);
     margin-bottom: 0.4rem;
-    letter-spacing: -0.011em;
     line-height: 1.5;
 }
 
@@ -437,7 +539,7 @@ img {
 .section-title {
     font-family: 'TestSohneMono', 'Space Mono', monospace;
     font-size: clamp(1rem, 1.67vw, 1.5rem); /* 24px — same as hero text */
-    font-weight: 400;
+    font-weight: 700; /* Figma: Kräftig (bold weight) — distinguishes headings from body */
     color: var(--color-text);
     letter-spacing: -0.011em;
     line-height: 1.4;
@@ -479,6 +581,16 @@ img {
     letter-spacing: -0.011em;
     line-height: 1.4;
     max-width: 53.75vw;      /* 774px ÷ 1440 — text block width from Figma */
+}
+
+/* Elternpop logo sits inline after "Designing something new called".
+   height: 25px matches the exact logo frame height in Figma (133×25px).
+   vertical-align: middle centres it on the text baseline. */
+.work-inline-logo {
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 0.3em;
+    display: inline;
 }
 
 
@@ -554,19 +666,40 @@ a.case-study--link:hover {
 
 
 /* ============================================================
-   10. MY PLAYGROUND SECTION
+   10. PROBLEMS I SOLVE / HOW I WORK — two-column section
    ─────────────────────────────────────────────────────────────
-   margin-top: 6rem (96px) — gap above this section, from Figma:
-   y:1874 (heading) − y:1778 (approx end of case studies) = 96px.
-
-   Two projects sit side by side using flexbox:
-   Left item width: 35.3vw = 508px at 1440px (from Figma).
-   Right item: flex:1 = takes all remaining space.
+   Replaces the old "My Playground" section.
+   Figma: two columns inside the 1040px content area.
+   Left col width=418px, right col width=421px, gap=200px.
    ============================================================ */
-.section-playground {
-    margin-top: 6rem;        /* 96px gap above this section */
-    padding-left: 13.9vw;    /* same 200px left margin */
-    padding-bottom: 6rem;    /* breathing room at the very bottom of the page */
+.section-howwork {
+    margin-top: 5.75rem; /* 92px — matches the consistent gap between all sections */
+    padding-left: 13.9vw;
+    padding-right: 13.9vw;   /* matches left margin — content is 1040px wide in Figma */
+    padding-bottom: 6rem;
+}
+
+/* Figma: display flex, gap 200px, align-items flex-start.
+   flex: 1 on each column → both share equal width (≈420px each at 1440px). */
+.howwork-grid {
+    display: flex;
+    gap: clamp(2rem, 13.9vw, 12.5rem);  /* 200px at 1440px, responsive below */
+    align-items: flex-start;             /* columns align at top, not stretched */
+}
+
+.howwork-col {
+    flex: 1;  /* each column fills half the available space */
+}
+
+/* Body text — 16px regular, same tracking as the rest of the page.
+   line-height: 1.4 matches Figma (not 1.6). */
+.howwork-body {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 1rem;         /* 16px */
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.4;        /* matches Figma leading-[1.4] */
 }
 
 /* Row of two project items */
@@ -707,10 +840,10 @@ a.case-study--link:hover {
 
 
 .section-about {
-    margin-top: 6rem;
+    margin-top: 5.75rem; /* 92px — matches the consistent gap between all sections */
     padding-left: 13.9vw;
     padding-right: 13.9vw;
-    padding-bottom: 8rem;
+    padding-bottom: 4rem;    /* reduced — footer provides its own bottom spacing now */
 }
 
 .about-paragraphs {
@@ -775,6 +908,90 @@ a.case-study--link:hover {
 .about-paragraphs .about-text,
 .about-paragraphs .about-text::before,
 .about-paragraphs .about-text::after { animation-delay: 0s; }
+
+
+/* ── ABOUT BUTTONS ──────────────────────────────────────────
+   Two CTA buttons below the about text: Contact me + Download CV.
+   Each is an inline-flex row: [text] [icon].
+   Border style keeps it minimal and consistent with the mono font feel. */
+.about-buttons {
+    display: flex;
+    gap: 0.75rem;            /* 12px between buttons — matches Figma spacing */
+    margin-top: 2.5rem;      /* space above buttons, below the text block */
+}
+
+/* Figma: bg-black, border black, text white, 14px, rounded-[8px], padding 8px, gap 8px */
+.about-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;             /* 8px between text and icon */
+    padding: 0.5rem;         /* 8px all sides — matches Figma p-[8px] */
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 0.875rem;     /* 14px — Figma uses text-[14px] */
+    font-weight: 400;
+    color: #ffffff;          /* white text on black background */
+    background-color: #000000;
+    text-decoration: none;
+    border: 1px solid #000000;
+    border-radius: 8px;      /* Figma: rounded-[8px] */
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+    transition: opacity 0.15s ease;
+}
+
+.about-btn:hover {
+    opacity: 0.6;
+}
+
+.about-btn svg {
+    flex-shrink: 0;          /* prevents icon from squishing if text wraps */
+}
+
+
+/* ── FOOTER ─────────────────────────────────────────────────
+   Three columns: logos | copyright | credits.
+   Uses justify-content: space-between to spread them out. */
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 13.9vw 3rem;   /* top, sides (same as sections), bottom */
+    margin-top: 1rem;
+}
+
+/* Logo link group — LinkedIn, GitHub, Substack in a row */
+.footer-logos {
+    display: flex;
+    align-items: center;
+    gap: 1rem;               /* 16px between logos */
+}
+
+.footer-logos a {
+    display: flex;
+    align-items: center;
+    transition: opacity 0.15s ease;
+}
+
+.footer-logos a:hover {
+    opacity: 0.6;
+}
+
+.footer-logos img {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* Copyright and credits text */
+.footer-copy,
+.footer-made {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 0.875rem;     /* 14px — slightly smaller than body */
+    font-weight: 400;
+    color: var(--color-text);
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+}
 
 
 /* ============================================================
@@ -932,7 +1149,7 @@ a.case-study--link:hover {
        24px each side on 390px viewport leaves 342px of content width. */
     .section-currently-working,
     .section-recently,
-    .section-playground,
+    .section-howwork,
     .section-about {
         padding-left: 24px;
         padding-right: 24px;
@@ -966,24 +1183,24 @@ a.case-study--link:hover {
         font-size: 16px;
     }
 
-    /* ── PLAYGROUND: stack vertically, images 339×294 ── */
-    .playground-grid {
+    /* ── PROBLEMS / HOW I WORK: stack to single column on mobile ──
+       Desktop uses display: flex so we use flex-direction, not grid-template-columns */
+    .howwork-grid {
         flex-direction: column;
-        gap: 24px;
+        gap: 2rem;
     }
 
-    /* Each project item takes full column width */
-    .playground-item:first-child,
-    .playground-item:last-child {
-        width: 100%;
+    /* ── ABOUT BUTTONS: stack on very narrow screens ── */
+    .about-buttons {
+        flex-wrap: wrap;
     }
 
-    /* Images: 339×294px, cover-crop (no empty space) */
-    .playground-item img {
-        width: 339px;
-        max-width: 100%;
-        height: 294px;
-        object-fit: cover;
+    /* ── FOOTER: stack vertically, center-aligned ── */
+    .site-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 2rem 24px 3rem;
     }
 
     .playground-caption {
@@ -1047,6 +1264,10 @@ a.case-study--link:hover {
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 0.2s ease, transform 0.2s ease;
+    /* mix-blend-mode: multiply makes white pixels invisible against a white
+       background. White × white = white (transparent). Colored pixels stay.
+       This removes the white background from UI screenshots without editing files. */
+    mix-blend-mode: multiply;
 }
 
 /* ENTER animation — triggered when JS adds .visible to the parent set.

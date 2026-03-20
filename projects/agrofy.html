@@ -61,12 +61,10 @@
         </div>
 
 
-        <!-- ── IMAGE 1 ── -->
-        <!-- TODO: add agrofy hero image → save as projects/img/ag1.webp and uncomment:
+        <!-- ── HERO IMAGE ── mobile checkout flow (4 screens) -->
         <div class="cs-image-wrap">
-            <img src="img/ag1.webp" alt="Agrofy — agribusiness marketplace">
+            <img src="img/agrofy1.webp" alt="Agrofy — mobile checkout flow: product page, shipping, payment, and order summary">
         </div>
-        -->
 
 
         <!-- ============================================
@@ -111,12 +109,6 @@
         </section>
 
 
-        <!-- ── IMAGE 2 ── -->
-        <!-- TODO: add agrofy research image → save as projects/img/ag2.webp and uncomment:
-        <div class="cs-image-wrap">
-            <img src="img/ag2.webp" alt="Agrofy — field research in rural Argentina" loading="lazy">
-        </div>
-        -->
 
 
         <!-- ============================================
@@ -158,12 +150,21 @@
         </section>
 
 
-        <!-- ── IMAGE 3 ── -->
-        <!-- TODO: add agrofy solution image → save as projects/img/ag3.webp and uncomment:
-        <div class="cs-image-wrap">
-            <img src="img/ag3.webp" alt="Agrofy — checkout flow redesign" loading="lazy">
+        <!-- ── MIRO RESEARCH BOARD EMBED ──
+             Interactive iframe — visitors can zoom and pan to explore the research.
+             Requires the Miro board to be set to "Anyone with the link can view". -->
+        <div class="cs-miro-embed">
+            <iframe
+                width="100%"
+                height="500"
+                src="https://miro.com/app/live-embed/uXjVIU2CTdI=/?embedMode=view_only_without_ui&moveToViewport=-41563%2C-3713%2C23385%2C43365&embedId=700073022943"
+                frameborder="0"
+                scrolling="no"
+                allow="fullscreen; clipboard-read; clipboard-write"
+                allowfullscreen
+                title="Agrofy — research Miro board">
+            </iframe>
         </div>
-        -->
 
 
         <!-- ============================================
@@ -236,6 +237,25 @@
                 </p>
             </div>
         </section>
+
+
+        <!-- ── SOLUTION SCREENS ──
+             agrofy2 = delivery step (Fungicida checkout)
+             agrofy4 = delivery step (MAÍZ/seeds checkout) -->
+        <div class="cs-solution-gallery">
+            <div class="cs-solution-row">
+                <div class="cs-solution-card">
+                    <img src="img/agrofy2.webp"
+                         alt="Agrofy — delivery step in the Fungicida checkout flow"
+                         loading="lazy">
+                </div>
+                <div class="cs-solution-card">
+                    <img src="img/agrofy4.webp"
+                         alt="Agrofy — delivery step in the seeds (MAÍZ) checkout flow"
+                         loading="lazy">
+                </div>
+            </div>
+        </div><!-- end .cs-solution-gallery -->
 
 
         <!-- ============================================
@@ -350,6 +370,29 @@
         </footer>
 
     </main>
+
+    <!-- ============================================
+         SITE FOOTER — same as the index page
+         ============================================ -->
+    <footer class="site-footer">
+        <div class="footer-logos">
+            <a href="https://www.linkedin.com/in/carolmunar/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <img src="../logos/linkedin.svg" alt="LinkedIn" width="24" height="24">
+            </a>
+            <a href="https://github.com/carolmunar" target="_blank" rel="noopener" aria-label="GitHub">
+                <img src="../logos/github.svg" alt="GitHub" width="24" height="24">
+            </a>
+            <a href="https://substack.com/@carolmunar" target="_blank" rel="noopener" aria-label="Substack">
+                <img src="../logos/substack.svg" alt="Substack" width="24" height="24">
+            </a>
+        </div>
+        <p class="footer-copy">©2026 Carol Munar</p>
+        <p class="footer-made">Made it with 🖤 and Claude Code</p>
+    </footer>
+
+    <!-- Progressive blur overlay — blur.js fills this with 8 inner layers -->
+    <div id="scroll-blur" aria-hidden="true"></div>
+    <script src="blur.js"></script>
 
 </body>
 </html>

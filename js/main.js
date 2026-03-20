@@ -240,6 +240,70 @@ if (chivaEl) {
 }
 
 
+/* ============================================================
+   PLANTSMALL — EASTER EGG TOOLTIP
+   ─────────────────────────────────────────────────────────────
+   The tooltip uses position:fixed so it escapes the hero's
+   overflow:hidden. But that means when the mouse moves FROM
+   the plant div TOWARD the tooltip card, it briefly leaves
+   the plant — triggering mouseleave and hiding the tooltip.
+
+   Fix: track whether the mouse is over the plant OR the tooltip.
+   A small 150ms timeout before hiding gives the mouse time to
+   travel from one to the other without the card disappearing.
+   ============================================================ */
+
+const plantsmallEl = document.getElementById('plantsmall');
+const plantsmallTooltip = plantsmallEl
+    ? plantsmallEl.querySelector('.plantbig-tooltip')
+    : null;
+
+if (plantsmallEl && plantsmallTooltip) {
+
+    let isOverPlant   = false;
+    let isOverTooltip = false;
+    let hideTimer     = null;
+
+    function showPlantTooltip() {
+        clearTimeout(hideTimer);
+        plantsmallTooltip.classList.add('is-visible');
+    }
+
+    function schedulePlantHide() {
+        // Wait 150ms — if mouse reaches the tooltip before then, cancel the hide
+        hideTimer = setTimeout(function() {
+            if (!isOverPlant && !isOverTooltip) {
+                plantsmallTooltip.classList.remove('is-visible');
+            }
+        }, 150);
+    }
+
+    // Mouse enters the plant div → show tooltip
+    plantsmallEl.addEventListener('mouseenter', function() {
+        isOverPlant = true;
+        showPlantTooltip();
+    });
+
+    // Mouse leaves the plant div → start the 150ms countdown
+    plantsmallEl.addEventListener('mouseleave', function() {
+        isOverPlant = false;
+        schedulePlantHide();
+    });
+
+    // Mouse enters the tooltip card → cancel any pending hide
+    plantsmallTooltip.addEventListener('mouseenter', function() {
+        isOverTooltip = true;
+        showPlantTooltip();
+    });
+
+    // Mouse leaves the tooltip card → start the 150ms countdown
+    plantsmallTooltip.addEventListener('mouseleave', function() {
+        isOverTooltip = false;
+        schedulePlantHide();
+    });
+}
+
+
 /* ── PROJECT PREVIEW (multi-image sets, right-aligned) ──
    When hovering a project row, the matching .preview-set fades in.
    All other sets are hidden. No cursor following — opacity only.

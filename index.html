@@ -94,8 +94,18 @@
         </div>
 
         <!-- plantsmall = white ribbed planter on the RIGHT side of the hero (not on the regal) -->
-        <div class="hero-object" id="plantsmall" data-speed="0.18">
+        <!-- data-element="plantsmall" triggers the easter egg tooltip on hover -->
+        <div class="hero-object" id="plantsmall" data-speed="0.18" data-element="plantsmall">
             <img src="header/plantsmall.webp" alt="">
+            <!-- Easter egg tooltip — hidden by default, shown on hover -->
+            <div class="plantbig-tooltip">
+                <p>You noticed this is not moving.</p>
+                <p>It's not a bug — it's intentional.</p>
+                <div class="plantbig-tooltip-links">
+                    <a href="CarolMunar_CV_SeniorProductDesigner.pdf" download>↓ Download my CV</a>
+                    <a href="https://www.linkedin.com/in/carolmunar/" target="_blank" rel="noopener">→ Send me a message on LinkedIn</a>
+                </div>
+            </div>
         </div>
 
         <!-- chiva = colorful toy bus, lower-middle shelf of the regal -->
@@ -136,8 +146,8 @@
         <!-- Section heading — same font/size as hero h1 -->
         <h2 class="section-title">Currently working</h2>
 
-        <!-- Small label above the description -->
-        <p class="work-label">Designing something new called</p>
+        <!-- Small label above the description — Elternpop logo sits inline after the text -->
+        <p class="work-label">Designing something new called <img src="logos/ElternpopLogo.svg" alt="Elternpop" class="work-inline-logo"></p>
 
         <!-- Project description -->
         <p class="work-body">
@@ -218,32 +228,20 @@
 
 
     <!-- ============================================
-         MY PLAYGROUND SECTION
-         Two projects side by side: image + caption below each
+         PROBLEMS I SOLVE / HOW I WORK — two columns
          ============================================ -->
-    <section class="section-playground">
+    <section class="section-howwork">
 
-        <h2 class="section-title">My Playground</h2>
+        <div class="howwork-grid">
 
-        <!-- Two-column grid for the two projects -->
-        <div class="playground-grid">
-
-            <!-- Project 1: Are you kidding me (Lovable) -->
-            <div class="playground-item">
-                <img src="playground/kiddingme.png" alt="Are you kidding me — mental load test for partners" loading="lazy">
-                <p class="playground-caption">
-                    Because is not easy to talk about this topics, so let's make a test.<br>
-                    Made in Lovable
-                </p>
+            <div class="howwork-col">
+                <h2 class="section-title">Problems I solve</h2>
+                <p class="howwork-body">Complex B2B SaaS is where I do my best work. Onboarding flows that take hours, AI features nobody knows how to design yet, workflows that make sense to engineers but nobody else. I turn that complexity into products people actually use.</p>
             </div>
 
-            <!-- Project 2: Style library (Figma Make) -->
-            <div class="playground-item">
-                <img src="playground/library.webp" alt="Extreme Neo-Brutalism style library" loading="lazy">
-                <p class="playground-caption">
-                    Since internet appears we have had an important amount of styles, that I summarized in this library.<br>
-                    Made in Figma Make
-                </p>
+            <div class="howwork-col">
+                <h2 class="section-title">How I work</h2>
+                <p class="howwork-body">I embed in cross-functional teams and build trust fast. I've worked alongside engineers, PMs, sales, and C-level stakeholders, sometimes all in the same week. I push back when needed, align when it matters, and always bring the user back into the room.</p>
             </div>
 
         </div>
@@ -262,7 +260,7 @@
          ============================================ -->
     <section class="section-about">
 
-        <h2 class="section-title">About</h2>
+        <h2 class="section-title">About me</h2>
 
         <div class="about-paragraphs">
 
@@ -276,11 +274,55 @@
 
         </div>
 
+        <!-- Two CTA buttons below the about text -->
+        <div class="about-buttons">
+            <!-- Contact me → opens email client -->
+            <a href="mailto:caritomunar@gmail.com" class="about-btn">
+                Contact me
+                <!-- Mail icon -->
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <rect x="1.5" y="3.5" width="13" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M1.5 4.5L8 9L14.5 4.5" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </a>
+            <!-- Download CV → triggers PDF download -->
+            <a href="CarolMunar_CV_SeniorProductDesigner.pdf" download class="about-btn">
+                Download CV
+                <!-- Download arrow icon -->
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M8 2V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M5 7.5L8 10.5L11 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 13H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </a>
+        </div>
+
     </section>
 
 
 </main><!-- end of <main> content -->
 
+
+    <!-- ============================================
+         FOOTER
+         Three logos (LinkedIn, GitHub, Substack) on the left.
+         Copyright center. Credits right.
+         ============================================ -->
+    <footer class="site-footer">
+        <div class="footer-logos">
+            <a href="https://www.linkedin.com/in/carolmunar/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <img src="logos/linkedin.svg" alt="LinkedIn" width="24" height="24">
+            </a>
+            <a href="https://github.com/carolmunar" target="_blank" rel="noopener" aria-label="GitHub">
+                <img src="logos/github.svg" alt="GitHub" width="24" height="24">
+            </a>
+            <a href="https://substack.com/@carolmunar" target="_blank" rel="noopener" aria-label="Substack">
+                <img src="logos/substack.svg" alt="Substack" width="24" height="24">
+            </a>
+        </div>
+        <p class="footer-copy">©2026 Carol Munar</p>
+        <p class="footer-made">Made it with 🖤 and Claude Code</p>
+    </footer>
 
     <!-- Our JavaScript file (loaded at the bottom so HTML loads first) -->
     <script src="js/main.js?v=7"></script>

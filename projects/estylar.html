@@ -79,6 +79,49 @@
             display: block;  /* removes the default inline gap below images */
         }
 
+        /* ── RESPONSIVE OVERRIDES ──────────────────────────────────
+           The generic rules in alphin.css handle the shared classes,
+           but Estylar's custom modifier classes need their own mobile
+           rules here — otherwise the desktop pixel values win. */
+        @media (max-width: 768px) {
+
+            /* Title area: drop the fixed 518px left column, go single-column */
+            .cs-title-area--estylar {
+                grid-template-columns: 1fr;
+            }
+
+            /* Company name: match the generic .cs-company-name mobile size */
+            .cs-company-name--estylar {
+                font-size: 40px;
+                padding-top: 0;
+            }
+
+            /* H1: remove the fixed 786px width so it fills the screen */
+            .cs-h1--estylar {
+                width: 100%;
+            }
+
+            /* Hero video: match the mobile margin pattern (48px top, 20px sides)
+               and let the height grow naturally from the image */
+            .cs-hero-video {
+                height: auto;
+                margin: 48px 20px 0;
+            }
+
+            /* Mobile grids: match the mobile margin pattern;
+               drop to 2 columns so phone screenshots stay readable */
+            .cs-mobile-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                margin: 48px 20px 0;
+            }
+
+            /* Images: let height scale naturally instead of the fixed 667px */
+            .cs-mobile-grid img {
+                height: auto;
+            }
+        }
+
     </style>
 
 </head>
@@ -390,6 +433,29 @@
         </footer>
 
     </main>
+
+    <!-- ============================================
+         SITE FOOTER — same as the index page
+         ============================================ -->
+    <footer class="site-footer">
+        <div class="footer-logos">
+            <a href="https://www.linkedin.com/in/carolmunar/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <img src="../logos/linkedin.svg" alt="LinkedIn" width="24" height="24">
+            </a>
+            <a href="https://github.com/carolmunar" target="_blank" rel="noopener" aria-label="GitHub">
+                <img src="../logos/github.svg" alt="GitHub" width="24" height="24">
+            </a>
+            <a href="https://substack.com/@carolmunar" target="_blank" rel="noopener" aria-label="Substack">
+                <img src="../logos/substack.svg" alt="Substack" width="24" height="24">
+            </a>
+        </div>
+        <p class="footer-copy">©2026 Carol Munar</p>
+        <p class="footer-made">Made it with 🖤 and Claude Code</p>
+    </footer>
+
+    <!-- Progressive blur overlay — blur.js fills this with 8 inner layers -->
+    <div id="scroll-blur" aria-hidden="true"></div>
+    <script src="blur.js"></script>
 
 </body>
 </html>
