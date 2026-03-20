@@ -6,3 +6,6 @@
 
 # Local dev server
 server.py
+
+# Analytics — keep API key off GitHub, add file manually on Netlify
+posthog.js
