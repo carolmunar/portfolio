@@ -80,9 +80,9 @@ body.dark-mode .plantbig-tooltip-links a {
     color: var(--color-text);
 }
 
-/* Preview hover images — deeper shadow so cards pop on dark backgrounds */
+/* Preview hover images — no shadow in dark mode */
 body.dark-mode .preview-set img {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    box-shadow: none;
 }
 
 /* CTA buttons — black bg/white text in light mode, flip to white bg/dark text in dark mode */
@@ -1375,9 +1375,11 @@ a.case-study--link .case-logo {
     top: 50%;
     transform: translateY(-50%);  /* vertically centered in the area */
     width: 572px;   /* 340px × 1.2 × 1.4 */
-    overflow: visible;  /* lets box-shadows on child images render outside the container */
-    padding: 8px;       /* gives shadow room so it isn't clipped at the container edge */
-    margin: -8px;       /* negative margin compensates for padding so layout stays unchanged */
+    overflow: visible;
+    padding: 8px;
+    margin: -8px;
+    background: transparent;
+    box-shadow: none;
     /* No opacity here — each image animates independently */
 }
 
@@ -1385,15 +1387,15 @@ a.case-study--link .case-logo {
    This transition is the EXIT — quick fade out when mouse leaves. */
 .preview-set img {
     position: absolute;
-    border-radius: 2px;          /* reduced from 12px — subtle rounding */
+    border-radius: 2px;
     display: block;
-    border: 1px solid #e5e7eb;  /* subtle outline */
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: none;
+    box-shadow: none;
+    background: transparent;
     object-fit: cover;
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 0.2s ease, transform 0.2s ease;
-    /* multiply blends white pixels away — removes white bg from UI screenshots */
     mix-blend-mode: multiply;
 }
 
