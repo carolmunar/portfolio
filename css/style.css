@@ -85,6 +85,13 @@ body.dark-mode .preview-set img {
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
+/* CTA buttons — black bg/white text in light mode, flip to white bg/dark text in dark mode */
+body.dark-mode .about-btn {
+    background-color: #e8e6e0;
+    border-color: #e8e6e0;
+    color: #111111;
+}
+
 /* ── LOGO INVERSIONS ──
    These logos are black on transparent — invisible on dark backgrounds.
    filter: invert(1) flips every black pixel to white instantly.
