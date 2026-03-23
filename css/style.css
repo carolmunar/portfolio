@@ -254,7 +254,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── PULP FICTION ── upper area of the regal */
 #pulpfiction {
     left: 19.2%;    /* 276px ÷ 1440 */
-    top: 80.24%;    /* -2% up */
+    top: 79.24%;    /* -1% up */
     width: 5.3vw;
     z-index: 2;
 }
@@ -563,7 +563,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── MONSTERA (plantbig) ── right side, tall */
 #plantbig {
     left: 56.5%;    /* 813px ÷ 1440 */
-    top: 1.2%;      /* moved 2% down */
+    top: -0.8%;     /* -2% up */
     width: 21.6vw;  /* was 27vw — reduced 20% */
     z-index: 2;
 }
