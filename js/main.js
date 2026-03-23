@@ -33,7 +33,13 @@ const parallaxItems = [
     { selector: '.lamp',          depth: 20 },
     { selector: '.pulp-fiction',  depth: 18 },
     { selector: '.camera',        depth: 22 },
-    { selector: '.chiva',         depth: 12 }
+    { selector: '.chiva',         depth: 12 },
+    /* These elements have no unique class — selected by ID instead */
+    { selector: '#book',          depth: 15 },  /* on the bookshelf, same speed */
+    { selector: '#book2',         depth: 15 },  /* on the bookshelf, same speed */
+    { selector: '#plant',         depth: 15 },  /* vine on the regal, same speed */
+    { selector: '#plantsuculent', depth: 15 },  /* on the bookshelf, same speed */
+    { selector: '#plantsmall',    depth: 20 },  /* right-side planter, faster */
 ].map(function({ selector, depth }) {
     return {
         el: document.querySelector(selector),
