@@ -59,9 +59,6 @@ document.addEventListener('mousemove', function(e) {
        Objects stay locked at their CSS positions instead of drifting. */
     if (window.innerWidth < 768) return;
 
-    /* When head tracking is active, it controls the targets — ignore the mouse */
-    if (window.headTrackingActive) return;
-
     /* Normalise to -1 → +1 range. Center of screen = 0 (no movement). */
     mouseNormX = (e.clientX / window.innerWidth  - 0.5) * 2;
     mouseNormY = (e.clientY / window.innerHeight - 0.5) * 2;
