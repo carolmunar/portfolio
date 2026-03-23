@@ -344,3 +344,32 @@ if (window.innerWidth > 768) {
 
     });
 }
+
+
+/* ============================================================
+   LAMP — DARK MODE TOGGLE
+   ─────────────────────────────────────────────────────────────
+   Clicking the lamp switches between light and dark mode.
+
+   How it works:
+   1. We check localStorage on page load to restore the saved
+      preference (so dark mode persists across page visits).
+   2. Each click toggles the .dark-mode class on <body>.
+   3. CSS reads that class and overrides --color-bg / --color-text.
+   4. The lamp gets a warm glow in dark mode (it's the light source!).
+   ============================================================ */
+
+const lampEl = document.getElementById('lamp');
+
+/* Restore saved preference on load */
+if (localStorage.getItem('darkMode') === 'on') {
+    document.body.classList.add('dark-mode');
+}
+
+if (lampEl) {
+    lampEl.addEventListener('click', function() {
+        const isDark = document.body.classList.toggle('dark-mode');
+        /* Save the preference so it persists on reload */
+        localStorage.setItem('darkMode', isDark ? 'on' : 'off');
+    });
+}

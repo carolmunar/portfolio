@@ -53,6 +53,38 @@
     --color-bg:   #FFFFFF;
 }
 
+/* ── DARK MODE ──
+   Activated by adding .dark-mode to <body> via the lamp click.
+   Overrides the two root variables — every element that uses them
+   (background, text, nav, footer…) switches automatically. */
+body.dark-mode {
+    --color-text: #e8e6e0;   /* warm off-white — easier on the eyes than pure white */
+    --color-bg:   #111111;   /* very dark, not pure black — feels warmer */
+}
+
+/* Smooth transition when the lights switch */
+body {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Elements with hardcoded colors that need dark-mode overrides */
+body.dark-mode .chiva-tooltip,
+body.dark-mode .plantbig-tooltip {
+    background: #222222;
+    color: var(--color-text);
+}
+
+body.dark-mode .chiva-tooltip a,
+body.dark-mode .plantbig-tooltip a,
+body.dark-mode .plantbig-tooltip-links a {
+    color: var(--color-text);
+}
+
+/* Preview hover images — keep white bg cards visible in dark mode */
+body.dark-mode .preview-set img {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
 
 /* ============================================================
    2. RESET & BASE
@@ -140,6 +172,45 @@ img {
     top: -16.1%;    /* -170px ÷ 1054 — negative pushes it above the screen */
     width: 12.2vw;  /* 176px ÷ 1440 */
     z-index: 2;
+    cursor: pointer;  /* shows it's clickable */
+}
+
+/* Lamp hint tooltip — appears on hover */
+#lamp::after {
+    content: 'Turn off the lights';
+    position: absolute;
+    bottom: 28%;      /* sits just below the lamp bulb */
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    white-space: nowrap;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 11px;
+    color: #666;
+    background: var(--color-bg);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 4px 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#lamp:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* In dark mode, the lamp is the light source — warm glow */
+body.dark-mode #lamp img {
+    filter: drop-shadow(0 0 18px rgba(255, 200, 80, 0.55))
+            drop-shadow(0 0 40px rgba(255, 160, 40, 0.25));
+    transition: filter 0.4s ease;
+}
+
+/* Update tooltip text in dark mode */
+body.dark-mode #lamp::after {
+    content: 'Turn on the lights';
+    border-color: #333;
 }
 
 /* ── REGAL (bookshelf) ──
