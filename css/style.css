@@ -238,7 +238,7 @@ body.dark-mode #switch-off-img { display: block; }
 #regal {
     left: 5.1%;     /* 73px ÷ 1440 */
     top: 18.1%;     /* 243px ÷ 1054, adjusted */
-    width: 23.7vw;  /* 341px ÷ 1440 */
+    width: 23.7vw;  /* 341px ÷ 1440px — exact Figma spec */
     z-index: 1;
 }
 
@@ -254,7 +254,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── PULP FICTION ── upper area of the regal */
 #pulpfiction {
     left: 19.2%;    /* 276px ÷ 1440 */
-    top: 77.24%;    /* was 71.55% — moved 60px down (60 ÷ 1054 = 5.69%) */
+    top: 80.24%;    /* -2% up */
     width: 5.3vw;
     z-index: 2;
 }
@@ -321,7 +321,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── CHIVA ── colorful toy bus, lower-middle shelf of the regal */
 #chiva {
     left: 16.0%;    /* 231px ÷ 1440 */
-    top: 44.7%;     /* moved 2% up */
+    top: 45.7%;     /* -2% up */
     width: 10.3vw;
     z-index: 2;
 }
@@ -513,7 +513,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── SUCCULENT ── lower shelf of the regal */
 #plantsuculent {
     left: 19.3%;    /* 278px ÷ 1440 */
-    top: 62.65%;
+    top: 65.65%;    /* -2% up */
     width: 4.3vw;
     z-index: 2;
 }
@@ -521,7 +521,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── BOOK2 ── bottom shelf of the regal */
 #book2 {
     left: 13.9%;    /* 200px ÷ 1440 */
-    top: 78.9%;
+    top: 81.9%;     /* -2% up */
     width: 3.8vw;
     z-index: 2;     /* behind #book */
 }
@@ -529,7 +529,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── BOOK ── bottom shelf, next to book2 */
 #book {
     left: 14.3%;    /* 206px ÷ 1440 */
-    top: 81.0%;
+    top: 84.0%;     /* -2% up */
     width: 3.5vw;
     z-index: 3;     /* in front of #book2 */
 }
