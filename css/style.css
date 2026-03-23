@@ -80,9 +80,30 @@ body.dark-mode .plantbig-tooltip-links a {
     color: var(--color-text);
 }
 
-/* Preview hover images — keep white bg cards visible in dark mode */
+/* Preview hover images — deeper shadow so cards pop on dark backgrounds */
 body.dark-mode .preview-set img {
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* ── LOGO INVERSIONS ──
+   These logos are black on transparent — invisible on dark backgrounds.
+   filter: invert(1) flips every black pixel to white instantly.
+   No need to upload separate dark versions. */
+
+/* Footer social icons: LinkedIn, GitHub, Substack */
+body.dark-mode .footer-logos img {
+    filter: invert(1);
+}
+
+/* "Currently working" — Elternpop inline logo */
+body.dark-mode .work-inline-logo {
+    filter: invert(1);
+}
+
+/* Adjust case-logo box — background #010101 blends into dark page.
+   A faint border keeps the box outline visible. */
+body.dark-mode .case-logo[style*="#010101"] {
+    outline: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 
