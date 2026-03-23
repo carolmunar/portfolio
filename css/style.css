@@ -102,10 +102,13 @@ body.dark-mode .footer-logos img {
     filter: invert(1);
 }
 
-/* "Currently working" — Elternpop inline logo */
-body.dark-mode .work-inline-logo {
-    filter: invert(1);
-}
+/* "Currently working" — Elternpop inline logo
+   Two versions: dark logo for light mode, light logo for dark mode.
+   Only one is visible at a time. */
+#elternpop-logo-light { display: none; }
+
+body.dark-mode #elternpop-logo-dark  { display: none; }
+body.dark-mode #elternpop-logo-light { display: inline; }
 
 /* Adjust case-logo box — background #010101 blends into dark page.
    A faint border keeps the box outline visible. */
@@ -210,12 +213,13 @@ body.dark-mode #lamp img {
 }
 
 /* ── LIGHT SWITCH ──
-   Figma: x=501 (34.8% of 1440), y=416 (39.5% of 1054px hero).
+   Figma: x=501 (34.8% of 1440), y=416.
+   top: 46% works better on typical ~900px screens (416/900≈46%).
    Moves at the same parallax speed as the lamp (data-speed="0.25").
    Two images stacked — only one visible at a time. */
 #lightswitch {
     left: 34.8%;
-    top: 39.5%;
+    top: 46%;
     width: 3.2vw;     /* 46px ÷ 1440 */
     min-width: 36px;  /* never too tiny on narrow screens */
     cursor: pointer;
@@ -230,12 +234,11 @@ body.dark-mode #switch-on-img  { display: none;  }
 body.dark-mode #switch-off-img { display: block; }
 
 /* ── REGAL (bookshelf) ──
-   Starts slightly off the left edge of the screen (-27px = -1.9%).
-   Much larger than before — 564px wide = 39vw at 1440px viewport. */
+   Figma node 243:1254 — x=73, y=243, width=341 in the 1440×1054 hero. */
 #regal {
-    left: -1.9%;    /* -27px ÷ 1440 */
-    top: 24.0%;     /* 253px ÷ 1054 */
-    width: 39.2vw;  /* 564px ÷ 1440 */
+    left: 5.1%;     /* 73px ÷ 1440 */
+    top: 18.1%;     /* 243px ÷ 1054, adjusted */
+    width: 23.7vw;  /* 341px ÷ 1440 */
     z-index: 1;
 }
 
@@ -243,7 +246,7 @@ body.dark-mode #switch-off-img { display: block; }
    Sits inside the regal, cascading down from the top area. */
 #plant {
     left: 8.6%;     /* 124px ÷ 1440 */
-    top: 36.1%;     /* was 32.3% — moved 40px down (40 ÷ 1054 = 3.8%) */
+    top: 26.1%;
     width: 10.7vw;
     z-index: 2;
 }
@@ -259,7 +262,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── CAMERA ── middle shelf of the regal */
 #camera {
     left: 19.3%;    /* 278px ÷ 1440 */
-    top: 43.6%;     /* was 45.5% (480px) — moved 20px up → 460px ÷ 1054 */
+    top: 33.6%;
     width: 4.9vw;
     z-index: 2;
 }
@@ -318,7 +321,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── CHIVA ── colorful toy bus, lower-middle shelf of the regal */
 #chiva {
     left: 16.0%;    /* 231px ÷ 1440 */
-    top: 51.7%;     /* 545px ÷ 1054 */
+    top: 44.7%;     /* moved 2% up */
     width: 10.3vw;
     z-index: 2;
 }
@@ -510,7 +513,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── SUCCULENT ── lower shelf of the regal */
 #plantsuculent {
     left: 19.3%;    /* 278px ÷ 1440 */
-    top: 65.65%;    /* moved another 20px down (20 ÷ 1054 = +1.9%) */
+    top: 62.65%;
     width: 4.3vw;
     z-index: 2;
 }
@@ -518,7 +521,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── BOOK2 ── bottom shelf of the regal */
 #book2 {
     left: 13.9%;    /* 200px ÷ 1440 */
-    top: 67.9%;     /* was 66.0% — moved 20px down (20 ÷ 1054 = 1.9%) */
+    top: 78.9%;
     width: 3.8vw;
     z-index: 2;     /* behind #book */
 }
@@ -526,7 +529,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── BOOK ── bottom shelf, next to book2 */
 #book {
     left: 14.3%;    /* 206px ÷ 1440 */
-    top: 70.0%;     /* was 68.1% — moved 20px down */
+    top: 81.0%;
     width: 3.5vw;
     z-index: 3;     /* in front of #book2 */
 }
@@ -560,7 +563,7 @@ body.dark-mode #switch-off-img { display: block; }
 /* ── MONSTERA (plantbig) ── right side, tall */
 #plantbig {
     left: 56.5%;    /* 813px ÷ 1440 */
-    top: -0.8%;     /* was -5.5% (-58px) — moved 50px down → -8px ÷ 1054 */
+    top: 1.2%;      /* moved 2% down */
     width: 21.6vw;  /* was 27vw — reduced 20% */
     z-index: 2;
 }
@@ -1130,6 +1133,11 @@ a.case-study--link .case-logo {
         overflow-x: hidden;
     }
 
+    /* ── HIDE DESKTOP-ONLY FEATURES ──
+       Light switch and dark mode are desktop-only interactions.
+       Hiding here prevents a flash before JS runs. */
+    #lightswitch { display: none; }
+
     /* ── HERO: ensure it clips overflowing objects ── */
     .hero {
         width: 100vw;
@@ -1377,18 +1385,15 @@ a.case-study--link .case-logo {
    This transition is the EXIT — quick fade out when mouse leaves. */
 .preview-set img {
     position: absolute;
-    border-radius: 12px;
+    border-radius: 2px;          /* reduced from 12px — subtle rounding */
     display: block;
-    background: white;           /* fills behind transparent/white images */
-    border: 1px solid #e5e7eb;  /* subtle outline so white images don't bleed into page */
+    border: 1px solid #e5e7eb;  /* subtle outline */
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     object-fit: cover;
     opacity: 0;
     transform: translateY(12px);
     transition: opacity 0.2s ease, transform 0.2s ease;
-    /* mix-blend-mode: multiply makes white pixels invisible against a white
-       background. White × white = white (transparent). Colored pixels stay.
-       This removes the white background from UI screenshots without editing files. */
+    /* multiply blends white pixels away — removes white bg from UI screenshots */
     mix-blend-mode: multiply;
 }
 
