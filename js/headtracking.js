@@ -32,6 +32,8 @@
     let rafId                 = null;   /* requestAnimationFrame handle       */
     let lastDetectTime        = 0;      /* timestamp of last detection run    */
     const DETECT_INTERVAL_MS  = 33;     /* ~30fps — plenty for smooth parallax */
+    const MOVEMENT_BOOST      = 4;      /* amplify head movement — face stays near
+                                           center so raw values are tiny without this */
 
 
     /* ── Button ────────────────────────────────────────────────
@@ -152,10 +154,12 @@
                 const normX = (0.5 - nose.x) * 2; /* -1 = face left  → +1 = face right */
                 const normY = (nose.y - 0.5) * 2; /* -1 = face up    → +1 = face down  */
 
-                /* Update the same targets main.js uses for mouse parallax */
+                /* Update the same targets main.js uses for mouse parallax.
+                   MOVEMENT_BOOST amplifies the signal — face movement in the
+                   webcam frame is much smaller than full mouse travel. */
                 parallaxItems.forEach(function (item) {
-                    item.tx = normX * item.depth;
-                    item.ty = normY * item.depth;
+                    item.tx = normX * item.depth * MOVEMENT_BOOST;
+                    item.ty = normY * item.depth * MOVEMENT_BOOST;
                 });
             }
             /* No face detected → targets stay at their last value.
