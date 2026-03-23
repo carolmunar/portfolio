@@ -360,24 +360,30 @@ if (window.innerWidth > 768) {
    4. The lamp gets a warm glow in dark mode (it's the light source!).
    ============================================================ */
 
-/* Restore saved preference before first paint */
-if (localStorage.getItem('darkMode') === 'on') {
-    document.body.classList.add('dark-mode');
-}
+/* Dark mode — desktop only (isTouchDevice already defined above for sounds).
+   On mobile the switch is hidden in CSS and this whole block is skipped. */
+if (!isTouchDevice) {
 
-const lightSwitchEl  = document.getElementById('lightswitch');
-const lightSwitchAudio = new Audio('/sounds/light.mp3');
-lightSwitchAudio.volume = 0.6;
+    /* Restore saved preference before first paint */
+    if (localStorage.getItem('darkMode') === 'on') {
+        document.body.classList.add('dark-mode');
+    }
 
-if (lightSwitchEl) {
-    lightSwitchEl.addEventListener('click', function() {
-        const isDark = document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', isDark ? 'on' : 'off');
+    const lightSwitchEl  = document.getElementById('lightswitch');
+    const lightSwitchAudio = new Audio('/sounds/light.mp3');
+    lightSwitchAudio.volume = 0.6;
 
-        /* Play the click sound — reset first so rapid clicks always fire */
-        lightSwitchAudio.currentTime = 0;
-        lightSwitchAudio.play().catch(function() {
-            /* Silently ignore if browser blocks audio before interaction */
+    if (lightSwitchEl) {
+        lightSwitchEl.addEventListener('click', function() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', isDark ? 'on' : 'off');
+
+            /* Play the click sound — reset first so rapid clicks always fire */
+            lightSwitchAudio.currentTime = 0;
+            lightSwitchAudio.play().catch(function() {
+                /* Silently ignore if browser blocks audio before interaction */
+            });
         });
-    });
-}
+    }
+
+} // end !isTouchDevice
