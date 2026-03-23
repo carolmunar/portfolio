@@ -364,10 +364,8 @@ if (window.innerWidth > 768) {
    On mobile the switch is hidden in CSS and this whole block is skipped. */
 if (!isTouchDevice) {
 
-    /* Restore saved preference before first paint */
-    if (localStorage.getItem('darkMode') === 'on') {
-        document.body.classList.add('dark-mode');
-    }
+    /* Always start in light mode — no localStorage restore.
+       The toggle works during the visit but resets on each new load. */
 
     const lightSwitchEl  = document.getElementById('lightswitch');
     const lightSwitchAudio = new Audio('/sounds/light.mp3');
@@ -375,8 +373,7 @@ if (!isTouchDevice) {
 
     if (lightSwitchEl) {
         lightSwitchEl.addEventListener('click', function() {
-            const isDark = document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', isDark ? 'on' : 'off');
+            document.body.classList.toggle('dark-mode');
 
             /* Play the click sound — reset first so rapid clicks always fire */
             lightSwitchAudio.currentTime = 0;
