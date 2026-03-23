@@ -200,32 +200,6 @@ img {
     top: -16.1%;    /* -170px ÷ 1054 — negative pushes it above the screen */
     width: 12.2vw;  /* 176px ÷ 1440 */
     z-index: 2;
-    cursor: pointer;  /* shows it's clickable */
-}
-
-/* Lamp hint tooltip — appears on hover */
-#lamp::after {
-    content: 'Turn off the lights';
-    position: absolute;
-    bottom: 28%;      /* sits just below the lamp bulb */
-    left: 50%;
-    transform: translateX(-50%) translateY(4px);
-    white-space: nowrap;
-    font-family: 'TestSohneMono', 'Space Mono', monospace;
-    font-size: 11px;
-    color: #666;
-    background: var(--color-bg);
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 4px 10px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-#lamp:hover::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
 }
 
 /* In dark mode, the lamp is the light source — warm glow */
@@ -235,11 +209,25 @@ body.dark-mode #lamp img {
     transition: filter 0.4s ease;
 }
 
-/* Update tooltip text in dark mode */
-body.dark-mode #lamp::after {
-    content: 'Turn on the lights';
-    border-color: #333;
+/* ── LIGHT SWITCH ──
+   Figma: x=501 (34.8% of 1440), y=416 (39.5% of 1054px hero).
+   Moves at the same parallax speed as the lamp (data-speed="0.25").
+   Two images stacked — only one visible at a time. */
+#lightswitch {
+    left: 34.8%;
+    top: 39.5%;
+    width: 3.2vw;     /* 46px ÷ 1440 */
+    min-width: 36px;  /* never too tiny on narrow screens */
+    cursor: pointer;
+    z-index: 3;       /* sits in front of the lamp */
 }
+
+/* switchOff hidden by default (light mode) */
+#switch-off-img { display: none; }
+
+/* In dark mode: show switchOff, hide switchOn */
+body.dark-mode #switch-on-img  { display: none;  }
+body.dark-mode #switch-off-img { display: block; }
 
 /* ── REGAL (bookshelf) ──
    Starts slightly off the left edge of the screen (-27px = -1.9%).

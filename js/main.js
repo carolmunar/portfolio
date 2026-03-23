@@ -40,6 +40,7 @@ const parallaxItems = [
     { selector: '#plant',         depth: 15 },  /* vine on the regal, same speed */
     { selector: '#plantsuculent', depth: 15 },  /* on the bookshelf, same speed */
     { selector: '#plantsmall',    depth: 20 },  /* right-side planter, faster */
+    { selector: '#lightswitch',   depth: 20 },  /* on the lamp cord — moves with it */
 ].map(function({ selector, depth }) {
     return {
         el: document.querySelector(selector),
@@ -347,29 +348,36 @@ if (window.innerWidth > 768) {
 
 
 /* ============================================================
-   LAMP — DARK MODE TOGGLE
+   LIGHT SWITCH — DARK MODE TOGGLE
    ─────────────────────────────────────────────────────────────
-   Clicking the lamp switches between light and dark mode.
+   Clicking the switch image toggles dark / light mode.
+   The switch shows switchOn.webp (light mode) or switchOff.webp (dark mode).
+   A click sound plays on every toggle.
 
-   How it works:
-   1. We check localStorage on page load to restore the saved
-      preference (so dark mode persists across page visits).
-   2. Each click toggles the .dark-mode class on <body>.
-   3. CSS reads that class and overrides --color-bg / --color-text.
+   1. localStorage restores the saved preference on every page load.
+   2. Each click toggles .dark-mode on <body>.
+   3. CSS swaps the switch image and applies dark-mode colours.
    4. The lamp gets a warm glow in dark mode (it's the light source!).
    ============================================================ */
 
-const lampEl = document.getElementById('lamp');
-
-/* Restore saved preference on load */
+/* Restore saved preference before first paint */
 if (localStorage.getItem('darkMode') === 'on') {
     document.body.classList.add('dark-mode');
 }
 
-if (lampEl) {
-    lampEl.addEventListener('click', function() {
+const lightSwitchEl  = document.getElementById('lightswitch');
+const lightSwitchAudio = new Audio('/sounds/light.mp3');
+lightSwitchAudio.volume = 0.6;
+
+if (lightSwitchEl) {
+    lightSwitchEl.addEventListener('click', function() {
         const isDark = document.body.classList.toggle('dark-mode');
-        /* Save the preference so it persists on reload */
         localStorage.setItem('darkMode', isDark ? 'on' : 'off');
+
+        /* Play the click sound — reset first so rapid clicks always fire */
+        lightSwitchAudio.currentTime = 0;
+        lightSwitchAudio.play().catch(function() {
+            /* Silently ignore if browser blocks audio before interaction */
+        });
     });
 }
