@@ -1382,3 +1382,72 @@ a.case-study--link .case-logo {
 }
 
 
+
+
+/* ── HEAD TRACKING BUTTON ──────────────────────────────────────
+   Small monospace text button, positioned in the bottom-center
+   of the hero. Matches the site's typographic style.
+   Active state shows a pulsing dot to signal the camera is on. */
+#head-tracking-btn {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    /* Reset browser button styles */
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+
+    /* Typography — matches the site's mono style */
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 12px;
+    color: #666;
+    letter-spacing: -0.12px;
+    line-height: 1.5;
+    white-space: nowrap;
+
+    /* Subtle underline as the only affordance */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(0, 0, 0, 0.25);
+
+    transition: color 0.2s ease;
+}
+
+#head-tracking-btn:hover {
+    color: #1e1e1e;
+    text-decoration-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Active state — camera is on */
+#head-tracking-btn.is-active {
+    color: #1e1e1e;
+    text-decoration: none;
+}
+
+/* Pulsing green dot before the "● Stop tracking" text */
+#head-tracking-btn.is-active::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #22c55e;   /* green-500 */
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: head-tracking-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes head-tracking-pulse {
+    0%, 100% { opacity: 1;   transform: scale(1);    }
+    50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* Hide on touch devices — the JS already skips the whole thing,
+   but this ensures no flash of the button before JS runs. */
+@media (hover: none) {
+    #head-tracking-btn { display: none; }
+}
