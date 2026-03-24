@@ -322,6 +322,15 @@ button:focus-visible {
     padding: 16px 24px;
 }
 
+.cs-nda-note {
+    color: #666;
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
 /* ── FOOTER ──
    Role description + "Next / Previous" navigation.
    padding-left: 132px aligns text at 68+132=200px from page edge
