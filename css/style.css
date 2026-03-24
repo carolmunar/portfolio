@@ -213,26 +213,23 @@ body.dark-mode #lamp img {
 }
 
 /* ── LIGHT SWITCH ──
-   Figma: x=501 (34.8% of 1440), y=416.
-   top: 46% works better on typical ~900px screens (416/900≈46%).
-   Moves at the same parallax speed as the lamp (data-speed="0.25").
+   Figma: x=518, y=403, width=36, height=54 (node switch-on / switch-off).
+   left: 518/1440 = 36%. top kept at user-adjusted value.
    Two images stacked — only one visible at a time. */
 #lightswitch {
-    left: 34.8%;
+    left: 36%;
     top: 46%;
-    width: 3.2vw;     /* 46px ÷ 1440 */
-    min-width: 36px;  /* never too tiny on narrow screens */
+    width: 2.5vw;     /* 36px ÷ 1440 from Figma */
+    min-width: 32px;
     cursor: pointer;
-    z-index: 3;       /* sits in front of the lamp */
-    display: flex;    /* wraps tightly around the image */
+    z-index: 3;
 }
 
-/* Both images fill the full clickable area */
+/* Images fill the clickable area — pointer-events:none sends clicks to the div */
 #lightswitch img {
     width: 100%;
     height: auto;
-    display: block;
-    pointer-events: none; /* clicks go to the div, not individual images */
+    pointer-events: none;
 }
 
 /* switchOff hidden by default (light mode) */
