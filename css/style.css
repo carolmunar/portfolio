@@ -223,19 +223,25 @@ body.dark-mode #lamp img {
     min-width: 32px;
     cursor: pointer;
     z-index: 3;
+    line-height: 0;   /* removes the invisible gap below inline images */
 }
 
-/* Images fill the clickable area — pointer-events:none sends clicks to the div */
-#lightswitch img {
+/* Each image declared separately so display:none is never accidentally overridden */
+#switch-on-img {
+    display: block;   /* block = div height equals image height = full click area */
     width: 100%;
     height: auto;
     pointer-events: none;
 }
 
-/* switchOff hidden by default (light mode) */
-#switch-off-img { display: none; }
+#switch-off-img {
+    display: none;    /* hidden by default in light mode */
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
 
-/* In dark mode: show switchOff, hide switchOn */
+/* In dark mode: swap which image is visible */
 body.dark-mode #switch-on-img  { display: none;  }
 body.dark-mode #switch-off-img { display: block; }
 
