@@ -224,6 +224,15 @@ body.dark-mode #lamp img {
     min-width: 36px;  /* never too tiny on narrow screens */
     cursor: pointer;
     z-index: 3;       /* sits in front of the lamp */
+    display: flex;    /* wraps tightly around the image */
+}
+
+/* Both images fill the full clickable area */
+#lightswitch img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none; /* clicks go to the div, not individual images */
 }
 
 /* switchOff hidden by default (light mode) */
