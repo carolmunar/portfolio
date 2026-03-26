@@ -176,12 +176,23 @@ img {
     position: absolute;
     /* Parallax offset — set each frame by the JS lerp loop via --px and --py */
     transform: translate(var(--px, 0px), var(--py, 0px));
+    pointer-events: none;    /* Decorative items don't capture clicks by default */
 }
 
 .hero-object img {
-    pointer-events: none;    /* Clicks pass through */
+    pointer-events: none;    /* Clicks pass through images too */
     user-select: none;
     -webkit-user-drag: none;
+}
+
+/* Re-enable pointer events on interactive hero objects */
+#lightswitch,
+[data-element="chiva"],
+[data-element="camera"],
+[data-element="pulp-fiction"],
+[data-element="plantsmall"],
+.portrait-frame {
+    pointer-events: all;
 }
 
 
