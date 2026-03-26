@@ -192,7 +192,6 @@ button:focus-visible {
     border-radius: 10px;
     margin: 92px 68px 0;  /* 68px sides = content container margin */
     overflow: hidden;
-    background-color: #f0f0f0;
 }
 
 .cs-image-wrap img {
