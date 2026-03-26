@@ -500,7 +500,8 @@ body.dark-mode #switch-off-img { display: block; }
 }
 
 /* Links — same font, underlined to show they're clickable */
-.plantbig-tooltip-links a {
+.plantbig-tooltip-links a,
+.plantbig-tooltip p a {
     font-family: 'TestSohneMono', 'Space Mono', monospace;
     font-size: 14px;
     line-height: 1.4;
@@ -509,7 +510,8 @@ body.dark-mode #switch-off-img { display: block; }
     text-underline-offset: 3px;
 }
 
-.plantbig-tooltip-links a:hover {
+.plantbig-tooltip-links a:hover,
+.plantbig-tooltip p a:hover {
     opacity: 0.6;
 }
 
