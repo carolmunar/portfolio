@@ -224,6 +224,8 @@ body.dark-mode #lamp img {
     cursor: pointer;
     z-index: 3;
     line-height: 0;   /* removes the invisible gap below inline images */
+    padding: 16px;    /* expands the clickable hit area without changing visual size */
+    margin: -16px;    /* compensates position so the image stays in the same spot */
 }
 
 /* Each image declared separately so display:none is never accidentally overridden */
