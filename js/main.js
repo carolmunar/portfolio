@@ -41,6 +41,10 @@ const parallaxItems = [
     { selector: '#plantsuculent', depth: 15 },  /* on the bookshelf, same speed */
     { selector: '#plantsmall',    depth: 20 },  /* right-side planter, faster */
     { selector: '#lightswitch',   depth: 20 },  /* on the lamp cord — moves with it */
+    /* FullHD-only elements — querySelector returns null on smaller screens, safely skipped */
+    { selector: '#kommode',       depth: 8  },
+    { selector: '#vinyl',         depth: 12 },
+    { selector: '#smallcactus',   depth: 14 },
 ].map(function({ selector, depth }) {
     return {
         el: document.querySelector(selector),

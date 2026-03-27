@@ -1508,6 +1508,36 @@ a.case-study--link .case-logo {
 
 
 
+/* ── NEW FULLHD-ONLY ELEMENTS: hidden by default ── */
+#kommode, #vinyl, #smallcactus { display: none; }
+
+/* ── FULL HD (1920px) LAYOUT ──────────────────────────────────────────────
+   All positions from Figma node 298-4549 (1920×1080 frame).
+   Formula: left = x/1920*100%, top = y/1080*100%, width = w/1920*100vw   */
+@media (min-width: 1800px) {
+
+    /* Existing elements — repositioned for 1920px viewport */
+    #lamp           { left: 25.78%; top: -9.35%;  width: 9.17vw; }
+    #regal          { left: 7.6%;   top: 25.83%;  width: 17.76vw; }
+    #book           { left: 13.91%; top: 71.48%;  width: 2.6vw; }
+    #book2          { left: 12.81%; top: 70.37%;  width: 2.86vw; }
+    #plant          { left: 10.26%; top: 30.93%;  width: 8.02vw; }
+    #camera         { left: 18.65%; top: 36.76%;  width: 3.7vw; }
+    #chiva          { left: 16.2%;  top: 44.54%;  width: 7.71vw; }
+    #plantsuculent  { left: 17.97%; top: 57.96%;  width: 3.23vw; }
+    #pulpfiction    { left: 17.55%; top: 68.15%;  width: 4.01vw; }
+    #chair          { left: 26.3%;  top: 52.31%;  width: 24.01vw; }
+    #frame          { left: 42.08%; top: 16.85%;  width: 15.83vw; }
+    #lightswitch    { left: 36.46%; top: 45%;     width: 1.875vw; min-width: 36px; }
+    #plantbig       { left: 60.26%; top: 13.52%;  width: 20.26vw; }
+    #plantsmall     { left: 60.52%; top: 51.85%;  width: 10vw; }
+
+    /* New FullHD-only elements — shown only at 1800px+ */
+    #kommode     { display: block; left: 78.75%; top: 51.85%; width: 30.68vw; z-index: 2; }
+    #vinyl       { display: block; left: 88.33%; top: 40.09%; width: 7.6vw;   z-index: 2; }
+    #smallcactus { display: block; left: 83.39%; top: 46.2%;  width: 2.55vw;  z-index: 3; }
+}
+
 /* ── HEAD TRACKING BUTTON ──────────────────────────────────────
    Small monospace text button, positioned in the bottom-center
    of the hero. Matches the site's typographic style.
