@@ -1197,9 +1197,9 @@ a.case-study--link .case-logo {
     /* ── REGAL (bookshelf) ──
        Figma: x=-254, y=5, width=564 on 393×836 frame */
     #regal {
-        left: -64.6%;   /* -254px ÷ 393 */
-        top: 0.6vh;     /* 5px ÷ 836 */
-        width: 143.5vw; /* 564px ÷ 393 — wider than screen; left edge crops it */
+        left: -32%;
+        top: 0.6vh;
+        width: 72vw;    /* half of original 143.5vw */
     }
 
     /* ── PORTRAIT FRAME ──
