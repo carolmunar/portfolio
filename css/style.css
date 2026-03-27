@@ -1519,18 +1519,18 @@ a.case-study--link .case-logo {
     /* Existing elements — repositioned for 1920px viewport */
     #lamp           { left: 25.78%; top: -9.35%;  width: 9.17vw; }
     #regal          { left: 7.6%;   top: 25.83%;  width: 17.76vw; }
-    #book           { left: 13.91%; top: 81.48%;  width: 2.6vw; }
-    #book2          { left: 12.81%; top: 80.37%;  width: 2.86vw; }
+    #book           { left: 13.91%; top: 78.48%;  width: 2.6vw; }
+    #book2          { left: 12.81%; top: 77.37%;  width: 2.86vw; }
     #plant          { left: 10.26%; top: 30.93%;  width: 8.02vw; }
     #camera         { left: 18.65%; top: 39.76%;  width: 3.7vw; }
-    #chiva          { left: 16.2%;  top: 54.54%;  width: 7.71vw; }
-    #plantsuculent  { left: 17.97%; top: 67.96%;  width: 3.23vw; }
-    #pulpfiction    { left: 17.55%; top: 78.15%;  width: 4.01vw; }
+    #chiva          { left: 16.2%;  top: 44.54%;  width: 7.71vw; }
+    #plantsuculent  { left: 17.97%; top: 62.96%;  width: 3.23vw; }
+    #pulpfiction    { left: 17.55%; top: 74.15%;  width: 4.01vw; }
     #chair          { left: 26.3%;  top: 52.31%;  width: 24.01vw; }
     #frame          { left: 42.08%; top: 16.85%;  width: 15.83vw; }
     #lightswitch    { left: 36.46%; top: 45%;     width: 1.875vw; min-width: 36px; }
-    #plantbig       { left: 54.38%; top: 3.52%;   width: 20.26vw; }
-    #plantsmall     { left: 65.1%;  top: 47.31%;  width: 10vw; }
+    #plantbig       { left: 54.38%; top: -1.48%;  width: 20.26vw; }
+    #plantsmall     { left: 65.1%;  top: 42.31%;  width: 10vw; }
 
     /* Hero text — Figma: left=966px, width=568px */
     .hero-text      { left: 50.31%; max-width: 29.58vw; }
