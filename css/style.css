@@ -458,8 +458,8 @@ body.dark-mode #switch-off-img { display: block; }
 /* Tooltip card — hidden by default */
 .plantbig-tooltip {
     position: absolute;
-    /* Place it immediately to the right of the plantsmall div */
-    left: calc(100% + 12px);
+    /* Place it immediately to the right of the plantsmall div, shifted 2% left */
+    left: calc(100% - 16px);
     /* Align near the top of the plant */
     top: 20px;
     width: 200px;
