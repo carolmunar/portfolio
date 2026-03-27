@@ -1278,10 +1278,10 @@ a.case-study--link .case-logo {
        Container top = 561px ÷ 836 = 67.1vh
        Left = 29px (Hola has 1px extra handled by margin-left) */
     .hero-text {
-        left: 29px;
+        left: 24px;
         top: 57.1vh;
-        width: 308px;
-        max-width: none;    /* override desktop percentage max-width */
+        width: calc(100vw - 48px);
+        max-width: none;
         display: flex;
         flex-direction: column;
     }
@@ -1296,7 +1296,7 @@ a.case-study--link .case-logo {
     /* Big h1 statement — 24px, full container width */
     .hero-text h1 {
         font-size: 24px;
-        width: 308px;
+        width: 100%;
         max-width: none;
     }
 
