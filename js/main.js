@@ -180,6 +180,10 @@ if (!isTouchDevice) {
     const chivaAudio = new Audio('/sounds/chiva.mp3');
     chivaAudio.volume = 0.7;
 
+    /* Vinyl — only loaded/used on FullHD screens (1800px+) */
+    const vinylAudio = new Audio('/sounds/vinyl.mp3');
+    vinylAudio.volume = 0.7;
+
 
     /* ─────────────────────────────────────────────────────────
        AUDIO UNLOCK — one-time fix for browser autoplay policy
@@ -194,7 +198,7 @@ if (!isTouchDevice) {
        { once: true } means this listener fires once then removes itself.
        ───────────────────────────────────────────────────────── */
     document.addEventListener('click', function() {
-        [pulpFictionAudio, cameraAudio, chivaAudio].forEach(function(audio) {
+        [pulpFictionAudio, cameraAudio, chivaAudio, vinylAudio].forEach(function(audio) {
             audio.volume = 0;
             audio.play().then(function() {
                 audio.pause();
@@ -236,6 +240,25 @@ if (!isTouchDevice) {
             chivaAudio.pause();
             chivaAudio.currentTime = 0;
         });
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       VINYL hover listeners — FullHD only (1800px+)
+       The vinyl element is only visible at 1800px+ so we guard
+       the listeners with a matchMedia check to keep things clean.
+       ───────────────────────────────────────────────────────── */
+    if (window.matchMedia('(min-width: 1800px)').matches) {
+        const vinylEl = document.querySelector('[data-element="vinyl"]');
+        if (vinylEl) {
+            vinylEl.addEventListener('mouseenter', function() {
+                vinylAudio.currentTime = 0;
+                vinylAudio.play();
+            });
+            vinylEl.addEventListener('mouseleave', function() {
+                vinylAudio.pause();
+                vinylAudio.currentTime = 0;
+            });
+        }
     }
 
 } // end !isTouchDevice
