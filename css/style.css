@@ -1198,88 +1198,79 @@ a.case-study--link .case-logo {
        Figma: x=-254, y=5, width=564 on 393×836 frame */
     #regal {
         left: -32%;
-        top: 0.6vh;
-        width: 72vw;    /* half of original 143.5vw */
+        top: -9.4vh;
+        width: 72vw;
     }
 
     /* ── PORTRAIT FRAME ──
        Figma: x=119, y=-10, width=304 */
     #frame {
-        left: 30.3%;    /* 119px ÷ 393 */
-        top: -1.2vh;    /* -10px ÷ 836 — slightly above top edge */
-        width: 77.4vw;  /* 304px ÷ 393 */
+        left: 30.3%;
+        top: -11.2vh;
+        width: 77.4vw;
     }
 
-    /* ── PLANTBIG — large monstera, top right ──
-       Figma: x=198, y=-101, width=389
-       Visible in mobile design — starts center-right, crops at right edge. */
+    /* ── PLANTBIG — large monstera, top right ── */
     #plantbig {
         display: block;
-        left: 50.4%;    /* 198px ÷ 393 */
-        top: -12.1vh;   /* -101px ÷ 836 */
-        width: 99vw;    /* 389px ÷ 393 */
+        left: 50.4%;
+        top: -22.1vh;
+        width: 99vw;
     }
 
-    /* ── PLANTSMALL — small potted plant, centre-right ──
-       Figma: x=214, y=316, width=192 */
+    /* ── PLANTSMALL — small potted plant, centre-right ── */
     #plantsmall {
-        left: 54.5%;    /* 214px ÷ 393 */
-        top: 37.8vh;    /* 316px ÷ 836 */
-        width: 48.9vw;  /* 192px ÷ 393 */
+        left: 54.5%;
+        top: 27.8vh;
+        width: 48.9vw;
     }
 
-    /* ── CHIVA (colorful toy bus) ──
-       Figma: x=4, y=297, width=148 */
+    /* ── CHIVA (colorful toy bus) ── */
     #chiva {
-        left: 1%;       /* 4px ÷ 393 */
-        top: 35.5vh;    /* 297px ÷ 836 */
-        width: 37.7vw;  /* 148px ÷ 393 */
+        left: 1%;
+        top: 25.5vh;
+        width: 37.7vw;
     }
 
-    /* ── CAMERA ──
-       Figma: x=51, y=232, width=71 */
+    /* ── CAMERA ── */
     #camera {
-        left: 13%;      /* 51px ÷ 393 */
-        top: 27.8vh;    /* 232px ÷ 836 */
-        width: 18.1vw;  /* 71px ÷ 393 */
+        left: 13%;
+        top: 17.8vh;
+        width: 18.1vw;
     }
 
-    /* ── PULP FICTION ──
-       Figma: x=48, y=116, width=77 */
+    /* ── PULP FICTION ── */
     #pulpfiction {
-        left: 12.2%;    /* 48px ÷ 393 */
-        top: 13.9vh;    /* 116px ÷ 836 */
-        width: 19.6vw;  /* 77px ÷ 393 */
+        left: 12.2%;
+        top: 3.9vh;
+        width: 19.6vw;
     }
 
-    /* ── VINE PLANT — hangs over the regal shelf ──
-       Figma: x=-103, y=92, width=154 */
+    /* ── VINE PLANT — hangs over the regal shelf ── */
     #plant {
-        left: -26.2%;   /* -103px ÷ 393 */
-        top: 11vh;      /* 92px ÷ 836 */
-        width: 39.2vw;  /* 154px ÷ 393 */
+        left: -26.2%;
+        top: 1vh;
+        width: 39.2vw;
     }
 
-    /* ── SUCCULENT ──
-       Figma: x=51, y=414, width=62 */
+    /* ── SUCCULENT ── */
     #plantsuculent {
-        left: 13%;      /* 51px ÷ 393 */
-        top: 49.5vh;    /* 414px ÷ 836 */
-        width: 15.8vw;  /* 62px ÷ 393 */
+        left: 13%;
+        top: 39.5vh;
+        width: 15.8vw;
     }
 
-    /* ── BOOKS ──
-       Figma: book2 x=-27, y=428, width=55 / book x=-21, y=450, width=50 */
+    /* ── BOOKS ── */
     #book2 {
-        left: -6.9%;    /* -27px ÷ 393 */
-        top: 51.2vh;    /* 428px ÷ 836 */
-        width: 14vw;    /* 55px ÷ 393 */
+        left: -6.9%;
+        top: 41.2vh;
+        width: 14vw;
     }
 
     #book {
-        left: -5.3%;    /* -21px ÷ 393 */
-        top: 53.8vh;    /* 450px ÷ 836 */
-        width: 12.7vw;  /* 50px ÷ 393 */
+        left: -5.3%;
+        top: 43.8vh;
+        width: 12.7vw;
     }
 
     /* ── HERO TEXT ──
@@ -1288,7 +1279,7 @@ a.case-study--link .case-logo {
        Left = 29px (Hola has 1px extra handled by margin-left) */
     .hero-text {
         left: 29px;
-        top: 67.1vh;        /* 561px ÷ 836 */
+        top: 57.1vh;
         width: 308px;
         max-width: none;    /* override desktop percentage max-width */
         display: flex;
