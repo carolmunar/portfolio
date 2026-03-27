@@ -1529,8 +1529,11 @@ a.case-study--link .case-logo {
     #chair          { left: 26.3%;  top: 52.31%;  width: 24.01vw; }
     #frame          { left: 42.08%; top: 16.85%;  width: 15.83vw; }
     #lightswitch    { left: 36.46%; top: 45%;     width: 1.875vw; min-width: 36px; }
-    #plantbig       { left: 60.26%; top: 13.52%;  width: 20.26vw; }
-    #plantsmall     { left: 60.52%; top: 51.85%;  width: 10vw; }
+    #plantbig       { left: 54.38%; top: 13.52%;  width: 20.26vw; } /* 1044px ÷ 1920 */
+    #plantsmall     { left: 65.1%;  top: 52.31%;  width: 10vw; }    /* 1250px ÷ 1920 */
+
+    /* Hero text — Figma: left=966px, width=568px */
+    .hero-text      { left: 50.31%; max-width: 29.58vw; }           /* 966px ÷ 1920 */
 
     /* New FullHD-only elements — shown only at 1800px+ */
     #kommode     { display: block; left: 78.75%; top: 51.85%; width: 30.68vw; z-index: 2; }
