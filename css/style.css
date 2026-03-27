@@ -1519,25 +1519,25 @@ a.case-study--link .case-logo {
     /* Existing elements — repositioned for 1920px viewport */
     #lamp           { left: 25.78%; top: -9.35%;  width: 9.17vw; }
     #regal          { left: 7.6%;   top: 25.83%;  width: 17.76vw; }
-    #book           { left: 13.91%; top: 71.48%;  width: 2.6vw; }
-    #book2          { left: 12.81%; top: 70.37%;  width: 2.86vw; }
+    #book           { left: 13.91%; top: 86.48%;  width: 2.6vw; }   /* +15% */
+    #book2          { left: 12.81%; top: 85.37%;  width: 2.86vw; }  /* +15% */
     #plant          { left: 10.26%; top: 30.93%;  width: 8.02vw; }
-    #camera         { left: 18.65%; top: 36.76%;  width: 3.7vw; }
-    #chiva          { left: 16.2%;  top: 44.54%;  width: 7.71vw; }
-    #plantsuculent  { left: 17.97%; top: 57.96%;  width: 3.23vw; }
-    #pulpfiction    { left: 17.55%; top: 68.15%;  width: 4.01vw; }
+    #camera         { left: 18.65%; top: 41.76%;  width: 3.7vw; }   /* +5% */
+    #chiva          { left: 16.2%;  top: 59.54%;  width: 7.71vw; }  /* +15% */
+    #plantsuculent  { left: 17.97%; top: 72.96%;  width: 3.23vw; }  /* +15% */
+    #pulpfiction    { left: 17.55%; top: 83.15%;  width: 4.01vw; }  /* +15% */
     #chair          { left: 26.3%;  top: 52.31%;  width: 24.01vw; }
     #frame          { left: 42.08%; top: 16.85%;  width: 15.83vw; }
     #lightswitch    { left: 36.46%; top: 45%;     width: 1.875vw; min-width: 36px; }
-    #plantbig       { left: 54.38%; top: 13.52%;  width: 20.26vw; } /* 1044px ÷ 1920 */
-    #plantsmall     { left: 65.1%;  top: 52.31%;  width: 10vw; }    /* 1250px ÷ 1920 */
+    #plantbig       { left: 54.38%; top: 3.52%;   width: 20.26vw; } /* -10% */
+    #plantsmall     { left: 65.1%;  top: 52.31%;  width: 10vw; }
 
     /* Hero text — Figma: left=966px, width=568px */
-    .hero-text      { left: 50.31%; max-width: 29.58vw; }           /* 966px ÷ 1920 */
+    .hero-text      { left: 50.31%; max-width: 29.58vw; }
 
     /* New FullHD-only elements — shown only at 1800px+ */
     #kommode     { display: block; left: 78.75%; top: 51.85%; width: 30.68vw; z-index: 2; }
-    #vinyl       { display: block; left: 88.33%; top: 40.09%; width: 7.6vw;   z-index: 2; }
+    #vinyl       { display: block; left: 88.33%; top: 37.09%; width: 7.6vw;   z-index: 2; } /* -3% */
     #smallcactus { display: block; left: 83.39%; top: 46.2%;  width: 2.55vw;  z-index: 3; }
 }
 
