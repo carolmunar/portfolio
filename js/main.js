@@ -408,3 +408,85 @@ if (!isTouchDevice) {
     }
 
 } // end !isTouchDevice
+
+
+/* ============================================================
+   POSTHOG ANALYTICS
+   ─────────────────────────────────────────────────────────────
+   Tracks key interactions across the portfolio.
+   posthog is loaded via the inline snippet in <head> — it's
+   always available by the time this script runs.
+
+   Events tracked:
+   1. case_study_clicked  — which project the visitor opened
+   2. cv_downloaded       — CV link clicked (easter egg tooltip)
+   3. dark_mode_toggled   — switch toggled, captures new mode
+   4. easter_egg_hovered  — chiva or plantsmall tooltip revealed
+   5. say_hola_clicked    — nav contact link clicked
+   6. portfolio_time_spent — seconds on page, fires on tab close
+   ============================================================ */
+
+if (typeof posthog !== 'undefined') {
+
+    /* ── 1. Time on page — record start time ── */
+    var pageStartTime = Date.now();
+
+    window.addEventListener('beforeunload', function() {
+        var secondsSpent = Math.round((Date.now() - pageStartTime) / 1000);
+        posthog.capture('portfolio_time_spent', {
+            seconds: secondsSpent,
+            minutes: Math.round(secondsSpent / 60 * 10) / 10
+        });
+    });
+
+    /* ── 2. Case study clicks ── */
+    document.querySelectorAll('[data-project]').forEach(function(row) {
+        row.addEventListener('click', function() {
+            posthog.capture('case_study_clicked', {
+                project: row.dataset.project
+            });
+        });
+    });
+
+    /* ── 3. CV download ── */
+    document.querySelectorAll('a[href*=".pdf"][download]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            posthog.capture('cv_downloaded');
+        });
+    });
+
+    /* ── 4. Dark mode toggle ── */
+    var switchEl = document.getElementById('lightswitch');
+    if (switchEl) {
+        switchEl.addEventListener('click', function() {
+            /* classList.toggle has already run — check the new state */
+            var isDark = document.body.classList.contains('dark-mode');
+            posthog.capture('dark_mode_toggled', {
+                mode: isDark ? 'dark' : 'light'
+            });
+        });
+    }
+
+    /* ── 5. Easter egg hover states ── */
+    var chivaEl = document.getElementById('chiva');
+    if (chivaEl) {
+        chivaEl.addEventListener('mouseenter', function() {
+            posthog.capture('easter_egg_hovered', { element: 'chiva' });
+        });
+    }
+
+    var plantEl = document.getElementById('plantsmall');
+    if (plantEl) {
+        plantEl.addEventListener('mouseenter', function() {
+            posthog.capture('easter_egg_hovered', { element: 'plantsmall' });
+        });
+    }
+
+    /* ── 6. Say Hola! nav link ── */
+    document.querySelectorAll('a[href^="mailto"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            posthog.capture('say_hola_clicked');
+        });
+    });
+
+} // end posthog check
