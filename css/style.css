@@ -85,12 +85,9 @@ body.dark-mode .preview-set img {
     box-shadow: none;
 }
 
-/* CTA buttons — black bg/white text in light mode, flip to white bg/dark text in dark mode */
-body.dark-mode .about-btn {
-    background-color: #e8e6e0;
-    border-color: #e8e6e0;
-    color: #111111;
-}
+/* About Me section has a fixed #333366 dark purple background —
+   it looks the same in both light and dark mode, so no override needed.
+   (Old .about-btn dark mode rule removed — those buttons no longer exist.) */
 
 /* ── LOGO INVERSIONS ──
    These logos are black on transparent — invisible on dark backgrounds.
@@ -128,7 +125,36 @@ body.dark-mode .case-logo[style*="#010101"] {
     box-sizing: border-box;
 }
 
-html { font-size: 16px; }
+html {
+    font-size: 16px;
+    /* ── SCROLL SNAP ──
+       scroll-snap-type: y mandatory
+       → "y" means snapping in the vertical direction
+       → "mandatory" means the browser MUST snap to a snap point;
+         it won't stop mid-panel even if the user lets go halfway.
+       This goes on the SCROLL CONTAINER, which is <html> (the page itself). */
+    scroll-snap-type: y mandatory;
+}
+
+/* ── SCROLL SNAP ANCHOR ──
+   Zero-height element at the very top of the page.
+   It lives at scroll position y=0, which is exactly where the hero is.
+   Gives the browser a snap "landing point" when scrolling up from
+   the case panels — without touching any hero CSS or object positions.
+
+   WHY THIS WORKS:
+   With scroll-snap-type: y mandatory on <html>, the browser must snap
+   to a defined point. Without this anchor, there's no snap point above
+   the Alphin panel, so the browser can't scroll back up to the hero.
+   This anchor at y=0 fixes that — it has no size, no appearance,
+   it's completely invisible. */
+.snap-top {
+    height: 0;
+    overflow: hidden;
+    scroll-snap-align: start;
+    pointer-events: none;   /* can't accidentally click it */
+    user-select: none;      /* can't accidentally select text from it */
+}
 
 /* ── KEYBOARD FOCUS STYLES ──
    Only shows when navigating by keyboard, not on mouse click. */
@@ -723,115 +749,451 @@ body.dark-mode #switch-off-img { display: block; }
 
 
 /* ============================================================
-   9. RECENTLY EXPERIENCES SECTION
+   9. "SELECTED WORK" LABEL
    ─────────────────────────────────────────────────────────────
-   margin-top: 5.75rem (92px) — gap between this section and
-   the "Currently working" section, derived from Figma:
-   y:1270 (this heading) − y:1178 (approx end of prev section).
-
-   Each case study row is a flex container:
-   [90×90px logo box] ← 24px gap → [project title text]
+   Small uppercase label just above the case panels.
+   Figma: Space Mono 24px, letter-spacing 1.2px, centered.
    ============================================================ */
-.section-recently {
-    margin-top: 5.75rem;     /* 92px gap above this section */
-    padding-left: 13.9vw;    /* same 200px left margin */
-    padding-right: 5vw;
-    position: relative;      /* needed so the static preview can be positioned inside */
+.selected-work-label {
+    padding: 80px 13.9vw 40px;
 }
 
-/* One case study row — logo + title side by side */
-.case-study {
-    display: flex;           /* puts logo and text in a row */
-    align-items: center;     /* vertically centers them */
-    gap: 1.5rem;             /* 24px gap between logo box and title text */
-    margin-bottom: 1.5rem;   /* 24px between rows.
-                                Why 24px? Figma spacing between row tops = 114px.
-                                Logo height = 90px. Gap between rows = 114 − 90 = 24px. */
-}
-
-/* When a case-study row is wrapped in an <a> link,
-   remove the default link styling (blue color, underline)
-   so it looks identical to a plain div. */
-a.case-study--link {
-    text-decoration: none;   /* removes the blue underline from links */
-    color: inherit;          /* inherits the dark text color instead of link blue */
-    cursor: default;         /* no pointer on the text — only the logo signals "clickable" */
-    transition: opacity 0.15s ease;
-}
-
-a.case-study--link:hover {
-    opacity: 0.75;           /* subtle dimming on hover to show interactivity */
-}
-
-a.case-study--link .case-logo {
-    cursor: pointer;         /* pointer cursor only on the logo box */
-}
-
-/* The colored square that holds the company logo */
-.case-logo {
-    width: 90px;             /* fixed size from Figma */
-    height: 90px;
-    min-width: 90px;         /* prevents flexbox from shrinking it */
-    border-radius: 4px;      /* slight rounding from Figma */
-    display: flex;           /* centers the logo image inside */
-    align-items: center;
-    justify-content: center;
-}
-
-/* The logo image inside the colored box */
-.case-logo img {
-    max-width: 75%;          /* keeps logo proportional inside the box */
-    max-height: 65%;
-    display: block;
-}
-
-/* The project title text next to the logo */
-.case-title {
+.selected-work-text {
     font-family: 'TestSohneMono', 'Space Mono', monospace;
-    font-size: 1rem;         /* 16px */
+    font-size: 24px;
     font-weight: 400;
+    letter-spacing: 1.2px;
     color: var(--color-text);
-    letter-spacing: -0.011em;
-    line-height: 1.4;
-    max-width: 377px;        /* widest title width from Figma */
+    text-align: center;
+    margin: 0;
 }
 
 
 /* ============================================================
-   10. PROBLEMS I SOLVE / HOW I WORK — two-column section
+   10. CASE STUDY PANELS
    ─────────────────────────────────────────────────────────────
-   Replaces the old "My Playground" section.
-   Figma: two columns inside the 1040px content area.
-   Left col width=418px, right col width=421px, gap=200px.
+   Each panel fills 100vh. All children are absolutely positioned
+   using percentages calculated from Figma (1440×1024 canvas).
+
+   Formula:
+     horizontal %  = figma_x / 1440 × 100
+     vertical vh   = figma_y_from_panel_top / 1024 × 100
+   ============================================================ */
+
+.case-panel {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    cursor: pointer;
+    /* ── SCROLL SNAP: each panel locks into view ──
+       scroll-snap-align: start
+       → "start" means: snap so that the TOP of this panel
+         aligns with the top of the viewport.
+       This goes on each SNAP TARGET — i.e. every panel. */
+    scroll-snap-align: start;
+}
+
+/* Panel backgrounds */
+.case-panel--alphin  { background: #ffffff; }
+.case-panel--adjust  { background: #010101; }
+.case-panel--agrofy  { background: #f7fbf3; }
+.case-panel--estylar { background: #333366; }
+
+/* Full-panel invisible link — makes the whole panel clickable */
+.case-panel-link {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: block;
+}
+
+/* Base style for all panel images */
+.cpanel-img {
+    position: absolute;
+    display: block;
+    object-fit: cover;
+}
+
+
+/* ── ALPHIN: white panel ── */
+
+/* Giant "alphin" rotated name — left edge, partially off-screen */
+.cpanel-name-wrap--alphin {
+    position: absolute;
+    left: -65px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 490px;
+    height: 92.97vh;         /* 952/1024 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+}
+.cpanel-name--alphin {
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    /* ── WHY min(vw, vh) here? ──
+       When text is rotated -90°, its WIDTH becomes its HEIGHT on screen.
+       So we must cap font-size using viewport HEIGHT, not just width.
+       26.4vw = design scale based on 1440px canvas width  (380/1440)
+       37.1vh = design scale based on 1024px canvas height (380/1024)
+       min() picks whichever is SMALLER — preventing overflow in both directions.
+       clamp() adds a floor (60px) so it never gets impossibly tiny. */
+    font-size: clamp(60px, min(26.4vw, 37.1vh), 380px);
+    color: #000062;
+    white-space: nowrap;
+    transform: rotate(-90deg);
+    line-height: 1;
+}
+
+/* Main screenshot — center-left, with teal border */
+.alphin-img--1 {
+    left: 28.1%;             /* 405/1440 */
+    top: 13.09vh;            /* 134/1024 */
+    width: 35.76%;           /* 515/1440 */
+    /* WHY aspect-ratio instead of height:
+       The 2x export file is 1030×1008px → display at 515×504 (÷2).
+       Using height:vh caused distortion at screens taller/shorter than
+       the 1024px Figma canvas. aspect-ratio locks the proportions to
+       exactly 515:504 at every screen size, regardless of viewport height. */
+    aspect-ratio: 515 / 504;
+    z-index: 1;
+}
+/* Second screenshot — bottom, same left column */
+.alphin-img--2 {
+    left: 28.2%;
+    top: 65.43vh;            /* 670/1024 */
+    width: 35.69%;           /* 514/1440 */
+    /* 2x file: 1028×386px → display at 514×193 (÷2) */
+    aspect-ratio: 514 / 193;
+    z-index: 1;
+}
+/* Third screenshot — right side */
+.alphin-img--3 {
+    left: 66.11%;            /* 952/1440 */
+    top: 56.54vh;            /* 579/1024 */
+    width: 19.72%;           /* 284/1440 */
+    /* 2x file: 568×636px → display at 284×318 (÷2) */
+    aspect-ratio: 284 / 318;
+    z-index: 1;
+}
+/* Info column: "01" number stacked above the card */
+.cpanel-info-col--alphin {
+    position: absolute;
+    left: 66.11%;
+    top: 13.28vh;            /* 136/1024 */
+    width: 408px;            /* Figma: 408px outer width (inner content = 376px after 16px padding each side) */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    z-index: 2;
+}
+.cpanel-number--alphin {
+    display: block;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: clamp(60px, 12.43vw, 179px); /* 179/1440 */
+    color: #000062;
+    line-height: 0.9;
+    letter-spacing: -1.48px;
+    pointer-events: none;
+}
+
+
+/* ── ADJUST: black panel ── */
+
+/* Wide dashboard screenshot — centered, 80px from top */
+.adjust-img--1 {
+    left: 50%;
+    top: 7.81vh;             /* 80/1024 */
+    transform: translateX(-50%);
+    width: 88.89%;           /* 1280/1440 */
+    height: 47.36vh;         /* 485/1024 */
+    object-position: top;
+    z-index: 1;
+}
+/* "adjust" name — large white text, center-bottom */
+.cpanel-name--adjust {
+    position: absolute;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-size: clamp(80px, 17.15vw, 247px); /* 247/1440 */
+    color: white;
+    white-space: nowrap;
+    left: 50%;
+    top: 80.47vh;            /* 824/1024 */
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 2;
+}
+/* "02" watermark — right side, italic, very faint */
+.cpanel-number--adjust {
+    position: absolute;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-style: italic;
+    font-size: clamp(60px, 12.43vw, 179px);
+    color: white;
+    opacity: 0.2;
+    right: 8.33%;
+    top: 65.48vh;
+    transform: translateY(-50%);
+    letter-spacing: -1.48px;
+    pointer-events: none;
+    z-index: 2;
+}
+/* Info card — bottom-left */
+.case-info-card--adjust {
+    left: 5.56%;             /* 80/1440 */
+    top: 57.91vh;            /* 593/1024 */
+}
+
+
+/* ── AGROFY: light green panel ── */
+
+/* Info card — top-left */
+.case-info-card--agrofy {
+    left: 5.56%;
+    top: 7.81vh;
+}
+/* "Agrofy" name — bottom-left, green */
+.cpanel-name--agrofy {
+    position: absolute;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-size: clamp(80px, 17.15vw, 247px);
+    color: #81ba42;
+    white-space: nowrap;
+    left: 5.56%;
+    top: 74.71vh;            /* 765/1024 */
+    transform: translateY(-50%);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 2;
+}
+/* 4 mobile checkout screens — right half */
+.cpanel-screens--agrofy {
+    position: absolute;
+    left: 49.65%;            /* 715/1440 */
+    top: 7.81vh;
+    width: 50.35%;           /* 725/1440 */
+    height: 84.08vh;         /* 861/1024 */
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    overflow: hidden;
+    z-index: 1;
+}
+.cpanel-screens--agrofy img {
+    flex: 1;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    min-width: 0;
+}
+
+
+/* ── ESTYLAR: dark purple panel ── */
+
+/* Main image — bleeds to left edge */
+.estylar-img--1 {
+    left: -1px;              /* intentional edge bleed from Figma */
+    top: 0;
+    width: 94.51%;           /* 1361/1440 */
+    height: 74.41vh;         /* 762/1024 */
+    object-position: center;
+    z-index: 1;
+}
+/* "Estylar" italic name — overlaid on image */
+.cpanel-name--estylar {
+    position: absolute;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-style: italic;
+    font-size: clamp(60px, 11.94vw, 172px); /* 172/1440 */
+    color: white;
+    white-space: nowrap;
+    left: 42.22%;            /* 608/1440 */
+    top: 69.34vh;            /* 710/1024 */
+    pointer-events: none;
+    z-index: 2;
+}
+/* "04" number — right side, faint */
+.cpanel-number--estylar {
+    position: absolute;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-style: italic;
+    font-size: clamp(60px, 12.43vw, 179px);
+    color: white;
+    opacity: 0.2;
+    right: 12.5%;
+    top: 66.7vh;
+    transform: translateY(-50%);
+    letter-spacing: -1.48px;
+    pointer-events: none;
+    z-index: 2;
+}
+/* Info card — bottom-left, overlaid on the image */
+.case-info-card--estylar {
+    left: 5.56%;
+    top: 68.85vh;            /* 705/1024 */
+}
+
+
+/* ── INFO CARD: shared structure, 4 panels ──
+   Background/border/color varies per modifier class.
+   Adjust, Agrofy, Estylar cards are absolutely positioned.
+   Alphin card is a flex child inside .cpanel-info-col--alphin. */
+.case-panel--adjust  .case-info-card,
+.case-panel--agrofy  .case-info-card,
+.case-panel--estylar .case-info-card {
+    position: absolute;
+}
+
+.case-info-card {
+    width: 408px;   /* Figma: 408px outer width — inner content is 376px (408 - 16px padding × 2) */
+    max-width: 90%;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 3;
+}
+
+/* Per-panel card backgrounds/borders */
+.case-info-card--alphin  { background: #000062; }
+.case-info-card--adjust  { background: #010101; border: 1px solid white; }
+.case-info-card--agrofy  { background: #f7fbf3; border: 1px solid #010101; }
+.case-info-card--estylar { background: #6d3283; border: 1px solid #933e83; width: 423px; }
+
+/* Card title — Crimson Pro Regular, 24px */
+.case-info-title {
+    font-family: 'Crimson Pro', serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.16;
+    margin: 0;
+}
+.case-info-card--alphin  .case-info-title,
+.case-info-card--adjust  .case-info-title,
+.case-info-card--estylar .case-info-title { color: white; }
+.case-info-card--agrofy  .case-info-title { color: #010101; }
+
+/* Divider line between title and meta */
+.case-info-divider {
+    border: none;
+    border-top: 1px solid;
+    margin: 0;
+    width: 100%;
+}
+.case-info-card--alphin  .case-info-divider,
+.case-info-card--adjust  .case-info-divider,
+.case-info-card--estylar .case-info-divider { border-color: white; }
+.case-info-card--agrofy  .case-info-divider { border-color: #010101; }
+
+/* 2-column meta grid: [LABEL] | [VALUE] */
+.case-info-meta {
+    display: grid;
+    grid-template-columns: 133px 1fr;
+    gap: 8px 0;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.176px;
+}
+.case-info-label {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-weight: 300;
+}
+.case-info-value {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-weight: 400;
+}
+.case-info-card--alphin  .case-info-label,
+.case-info-card--alphin  .case-info-value,
+.case-info-card--adjust  .case-info-label,
+.case-info-card--adjust  .case-info-value,
+.case-info-card--estylar .case-info-label,
+.case-info-card--estylar .case-info-value { color: white; }
+.case-info-card--agrofy  .case-info-label,
+.case-info-card--agrofy  .case-info-value { color: #010101; }
+
+
+/* ============================================================
+   11. PROBLEMS I SOLVE + HOW I WORK
+   ─────────────────────────────────────────────────────────────
+   Each row fills 100vh (same scroll behaviour as case panels).
+   Row 1: heading LEFT, body text RIGHT.
+   Row 2: body text LEFT, heading RIGHT (flex-direction: row-reverse).
    ============================================================ */
 .section-howwork {
-    margin-top: 5.75rem; /* 92px — matches the consistent gap between all sections */
-    padding-left: 13.9vw;
-    padding-right: 13.9vw;   /* matches left margin — content is 1040px wide in Figma */
-    padding-bottom: 6rem;
+    /* Rows define their own height/padding */
 }
 
-/* Figma: display flex, gap 200px, align-items flex-start.
-   flex: 1 on each column → both share equal width (≈420px each at 1440px). */
-.howwork-grid {
+.howwork-row {
+    height: 100vh;
+    min-height: 600px;
     display: flex;
-    gap: clamp(2rem, 13.9vw, 12.5rem);  /* 200px at 1440px, responsive below */
-    align-items: flex-start;             /* columns align at top, not stretched */
+    align-items: center;
+    gap: 80px;
+    padding: 0 80px;
+    /* Same snap instruction as case panels — each row locks into view */
+    scroll-snap-align: start;
+    overflow: hidden;
+    background: var(--color-bg);
 }
 
-.howwork-col {
-    flex: 1;  /* each column fills half the available space */
+/* "How I Work" row: heading on the right */
+.howwork-row--work {
+    flex-direction: row-reverse;
 }
 
-/* Body text — 16px regular, same tracking as the rest of the page.
-   line-height: 1.4 matches Figma (not 1.6). */
+/* Heading stack: small label stacked above big word */
+.howwork-heading-stack {
+    display: flex;
+    flex-direction: column;
+    width: 325px;
+    flex-shrink: 0;
+}
+.howwork-heading-stack--right {
+    text-align: right;
+    width: 333px;
+}
+
+/* Small line — "Problems" / "How" */
+.howwork-h-small {
+    display: block;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-size: clamp(24px, 2.5vw, 36px);
+    color: var(--color-text);
+    line-height: 2.61;       /* 94px line-height / 36px font = 2.61 — from Figma */
+}
+
+/* Big line — "I Solve" / "I Work" */
+.howwork-h-big {
+    display: block;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-size: clamp(48px, 8.89vw, 128px); /* 128/1440 = 8.89vw */
+    color: var(--color-text);
+    line-height: 0.73;       /* 94px line-height / 128px font = 0.73 — from Figma */
+}
+
+/* Body text — 24px Space Mono */
 .howwork-body {
     font-family: 'TestSohneMono', 'Space Mono', monospace;
-    font-size: 1rem;         /* 16px */
+    font-size: clamp(16px, 1.67vw, 24px);  /* 24/1440 = 1.67vw */
     font-weight: 400;
     color: var(--color-text);
-    letter-spacing: -0.011em;
-    line-height: 1.4;        /* matches Figma leading-[1.4] */
+    line-height: 1.4;
+    letter-spacing: -0.264px;
+    max-width: 713px;
+    margin: 0;
+    flex: 1;
 }
 
 /* Row of two project items */
@@ -971,112 +1333,121 @@ a.case-study--link .case-logo {
 }
 
 
+/* ── ABOUT ME SECTION ──────────────────────────────────────────
+   Redesigned from Figma node 331-4042.
+   Dark purple background, full-width, no left/right margin.
+   The section sits flush — the footer provides bottom spacing. */
 .section-about {
-    margin-top: 5.75rem; /* 92px — matches the consistent gap between all sections */
-    padding-left: 13.9vw;
-    padding-right: 13.9vw;
-    padding-bottom: 4rem;    /* reduced — footer provides its own bottom spacing now */
+    background: #333366;          /* dark purple from Figma */
+    padding: 171px 167px 186px 166px;  /* Figma: top right bottom left */
+    margin-top: 0;                /* no gap — purple block sits right after previous section */
+
+/* ── ABOUT INNER: two-column flex layout ──
+   Left column: rotated "About Me" title
+   Right column: bio text + photos + CV button
+   Gap matches Figma (142px between columns). */
+.about-inner {
+    display: flex;
+    gap: 142px;               /* Figma gap between label and body columns */
+    align-items: flex-start;  /* both columns start at the top */
 }
 
-.about-paragraphs {
+/* ── LEFT COLUMN: rotated label container ──
+   Fixed size from Figma — 100px wide, 514px tall.
+   flex-shrink: 0 stops it from squashing when the page is narrower. */
+.about-label-wrap {
+    width: 100px;
+    height: 514px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ── "ABOUT ME" TITLE ──
+   Crimson Pro ExtraLight (weight 200), 135px, white.
+   rotate(-90deg) turns the text sideways — it reads bottom-to-top.
+   white-space: nowrap stops the two words from line-wrapping. */
+.about-label {
+    font-family: 'Crimson Pro', serif;
+    font-weight: 200;
+    font-size: 135px;
+    color: white;
+    white-space: nowrap;
+    transform: rotate(-90deg);   /* rotate the text 90° counter-clockwise */
+    line-height: 1;
+    margin: 0;                   /* remove default h2 margin */
+}
+
+/* ── RIGHT COLUMN ──
+   flex column, 32px gap between bio / photos / button.
+   Width from Figma: 865px. flex-shrink: 0 keeps it from collapsing. */
+.about-body {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    max-width: 600px;
+    gap: 32px;
+    width: 865px;
+    flex-shrink: 0;
 }
 
-/* ── PARAGRAPH BASE + GLITCH ANIMATION ──
-   position: relative is required so ::before and ::after
-   can sit exactly on top of this element. */
-.about-text {
+/* ── BIO TEXT ──
+   36px Space Mono, white, line-height 1.4, tracking -0.396px.
+   Figma uses letter-spacing: -0.396px — in em that's -0.011em at 36px. */
+.about-bio {
     font-family: 'TestSohneMono', 'Space Mono', monospace;
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--color-text);
-    letter-spacing: -0.011em;
-    line-height: 1.6;
-    position: relative;  /* anchor for absolutely-positioned pseudo-elements */
-    /* 4s cycle: 0.6s glitch burst, then 3.4s rest, loops forever */
-    animation: glitch-move 2.5s step-end infinite both;
+    font-size: 36px;
+    color: white;
+    line-height: 1.4;
+    letter-spacing: -0.396px;
+    margin: 0;
 }
 
-/* ── SHARED PSEUDO-ELEMENT SETUP ──
-   content: attr(data-text) reads the paragraph text from a
-   data attribute we set in JS — this is how CSS duplicates text.
-   background: white hides the areas outside the clip-path slice,
-   so only the "glitch slice" is visible at any moment. */
-.about-text::before,
-.about-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #FFFFFF;      /* matches page background — masks outside the slice */
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    letter-spacing: inherit;
-    line-height: inherit;
-}
-
-/* Red channel — shifts left */
-.about-text::before {
-    color: #ff2020;
-    animation: glitch-red 2.5s step-end infinite both;
-}
-
-/* Cyan channel — shifts right */
-.about-text::after {
-    color: #00e5ff;
-    animation: glitch-cyan 2.5s step-end infinite both;
-}
-
-/* ── STAGGER DELAYS ──
-   Spread 1s apart within the 4s cycle — so they stay offset every loop.
-   The delay must be set on the element AND both pseudo-elements. */
-/* All paragraphs glitch at the same time — no stagger */
-.about-paragraphs .about-text,
-.about-paragraphs .about-text::before,
-.about-paragraphs .about-text::after { animation-delay: 0s; }
-
-
-/* ── ABOUT BUTTONS ──────────────────────────────────────────
-   Two CTA buttons below the about text: Contact me + Download CV.
-   Each is an inline-flex row: [text] [icon].
-   Border style keeps it minimal and consistent with the mono font feel. */
-.about-buttons {
+/* ── PHOTO ROW ──
+   Three circular photos in a horizontal row, 45px gaps. */
+.about-photos {
     display: flex;
-    gap: 0.75rem;            /* 12px between buttons — matches Figma spacing */
-    margin-top: 2.5rem;      /* space above buttons, below the text block */
+    gap: 45px;
+    align-items: center;
 }
 
-/* Figma: bg-black, border black, text white, 14px, rounded-[8px], padding 8px, gap 8px */
-.about-btn {
+/* ── INDIVIDUAL PHOTO ──
+   178×178px circle. object-fit: cover crops without stretching. */
+.about-photo {
+    width: 178px;
+    height: 178px;
+    border-radius: 50%;          /* makes the square image a circle */
+    object-fit: cover;           /* crops to fill the circle, no stretching */
+    flex-shrink: 0;
+}
+
+/* ── DOWNLOAD CV BUTTON ──
+   228×66px, white border, white text, 24px mono font.
+   inline-flex to align text and download icon in a row. */
+.about-cv-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;             /* 8px between text and icon */
-    padding: 0.5rem;         /* 8px all sides — matches Figma p-[8px] */
-    font-family: 'TestSohneMono', 'Space Mono', monospace;
-    font-size: 0.875rem;     /* 14px — Figma uses text-[14px] */
-    font-weight: 400;
-    color: #ffffff;          /* white text on black background */
-    background-color: #000000;
+    justify-content: center;
+    gap: 8px;
+    width: 228px;
+    height: 66px;
+    padding: 15px;
+    border: 1px solid white;
+    border-radius: 4px;
+    color: white;
     text-decoration: none;
-    border: 1px solid #000000;
-    border-radius: 8px;      /* Figma: rounded-[8px] */
-    letter-spacing: -0.011em;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 24px;
     line-height: 1.4;
+    letter-spacing: -0.264px;    /* Figma tracking value at 24px */
     transition: opacity 0.15s ease;
 }
 
-.about-btn:hover {
-    opacity: 0.6;
+.about-cv-btn:hover {
+    opacity: 0.7;
 }
 
-.about-btn svg {
-    flex-shrink: 0;          /* prevents icon from squishing if text wraps */
+.about-cv-btn svg {
+    flex-shrink: 0;              /* icon never squishes */
 }
 
 
@@ -1301,14 +1672,153 @@ a.case-study--link .case-logo {
         max-width: none;
     }
 
-    /* ── SECTIONS: swap 13.9vw desktop margin for 24px mobile padding ──
-       24px each side on 390px viewport leaves 342px of content width. */
-    .section-currently-working,
-    .section-recently,
-    .section-howwork,
+    /* ── CASE PANELS: simplified layout on mobile ──
+       Desktop uses absolute positioning matched to 1440px Figma.
+       Mobile switches to a simpler flex column layout. */
+    .case-panel {
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 32px 24px 48px;
+        gap: 24px;
+    }
+
+    /* Hide the invisible full-panel link on mobile (each item is its own target) */
+    .case-panel-link { display: none; }
+
+    /* Reset absolute positioning — let content flow normally on mobile */
+    .cpanel-img,
+    .cpanel-name-wrap--alphin,
+    .cpanel-info-col--alphin,
+    .case-info-card,
+    .case-panel--adjust  .case-info-card,
+    .case-panel--agrofy  .case-info-card,
+    .case-panel--estylar .case-info-card {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Panel images fill the width */
+    .cpanel-img { height: 40vw; }
+
+    /* The rotated "alphin" name is too big for mobile — hide it */
+    .cpanel-name-wrap--alphin { display: none; }
+
+    /* Project names — smaller and non-rotated */
+    .cpanel-name--adjust,
+    .cpanel-name--agrofy,
+    .cpanel-name--estylar {
+        position: static;
+        transform: none;
+        font-size: 56px;
+    }
+    .cpanel-name--adjust { color: white; }
+    .cpanel-name--agrofy { color: #81ba42; }
+    .cpanel-name--estylar { color: white; }
+
+    /* Number watermarks — hidden on mobile */
+    .cpanel-number--adjust,
+    .cpanel-number--estylar { display: none; }
+
+    /* Alphin number */
+    .cpanel-number--alphin {
+        font-size: 56px;
+    }
+
+    /* Agrofy screens: 2 columns on mobile (4 images = 2×2 grid) */
+    .cpanel-screens--agrofy {
+        position: static;
+        width: 100%;
+        height: 60vw;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .cpanel-screens--agrofy img {
+        flex: 1 1 45%;
+        height: 28vw;
+    }
+
+    /* Estylar image — full width on mobile */
+    .estylar-img--1 {
+        width: 100%;
+        left: 0;
+        height: 50vw;
+    }
+    .cpanel-name--estylar { left: 0; }
+
+    /* ── PROBLEMS / HOW I WORK: stack on mobile ── */
+    .howwork-row {
+        height: auto;
+        min-height: auto;
+        flex-direction: column;
+        padding: 48px 24px;
+        gap: 32px;
+        align-items: flex-start;
+    }
+    .howwork-row--work {
+        flex-direction: column;
+    }
+    .howwork-heading-stack,
+    .howwork-heading-stack--right {
+        width: 100%;
+        text-align: left;
+    }
+    .howwork-h-small { font-size: 24px; line-height: 1.4; }
+    .howwork-h-big   { font-size: 56px; line-height: 1; }
+    .howwork-body    { font-size: 16px; max-width: 100%; }
+
+    /* ── ABOUT ME: mobile layout ──
+       Stack label and body vertically (column) instead of side by side.
+       Smaller padding fits the 390px screen. */
     .section-about {
-        padding-left: 24px;
-        padding-right: 24px;
+        padding: 48px 24px 64px;   /* compact padding for mobile */
+    }
+
+    .about-inner {
+        flex-direction: column;    /* stack label above body */
+        gap: 32px;                 /* 32px between title and body */
+    }
+
+    /* On mobile: label shows horizontally (no rotation needed at small size) */
+    .about-label-wrap {
+        width: auto;
+        height: auto;
+    }
+
+    .about-label {
+        font-size: 56px;           /* scale down from 135px desktop */
+        transform: none;           /* show horizontally on mobile */
+    }
+
+    /* Body column: full width on mobile */
+    .about-body {
+        width: 100%;
+        gap: 24px;
+    }
+
+    /* Bio text: scale down from 36px desktop */
+    .about-bio {
+        font-size: 18px;
+    }
+
+    /* Photos: slightly smaller circles, smaller gap */
+    .about-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .about-photos {
+        gap: 16px;
+    }
+
+    /* CV button: full width on mobile for easy tapping */
+    .about-cv-btn {
+        width: 100%;
+        font-size: 18px;
+        height: 56px;
     }
 
     /* ── SECTION TITLES: 24px on mobile ──
@@ -1324,32 +1834,7 @@ a.case-study--link .case-logo {
         font-size: 16px;
     }
 
-    /* ── CASE STUDIES: stack vertically ──
-       Desktop: [logo] → [title] in a row.
-       Mobile:  logo above title, both left-aligned. */
-    .case-study {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    /* Project title: constrained width, 16px */
-    .case-title {
-        width: 333px;
-        max-width: 100%;    /* shrinks on very narrow phones */
-        font-size: 16px;
-    }
-
-    /* ── PROBLEMS / HOW I WORK: stack to single column on mobile ──
-       Desktop uses display: flex so we use flex-direction, not grid-template-columns */
-    .howwork-grid {
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    /* ── ABOUT BUTTONS: stack on very narrow screens ── */
-    .about-buttons {
-        flex-wrap: wrap;
-    }
+    /* .about-buttons removed — old CTA buttons replaced by .about-cv-btn (single button) */
 
     /* ── FOOTER: stack vertically, center-aligned ── */
     .site-footer {
@@ -1509,8 +1994,21 @@ a.case-study--link .case-logo {
 
 
 
-/* ── NEW FULLHD-ONLY ELEMENTS: hidden by default ── */
-#kommode, #vinyl, #smallcactus { display: none; }
+/* ── FULLHD-ONLY ELEMENTS: hidden below 1800px ────────────────────────────
+   WHY !important AND a max-width media query?
+   When scroll-snap-type is active on <html>, Chrome can change how
+   overflow: hidden clips absolutely-positioned children. Adding !important
+   here AND an explicit max-width: 1799px guard makes it bulletproof —
+   these three elements will NEVER appear below 1800px, regardless of
+   browser overflow quirks.
+   Positions are only declared inside the 1800px media query below,
+   so nothing moves at any other breakpoint. */
+#kommode, #vinyl, #smallcactus { display: none !important; }
+
+@media (max-width: 1799px) {
+    /* Extra guard: explicit hide below fullHD. Belt AND suspenders. */
+    #kommode, #vinyl, #smallcactus { display: none !important; }
+}
 
 /* ── FULL HD (1920px) LAYOUT ──────────────────────────────────────────────
    All positions from Figma node 298-4549 (1920×1080 frame).
@@ -1536,10 +2034,12 @@ a.case-study--link .case-logo {
     /* Hero text — Figma: left=966px, width=568px */
     .hero-text      { left: 50.31%; max-width: 29.58vw; }
 
-    /* New FullHD-only elements — shown only at 1800px+ */
-    #kommode     { display: block; left: 78.75%; top: 51.85%; width: 30.68vw; z-index: 2; }
-    #vinyl       { display: block; left: 88.33%; top: 38.09%; width: 7.6vw;   z-index: 2; }
-    #smallcactus { display: block; left: 83.39%; top: 46.2%;  width: 2.55vw;  z-index: 3; }
+    /* FullHD-only elements — positions + override the !important hide above.
+       !important here matches the specificity of the hide rule, and since
+       this media query block comes LATER in the file, it wins at 1800px+. */
+    #kommode     { display: block !important; left: 78.75%; top: 51.85%; width: 30.68vw; z-index: 2; }
+    #vinyl       { display: block !important; left: 88.33%; top: 38.09%; width: 7.6vw;   z-index: 2; }
+    #smallcactus { display: block !important; left: 83.39%; top: 46.2%;  width: 2.55vw;  z-index: 3; }
 }
 
 /* ── HEAD TRACKING BUTTON ──────────────────────────────────────

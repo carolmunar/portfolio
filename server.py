@@ -4,7 +4,7 @@ import os
 
 os.chdir('/Users/losculis/Documents/Carito/portfolio')
 
-PORT = 3333
+PORT = int(os.environ.get('PORT', 3333))
 Handler = http.server.SimpleHTTPRequestHandler
 
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
