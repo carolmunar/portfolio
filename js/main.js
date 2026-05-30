@@ -5,55 +5,6 @@
 
 
 /* ============================================================
-   FULLHD-ONLY ELEMENT GUARD
-   ─────────────────────────────────────────────────────────────
-   kommode, vinyl, and smallcactus must ONLY appear at ≥1800px.
-
-   WHY JAVASCRIPT and not just CSS?
-   CSS "display: none !important" should work, but when
-   scroll-snap-type: y mandatory is on <html>, Chrome can stop
-   respecting overflow: hidden on child elements, letting
-   absolutely-positioned objects escape clipping and appear.
-
-   This JS guard sets display:none via INLINE STYLE with the
-   'important' flag — that is the highest priority in the entire
-   CSS cascade. Nothing can override it.
-   ─────────────────────────────────────────────────────────────
-   HOW IT WORKS:
-   el.style.setProperty('display', 'none', 'important')
-   → adds style="display: none !important" directly on the element
-   → beats every CSS rule, including other !important declarations
-   → runs on page load AND on every resize event
-   ============================================================ */
-(function guardFullHDElements() {
-    var selectors = ['#kommode', '#vinyl', '#smallcactus'];
-
-    function update() {
-        /* window.innerWidth = the CSS viewport width in CSS pixels.
-           This is the same value CSS media queries use for min-width. */
-        var isFullHD = window.innerWidth >= 1800;
-
-        selectors.forEach(function(sel) {
-            var el = document.querySelector(sel);
-            if (!el) return; /* element not found — safely skip */
-
-            if (isFullHD) {
-                /* Remove the inline override so CSS media query takes control.
-                   At ≥1800px, the stylesheet's display: block !important shows them. */
-                el.style.removeProperty('display');
-            } else {
-                /* Force hidden with the maximum possible CSS priority. */
-                el.style.setProperty('display', 'none', 'important');
-            }
-        });
-    }
-
-    update();                                    /* run immediately on page load */
-    window.addEventListener('resize', update);   /* re-check whenever window resizes */
-})();
-
-
-/* ============================================================
    MOUSE PARALLAX — CSS variable approach
    ─────────────────────────────────────────────────────────────
    Instead of setting style.transform directly (which would wipe out the

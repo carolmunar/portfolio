@@ -28,11 +28,10 @@
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Crimson Pro: weight 200 (names/headings) + 400 (card titles) + italic variants -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:ital,wght@0,200;0,400;1,200;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Our main stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=36">
+    <link rel="stylesheet" href="css/style.css?v=26">
 
     <style>
         /* Estylar hover preview: images 2 and 3 have white UI screenshots
@@ -57,15 +56,6 @@
 
 <!-- <main> wraps all the visible page content — tells search engines "this is the main content" -->
 <main>
-
-    <!-- ── SCROLL SNAP ANCHOR ──────────────────────────────────
-         Zero-height invisible div. It lives at scroll position 0
-         (the very top of the page = the hero view).
-         With scroll-snap-type: y mandatory on <html>, the browser
-         needs a snap point above the case panels so it can scroll
-         back up. This gives it that destination without touching
-         the hero's layout or any object positions. ── -->
-    <div class="snap-top" aria-hidden="true"></div>
 
     <!-- ============================================
          HERO SECTION
@@ -191,253 +181,115 @@
 
 
     <!-- ============================================
-         CURRENTLY WORKING SECTION — hidden for now, may re-use later
+         CURRENTLY WORKING SECTION
          ============================================ -->
-    <!--
     <section class="section-currently-working">
+
+        <!-- Section heading — same font/size as hero h1 -->
         <h2 class="section-title">Currently working</h2>
+
+        <!-- Small label above the description — Elternpop logo sits inline after the text -->
         <p class="work-label">Designing something new called
             <img src="logos/ElternpopLogo.svg"      alt="Elternpop" class="work-inline-logo" id="elternpop-logo-dark">
             <img src="logos/ElternpopLogoLight.svg" alt="Elternpop" class="work-inline-logo" id="elternpop-logo-light">
         </p>
+
+        <!-- Project description -->
         <p class="work-body">
             Navigating parental benefits in Germany is hard enough when you speak the language.
             I'm building ElternPop for families like mine, expats trying to understand Elterngeld,
             Elternzeit, and Kindergeld without a German bureaucracy degree.
         </p>
+
     </section>
-    -->
 
 
     <!-- ============================================
-         "SELECTED WORK" LABEL
-         Sits just above the case study panels.
-         Centered, uppercase, letter-spaced — matches Figma.
+         RECENTLY EXPERIENCES SECTION
+         Each case study = [colored box with logo] + [project title]
          ============================================ -->
-    <div class="selected-work-label">
-        <p class="selected-work-text">SELECTED WORK</p>
-    </div>
+    <section class="section-recently">
+
+        <h2 class="section-title">Recent experiences</h2>
+
+        <!-- Case study 1: Alphin — dark navy -->
+        <!-- Wrapped in <a> so clicking anywhere on the row opens the case study -->
+        <!-- data-project="alphin" lets JS find this row for the hover preview -->
+        <a href="projects/alphin.html" class="case-study case-study--link" data-project="alphin">
+            <div class="case-logo" style="background-color: #1e1a4d;">
+                <img src="logos/alphin.svg" alt="Alphin" loading="lazy">
+            </div>
+            <p class="case-title">AI-Powered Review Replies for Local Businesses</p>
+        </a>
+
+        <!-- Case study 2: Adjust — black -->
+        <a href="projects/adjust.html" class="case-study case-study--link" data-project="adjust">
+            <div class="case-logo" style="background-color: #010101;">
+                <img src="logos/adjust.svg" alt="Adjust" loading="lazy">
+            </div>
+            <p class="case-title">Reducing Mobile Analytics Onboarding from 3 Hours to 20 Minutes</p>
+        </a>
+
+        <!-- Case study 3: Agrofy — green -->
+        <a href="projects/agrofy.html" class="case-study case-study--link" data-project="agrofy">
+            <div class="case-logo" style="background-color: #81ba42;">
+                <img src="logos/agrofy.svg" alt="Agrofy" loading="lazy">
+            </div>
+            <p class="case-title">From Quotations to Online Sales in Agribusiness</p>
+        </a>
+
+        <!-- Case study 4: Estylar — dark purple -->
+        <a href="projects/estylar.html" class="case-study case-study--link" data-project="estylar">
+            <div class="case-logo" style="background-color: #333366;">
+                <img src="logos/estylar.svg" alt="Estylar" loading="lazy">
+            </div>
+            <p class="case-title">AI Body Scanner for Size Recommendations</p>
+        </a>
+
+        <!-- Preview area: sits to the right of the list.
+             Each .preview-set holds all images for one project.
+             JS fades in the right set on hover. -->
+        <div class="project-preview-area" id="project-preview-area">
+            <div class="preview-set" id="preview-alphin">
+                <img src="projects/img/hover/alphin_hover1.webp" alt="">
+                <img src="projects/img/hover/alphin_hover2.webp" alt="">
+                <img src="projects/img/hover/alphin_hover3.webp" alt="">
+            </div>
+            <div class="preview-set" id="preview-adjust">
+                <img src="projects/img/hover/adjust_hover1.webp" alt="">
+                <img src="projects/img/hover/adjust_hover2.webp" alt="">
+            </div>
+            <div class="preview-set" id="preview-agrofy">
+                <img src="projects/img/hover/agrofy_hover1.webp" alt="">
+                <img src="projects/img/hover/agrofy_hover2.webp" alt="">
+            </div>
+            <div class="preview-set" id="preview-estylar">
+                <img src="projects/img/hover/estylar_hover1.webp" alt="">
+                <img src="projects/img/hover/estylar_hover2.webp" alt="">
+                <img src="projects/img/hover/estylar_hover3.webp" alt="">
+            </div>
+        </div>
+
+    </section>
 
 
     <!-- ============================================
-         CASE STUDY PANELS
-         ─────────────────────────────────────────
-         Each panel is 100vh tall — it fills the full screen.
-         The user scrolls through them one at a time.
-
-         HOW CLICKING WORKS:
-         Each panel has an invisible <a> link stretched across
-         it (class="case-panel-link"). Clicking anywhere on the
-         panel opens the case study page.
-
-         HOW POSTHOG TRACKING WORKS:
-         data-project="X" is picked up by main.js which fires
-         a 'case_study_clicked' event to PostHog analytics.
-         ============================================ -->
-    <section class="section-case-studies">
-
-
-        <!-- ─────────────────────────────────────────────
-             PANEL 1 — ALPHIN
-             Background: white
-             "alphin" rotated navy text — far left, partially off-screen
-             ───────────────────────────────────────────── -->
-        <div class="case-panel case-panel--alphin" data-project="alphin">
-
-            <!-- Full-panel invisible link — whole panel is clickable -->
-            <a href="projects/alphin.html" class="case-panel-link" aria-label="View Alphin case study"></a>
-
-            <!-- Giant "alphin" text — rotated -90°, anchored to the left edge -->
-            <div class="cpanel-name-wrap cpanel-name-wrap--alphin">
-                <span class="cpanel-name cpanel-name--alphin">alphin</span>
-            </div>
-
-            <!-- Main screenshot — center-left with teal border from Figma -->
-            <img src="projects/img/alphin_home1_2x.webp"
-                 alt="Alphin main screen" class="cpanel-img alphin-img--1" loading="lazy">
-
-            <!-- Secondary screenshot — bottom center -->
-            <img src="projects/img/alphin_home2_2x.webp"
-                 alt="Alphin screen 2" class="cpanel-img alphin-img--2" loading="lazy">
-
-            <!-- Third screenshot — right side, mid-panel -->
-            <img src="projects/img/alphin_home3_2x.webp"
-                 alt="Alphin screen 3" class="cpanel-img alphin-img--3" loading="lazy">
-
-            <!-- "01" number + info card — stacked in the right column -->
-            <div class="cpanel-info-col cpanel-info-col--alphin">
-                <span class="cpanel-number cpanel-number--alphin">01</span>
-                <div class="case-info-card case-info-card--alphin">
-                    <p class="case-info-title">Empowering Local Business to improve their reputation with AI</p>
-                    <hr class="case-info-divider">
-                    <div class="case-info-meta">
-                        <span class="case-info-label">PROJECT:</span>
-                        <span class="case-info-value">AI-Powered Review Replies</span>
-                        <span class="case-info-label">SCOPE:</span>
-                        <span class="case-info-value">Lead Product Designer</span>
-                        <span class="case-info-label">YEAR:</span>
-                        <span class="case-info-value">2023-2025</span>
-                    </div>
-                </div>
-            </div>
-
-        </div><!-- /alphin panel -->
-
-
-        <!-- ─────────────────────────────────────────────
-             PANEL 2 — ADJUST
-             Background: black #010101
-             Wide screenshot spans the top; "adjust" name appears center-bottom
-             ───────────────────────────────────────────── -->
-        <div class="case-panel case-panel--adjust" data-project="adjust">
-
-            <a href="projects/adjust.html" class="case-panel-link" aria-label="View Adjust case study"></a>
-
-            <!-- Wide dashboard screenshot — centered horizontally, pinned to top (80px margin) -->
-            <img src="projects/img/adjust_home1_2x.webp"
-                 alt="Adjust analytics dashboard" class="cpanel-img adjust-img--1" loading="lazy">
-
-            <!-- "adjust" giant name — center-bottom of the panel -->
-            <span class="cpanel-name cpanel-name--adjust">adjust</span>
-
-            <!-- "02" watermark — right side, very subtle (20% opacity) -->
-            <span class="cpanel-number cpanel-number--adjust">02</span>
-
-            <!-- Info card — bottom-left -->
-            <div class="case-info-card case-info-card--adjust">
-                <p class="case-info-title">Onboarding redesign for a B2B and SaaS platform.</p>
-                <hr class="case-info-divider">
-                <div class="case-info-meta">
-                    <span class="case-info-label">PROJECT:</span>
-                    <span class="case-info-value">Reducing Mobile Analytics Onboarding churn rate.</span>
-                    <span class="case-info-label">SCOPE:</span>
-                    <span class="case-info-value">Senior Product Designer</span>
-                    <span class="case-info-label">YEAR:</span>
-                    <span class="case-info-value">2021-2022</span>
-                </div>
-            </div>
-
-        </div><!-- /adjust panel -->
-
-
-        <!-- ─────────────────────────────────────────────
-             PANEL 3 — AGROFY
-             Background: light green #f7fbf3
-             4 mobile checkout screens on the right side
-             ───────────────────────────────────────────── -->
-        <div class="case-panel case-panel--agrofy" data-project="agrofy">
-
-            <a href="projects/agrofy.html" class="case-panel-link" aria-label="View Agrofy case study"></a>
-
-            <!-- Info card — top-left (80px from edges = matching the 80px panel margin) -->
-            <div class="case-info-card case-info-card--agrofy">
-                <p class="case-info-title">From Quotations to Online Sales in Agribusiness Marketplace</p>
-                <hr class="case-info-divider">
-                <div class="case-info-meta">
-                    <span class="case-info-label">PROJECT:</span>
-                    <span class="case-info-value">Checkout process for agri-business industry</span>
-                    <span class="case-info-label">SCOPE:</span>
-                    <span class="case-info-value">Lead Product Designer</span>
-                    <span class="case-info-label">YEAR:</span>
-                    <span class="case-info-value">2023-2025</span>
-                </div>
-            </div>
-
-            <!-- "Agrofy" name — bottom-left, green color -->
-            <span class="cpanel-name cpanel-name--agrofy">Agrofy</span>
-
-            <!-- 4 mobile checkout screens — right half of the panel -->
-            <div class="cpanel-screens cpanel-screens--agrofy">
-                <img src="projects/img/agrofy_home1_2x.webp" alt="Agrofy checkout step 1" loading="lazy">
-                <img src="projects/img/agrofy_home2_2x.webp" alt="Agrofy checkout step 2" loading="lazy">
-                <img src="projects/img/agrofy_home3_2x.webp" alt="Agrofy checkout step 3" loading="lazy">
-                <img src="projects/img/agrofy_home4_2x.webp" alt="Agrofy checkout step 4" loading="lazy">
-            </div>
-
-        </div><!-- /agrofy panel -->
-
-
-        <!-- ─────────────────────────────────────────────
-             PANEL 4 — ESTYLAR
-             Background: dark purple #333366
-             Image bleeds to the LEFT edge (no margin) per Figma
-             Info card floats on top of the image, bottom-left
-             ───────────────────────────────────────────── -->
-        <div class="case-panel case-panel--estylar" data-project="estylar">
-
-            <a href="projects/estylar.html" class="case-panel-link" aria-label="View Estylar case study"></a>
-
-            <!-- Main image — left edge, covers ~94% width × ~74% height -->
-            <img src="projects/img/estylar_home1_2x.webp"
-                 alt="Estylar AI body scanner" class="cpanel-img estylar-img--1" loading="lazy">
-
-            <!-- "Estylar" italic name — overlaid on the right portion of the image -->
-            <span class="cpanel-name cpanel-name--estylar">Estylar</span>
-
-            <!-- "04" number — top-right, very subtle -->
-            <span class="cpanel-number cpanel-number--estylar">04</span>
-
-            <!-- Info card — bottom-left, floated over the image -->
-            <div class="case-info-card case-info-card--estylar">
-                <p class="case-info-title">AI Body Scanner for Size Recommendations</p>
-                <hr class="case-info-divider">
-                <div class="case-info-meta">
-                    <span class="case-info-label">PROJECT:</span>
-                    <span class="case-info-value">AI body scanner to reduce e-commerce returns.</span>
-                    <span class="case-info-label">SCOPE:</span>
-                    <span class="case-info-value">Lead Product Designer</span>
-                    <span class="case-info-label">YEAR:</span>
-                    <span class="case-info-value">2023-2025</span>
-                </div>
-            </div>
-
-        </div><!-- /estylar panel -->
-
-
-    </section><!-- /section-case-studies -->
-
-
-    <!-- ============================================
-         PROBLEMS I SOLVE + HOW I WORK
-         ─────────────────────────────────────────
-         Each row fills 100vh (same behaviour as case panels).
-         Layout: giant Crimson Pro heading on one side,
-                 24px Space Mono body text on the other.
-
-         "Problems I Solve": heading LEFT, text RIGHT.
-         "How I Work":        text LEFT,  heading RIGHT.
+         PROBLEMS I SOLVE / HOW I WORK — two columns
          ============================================ -->
     <section class="section-howwork">
 
-        <!-- ── ROW 1: PROBLEMS I SOLVE ── -->
-        <div class="howwork-row howwork-row--problems">
-            <!-- Left: stacked Crimson Pro heading -->
-            <div class="howwork-heading-stack">
-                <span class="howwork-h-small">Problems</span>
-                <span class="howwork-h-big">I Solve</span>
-            </div>
-            <!-- Right: body text -->
-            <p class="howwork-body">
-                Complex B2B SaaS is where I do my best work. Onboarding flows that take hours,
-                AI features nobody knows how to design yet, workflows that make sense to engineers
-                but nobody else. I turn that complexity into products people actually use.
-            </p>
-        </div>
+        <div class="howwork-grid">
 
-        <!-- ── ROW 2: HOW I WORK ── -->
-        <div class="howwork-row howwork-row--work">
-            <!-- Left: body text -->
-            <p class="howwork-body">
-                I embed in cross-functional teams and build trust fast. I've worked alongside
-                engineers, PMs, sales, and C-level stakeholders, sometimes all in the same week.
-                I push back when needed, align when it matters, and always bring the user back
-                into the room.
-            </p>
-            <!-- Right: stacked Crimson Pro heading (right-aligned) -->
-            <div class="howwork-heading-stack howwork-heading-stack--right">
-                <span class="howwork-h-small">How</span>
-                <span class="howwork-h-big">I Work</span>
+            <div class="howwork-col">
+                <h2 class="section-title">Problems I solve</h2>
+                <p class="howwork-body">Complex B2B SaaS is where I do my best work. Onboarding flows that take hours, AI features nobody knows how to design yet, workflows that make sense to engineers but nobody else. I turn that complexity into products people actually use.</p>
             </div>
+
+            <div class="howwork-col">
+                <h2 class="section-title">How I work</h2>
+                <p class="howwork-body">I embed in cross-functional teams and build trust fast. I've worked alongside engineers, PMs, sales, and C-level stakeholders, sometimes all in the same week. I push back when needed, align when it matters, and always bring the user back into the room.</p>
+            </div>
+
         </div>
 
     </section>
@@ -452,45 +304,49 @@
          enters the viewport — that triggers a CSS
          transition (fade in + slide up).
          ============================================ -->
-    <!-- ============================================
-         ABOUT ME — redesigned from Figma node 331-4042
-         Dark purple background, rotated Crimson Pro title,
-         bio text + circular photos + Download CV button.
-         ============================================ -->
     <section class="section-about">
-        <div class="about-inner">
 
-            <!-- Rotated "About Me" label — left column -->
-            <div class="about-label-wrap" aria-hidden="true">
-                <h2 class="about-label">About Me</h2>
-            </div>
+        <h2 class="section-title">About me</h2>
 
-            <!-- Right column: bio + photos + CV -->
-            <div class="about-body">
+        <div class="about-paragraphs">
 
-                <p class="about-bio">
-                    I've worked as a founding designer at early-stage startups and as part of large design organizations and shipping products from 0 to 1. I'm good at building cross-functional relationships and turning technical complexity into intuitive experiences.
-                </p>
+            <p class="about-text">
+                Product designer based in Berlin. I focus on B2B SaaS, reducing onboarding friction, simplifying complex workflows, and shipping products from 0 to 1.
+            </p>
 
-                <!-- 3 circular personal photos -->
-                <div class="about-photos">
-                    <img src="projects/img/nico.jpg"   alt="Carol with Nico"  class="about-photo">
-                    <img src="projects/img/pole.jpg"   alt="Carol pole dancing" class="about-photo">
-                    <img src="projects/img/morita.jpg" alt="Carol with Morita" class="about-photo">
-                </div>
+            <p class="about-text">
+                I've worked as a founding designer at early-stage startups and as part of large design organizations. I'm good at building cross-functional relationships and turning technical complexity into intuitive experiences.
+            </p>
 
-                <!-- Download CV button -->
-                <a href="CarolMunar_CV_SeniorProductDesigner.pdf" download class="about-cv-btn">
-                    Download CV
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                        <path d="M10 3V13" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                        <path d="M6 9.5L10 13.5L14 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M3 17H17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                </a>
+            <p class="about-text about-text--hint">
+                Some things up there reward curiosity.
+            </p>
 
-            </div>
         </div>
+
+        <!-- Two CTA buttons below the about text -->
+        <div class="about-buttons">
+            <!-- Contact me → opens email client -->
+            <a href="mailto:caritomunar@gmail.com" class="about-btn">
+                Contact me
+                <!-- Mail icon -->
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <rect x="1.5" y="3.5" width="13" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M1.5 4.5L8 9L14.5 4.5" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </a>
+            <!-- Download CV → triggers PDF download -->
+            <a href="CarolMunar_CV_SeniorProductDesigner.pdf" download class="about-btn">
+                Download CV
+                <!-- Download arrow icon -->
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M8 2V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M5 7.5L8 10.5L11 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 13H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </a>
+        </div>
+
     </section>
 
 
@@ -519,7 +375,7 @@
     </footer>
 
     <!-- Our JavaScript file (loaded at the bottom so HTML loads first) -->
-    <script src="js/main.js?v=8"></script>
+    <script src="js/main.js?v=7"></script>
 
 </body>
 </html>
