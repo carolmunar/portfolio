@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mari — Carol Munar</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- SEO -->
+    <meta name="description" content="How Carol Munar designed Mari, an AI planning tool that takes a team from PRD to prioritized Kanban board without a single meeting.">
+    <link rel="canonical" href="https://www.carolmunar.com/projects/mari">
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://www.carolmunar.com/projects/mari">
+    <meta property="og:title"       content="Mari — AI Planning Tool · Carol Munar">
+    <meta property="og:description" content="How Carol Munar designed Mari, an AI planning tool that takes a team from PRD to prioritized Kanban board without a single meeting.">
+    <meta property="og:image"       content="https://www.carolmunar.com/logos/og-image.png">
+
+    <!-- Same fonts as main portfolio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Shared case study styles -->
+    <link rel="stylesheet" href="alphin.css">
+
+    <!-- PostHog Analytics -->
+    <script>
+        !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group identify setPersonProperties setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroups onFeatureFlags addFeatureFlagsHandler onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+        posthog.init('phc_B0JxLwVXjqtCLqUhzrqNUlNWBGZ2Au1851EdzqLn0kw', {
+            api_host: 'https://eu.i.posthog.com',
+            defaults: '2026-01-30'
+        })
+    </script>
+</head>
+<body>
+
+    <!-- ============================================
+         HEADER
+         Fixed at the top. Same as all case studies.
+         ============================================ -->
+    <header class="cs-header">
+        <div>
+            <a href="../index.html" class="cs-header-name">Carol Munar</a>
+            <p class="cs-header-role">Product Designer</p>
+        </div>
+        <a href="mailto:caritomunar@gmail.com" class="cs-header-contact">Say Hola!</a>
+    </header>
+
+
+    <main class="cs-main">
+
+        <!-- ============================================
+             TITLE AREA
+             Left: "Mari" in the large company name style
+             Right: H1 title + metadata row
+             ============================================ -->
+        <div class="cs-title-area">
+            <div>
+                <span class="cs-company-name">Mari</span>
+            </div>
+            <div>
+                <h1 class="cs-h1">From PRD to Kanban Board — Without a Single Meeting</h1>
+            </div>
+            <div class="cs-meta">
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Year</span>
+                    <span class="cs-meta-value">2025 · Hackathon</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Industry</span>
+                    <span class="cs-meta-value">AI · Productivity</span>
+                </div>
+                <div class="cs-meta-item">
+                    <span class="cs-meta-label">Scope</span>
+                    <span class="cs-meta-value">UX & UI Designer</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================
+             IMAGE 1 — Hero: Context Input screen
+             ============================================ -->
+        <div class="cs-image-wrap">
+            <img
+                src="img/homeContext.png"
+                alt="Mari — Context Input screen with Notion link field and Team Context panel">
+        </div>
+
+
+        <!-- ============================================
+             SECTION: PROBLEM
+             The core tension: teams have ideas but can't
+             agree on priority or ownership.
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Problem</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    Teams don't struggle to have ideas. They struggle to agree on what to
+                    build first and who owns what — and they waste hours in planning sessions
+                    that could have been a document.
+                </p>
+                <p>
+                    A PRD exists. The team is assembled. The roles are known. And yet the
+                    first 90 minutes of every sprint cycle are spent in a room negotiating
+                    priority and arguing over assignment. Nothing in that room requires the
+                    room.
+                </p>
+                <p>
+                    At a Cursor-organized hackathon, a five-person team set out to eliminate
+                    that meeting entirely.
+                </p>
+
+                <div class="cs-brief">
+                    <p class="cs-label-orange">The Brief</p>
+                    <p class="cs-brief-text">
+                        Go from a PRD to a prioritized, assigned Kanban board without
+                        a single meeting.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             SECTION: SOLUTION
+             Three key design decisions that shaped the product.
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Solution</h2>
+            </div>
+            <div class="cs-section-content">
+                <p>
+                    I owned the full UX and UI — from flow definition to final screens.
+                    I worked alongside the developer to shape what the AI agents would
+                    expose to the user at each step, and made the key decisions on how
+                    much control to give users versus how much to let the agents handle.
+                </p>
+
+                <div class="cs-brief">
+                    <p class="cs-label-orange">Key Decisions</p>
+                    <div class="cs-decisions">
+                        <div>
+                            <p class="cs-decision-title">The PRD is the starting point, not a form.</p>
+                            <p>
+                                Most planning tools begin with an empty board or a template.
+                                We started with a document. The Context Input screen accepts
+                                a Notion link or a file upload — and the team panel sits right
+                                beside it, already populated with names, roles, and availability.
+                                The brief exists. The people exist. The tool's job is to connect
+                                them, not make you recreate everything from scratch.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title">Make the AI reasoning visible while it works.</p>
+                            <p>
+                                During analysis, the agent doesn't just show a spinner. It
+                                narrates what it's doing — "Extracting goals, constraints, and
+                                scope. Keeping only what is supported by your input." This was
+                                a deliberate trust decision. An AI that hands you a finished
+                                plan with no trace of its logic is one you'll second-guess or
+                                override by default. Showing the agent's thinking in real time
+                                makes the output feel earned rather than arbitrary.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title">Assign by role and availability, not by name.</p>
+                            <p>
+                                The Team Context panel shows who's active and who isn't —
+                                David Kim is on PTO and toggled off. The AI maps tasks to
+                                available team members based on their function (Frontend,
+                                Backend, Design), not to whoever's name you typed in. Assignment
+                                decisions made without availability context get renegotiated in
+                                Slack an hour later. Building availability into the input layer
+                                removes that loop entirely.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             IMAGE 2 — First image after key decisions: iterations
+             Replace src when the file is added to projects/img/
+             ============================================ -->
+        <div class="cs-image-wrap">
+            <img src="img/iteraction1.png" alt="Mari — Design iterations" loading="lazy">
+        </div>
+
+
+        <!-- ============================================
+             IMAGE 3 — Decision 2 visual
+             AI Analysis loading state — agent message bubble
+             with the "Extracting goals, constraints…" copy.
+             Replace src with your actual image when ready.
+             ============================================ -->
+        <div class="cs-image-wrap">
+            <img src="img/mari3.webp" alt="Mari — AI Analysis loading state with agent reasoning message" loading="lazy">
+        </div>
+
+
+        <!-- ============================================
+             IMAGE 4 — Decision 3 visual
+             Team Context panel zoomed in — active/inactive
+             toggles, role labels, David on PTO greyed out.
+             Replace src with your actual image when ready.
+             ============================================ -->
+        <div class="cs-image-wrap">
+            <img src="img/mari4.webp" alt="Mari — Team Context panel zoomed in with availability toggles" loading="lazy">
+        </div>
+
+
+        <!-- ============================================
+             SECTION: IMPACT
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Impact</h2>
+            </div>
+            <div class="cs-section-content">
+                <div class="cs-table-wrap">
+                    <table class="cs-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Before</th>
+                                <th>After</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Planning session length</td>
+                                <td data-label="Before">90 min</td>
+                                <td data-label="After">&lt; 2 min</td>
+                            </tr>
+                            <tr>
+                                <td>People required to kick off</td>
+                                <td data-label="Before">Full team</td>
+                                <td data-label="After">1 person</td>
+                            </tr>
+                            <tr>
+                                <td>Meetings needed</td>
+                                <td data-label="Before">At least 1</td>
+                                <td data-label="After">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    The full flow — from PRD link to populated board — ran in under two minutes
+                    during the demo. The product compressed what normally takes a 90-minute
+                    planning session into something a single person can trigger alone,
+                    asynchronously.
+                </p>
+                <p>
+                    Mari wasn't named as a feature. It was named as a standard: the kind of
+                    project manager who comes in, reads the room, knows who should own what,
+                    and gets everyone moving without drama. That's what the product tries to be.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             SECTION: LEARNINGS
+             ============================================ -->
+        <section class="cs-section">
+            <div class="cs-section-label">
+                <h2>Learnings</h2>
+            </div>
+            <div class="cs-section-content">
+                <div>
+                    <p class="cs-decision-title">Transparency builds trust faster than a polished result.</p>
+                    <p>
+                        Showing the AI's reasoning step by step made the output feel earned.
+                        A finished plan with no visible logic is one users will override by
+                        instinct — even when the plan is correct.
+                    </p>
+                </div>
+                <div>
+                    <p class="cs-decision-title">Start with what already exists.</p>
+                    <p>
+                        The brief exists. The team is assembled. The roles are known.
+                        Great planning tools don't ask you to rebuild the context — they
+                        read it and move forward.
+                    </p>
+                </div>
+                <div>
+                    <p class="cs-decision-title">Availability is a design input, not an afterthought.</p>
+                    <p>
+                        Building availability into the input layer removed the renegotiation
+                        loop that normally happens in Slack an hour after planning ends.
+                        Context that lives outside the tool always gets lost.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================
+             FOOTER
+             Role description + navigation to previous case study.
+             Mari is the last case study, so only a "Previous" link.
+             ============================================ -->
+        <footer class="cs-footer">
+            <p class="cs-footer-role">
+                Role: UX & UI Designer · Full flow definition, screen design,
+                AI agent interaction design · Cursor Hackathon 2025
+            </p>
+            <a href="estylar.html" class="cs-next-link">← Previous: Estylar</a>
+        </footer>
+
+    </main>
+
+
+    <!-- ============================================
+         SITE FOOTER — same as all other pages
+         ============================================ -->
+    <footer class="site-footer">
+        <div class="footer-logos">
+            <a href="https://www.linkedin.com/in/carolmunar/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <img src="../logos/linkedin.svg" alt="LinkedIn" width="24" height="24">
+            </a>
+            <a href="https://github.com/carolmunar" target="_blank" rel="noopener" aria-label="GitHub">
+                <img src="../logos/github.svg" alt="GitHub" width="24" height="24">
+            </a>
+            <a href="https://substack.com/@carolmunar" target="_blank" rel="noopener" aria-label="Substack">
+                <img src="../logos/substack.svg" alt="Substack" width="24" height="24">
+            </a>
+        </div>
+        <p class="footer-copy">©2026 Carol Munar</p>
+        <p class="footer-made">Made it with 🖤 and <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></p>
+    </footer>
+
+    <!-- Progressive blur overlay -->
+    <div id="scroll-blur" aria-hidden="true"></div>
+    <script src="blur.js"></script>
+
+</body>
+</html>

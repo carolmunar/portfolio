@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Our main stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=32">
+    <link rel="stylesheet" href="css/style.css?v=33">
 
     <style>
         /* Estylar hover preview: images 2 and 3 have white UI screenshots
@@ -212,7 +212,18 @@
 
         <h2 class="section-title">Recent experiences</h2>
 
-        <!-- Case study 1: Alphin — dark navy -->
+        <!-- Case study 1: Mari — deep teal -->
+        <a href="projects/mari.html" class="case-study case-study--link" data-project="mari">
+            <div class="case-logo" style="background-color: #00FFB2;">
+                <img src="logos/Mari.svg" alt="Mari" loading="lazy">
+            </div>
+            <div class="case-content">
+                <p class="case-title">From PRD to Kanban Board — Without a Single Meeting</p>
+                <span class="case-see-more">See more &rarr;</span>
+            </div>
+        </a>
+
+        <!-- Case study 2: Alphin — dark navy -->
         <!-- Wrapped in <a> so clicking anywhere on the row opens the case study -->
         <!-- data-project="alphin" lets JS find this row for the hover preview -->
         <a href="projects/alphin.html" class="case-study case-study--link" data-project="alphin">
@@ -225,7 +236,7 @@
             </div>
         </a>
 
-        <!-- Case study 2: Adjust — black -->
+        <!-- Case study 3: Adjust — black -->
         <a href="projects/adjust.html" class="case-study case-study--link" data-project="adjust">
             <div class="case-logo" style="background-color: #010101;">
                 <img src="logos/adjust.svg" alt="Adjust" loading="lazy">
@@ -236,7 +247,7 @@
             </div>
         </a>
 
-        <!-- Case study 3: Agrofy — green -->
+        <!-- Case study 4: Agrofy — green -->
         <a href="projects/agrofy.html" class="case-study case-study--link" data-project="agrofy">
             <div class="case-logo" style="background-color: #81ba42;">
                 <img src="logos/agrofy.svg" alt="Agrofy" loading="lazy">
@@ -247,7 +258,7 @@
             </div>
         </a>
 
-        <!-- Case study 4: Estylar — dark purple -->
+        <!-- Case study 5: Estylar — dark purple -->
         <a href="projects/estylar.html" class="case-study case-study--link" data-project="estylar">
             <div class="case-logo" style="background-color: #333366;">
                 <img src="logos/estylar.svg" alt="Estylar" loading="lazy">
@@ -371,6 +382,12 @@
                 <img src="projects/img/hover/estylar_hover2.webp" alt="">
                 <img src="projects/img/hover/estylar_hover3.webp" alt="">
             </div>
+
+            <!-- Mari: placeholder images — replace with real screenshots when ready -->
+            <div class="preview-set" id="preview-mari">
+                <img src="projects/img/mari1.webp" alt="Mari — Context Input screen" loading="lazy">
+                <img src="projects/img/mari2.webp" alt="Mari — AI Analysis loading state" loading="lazy">
+            </div>
         </div>
 
     </section>
@@ -478,7 +495,7 @@
     </footer>
 
     <!-- Our JavaScript file (loaded at the bottom so HTML loads first) -->
-    <script src="js/main.js?v=15"></script>
+    <script src="js/main.js?v=16"></script>
 
 </body>
 </html>

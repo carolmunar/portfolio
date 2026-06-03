@@ -340,7 +340,8 @@ if (window.innerWidth > 768) {
         'alphin':  document.getElementById('preview-alphin'),
         'adjust':  document.getElementById('preview-adjust'),
         'agrofy':  document.getElementById('preview-agrofy'),
-        'estylar': document.getElementById('preview-estylar')
+        'estylar': document.getElementById('preview-estylar'),
+        'mari':    document.getElementById('preview-mari')
     };
 
     document.querySelectorAll('[data-project]').forEach(function(row) {
