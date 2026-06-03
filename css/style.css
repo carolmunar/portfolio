@@ -753,18 +753,31 @@ body.dark-mode #switch-off-img { display: block; }
    remove the default link styling (blue color, underline)
    so it looks identical to a plain div. */
 a.case-study--link {
-    text-decoration: none;   /* removes the blue underline from links */
-    color: inherit;          /* inherits the dark text color instead of link blue */
-    cursor: default;         /* no pointer on the text — only the logo signals "clickable" */
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
     transition: opacity 0.15s ease;
 }
 
 a.case-study--link:hover {
-    opacity: 0.75;           /* subtle dimming on hover to show interactivity */
+    opacity: 0.75;
 }
 
-a.case-study--link .case-logo {
-    cursor: pointer;         /* pointer cursor only on the logo box */
+/* Wrapper for title + "See more" stacked vertically */
+.case-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* "See more →" — always visible, matches .case-title font exactly, bold */
+.case-see-more {
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.011em;
+    line-height: 1.4;
+    color: var(--color-text);
 }
 
 /* The colored square that holds the company logo */
@@ -1546,3 +1559,319 @@ a.case-study--link .case-logo {
    Small monospace text button, positioned in the bottom-center
    of the hero. Matches the site's typographic style.
    Active state shows a pulsing dot to signal the camera is on. */
+
+
+
+
+/* ============================================================
+   ALPHIN ANIMATED MODAL — HOVER PREVIEW
+   Faithful to Figma node 297:12994. The card is built at 640px
+   width and scaled down to fit the 572px preview area using
+   CSS transform. Sections fade in sequentially via JS.
+   ============================================================ */
+
+/* No images in this set — the img rule from .preview-set would
+   try to animate ghost elements. Safety override: */
+#preview-alphin img { display: none; }
+
+/* The preview container needs a bit more height for the scaled modal */
+#preview-alphin { height: 500px; }
+
+/* Card: natural width 640px, scaled to ~0.56 → ~358px visible.
+   Position absolute so the scale transform doesn't push siblings. */
+#preview-alphin .alp-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 640px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #0f172b;
+    display: flex;
+    flex-direction: column;
+
+    /* Scale to fit the preview area */
+    transform-origin: top left;
+    transform: scale(0.56) translateY(0);
+
+    /* Fade in/out — driven by .visible on parent */
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+#preview-alphin.visible .alp-card {
+    opacity: 1;
+}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+.alp-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fff;
+}
+
+.alp-icon-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #615fff 0%, #9810fa 100%);
+    box-shadow: 0 10px 7.5px rgba(0,0,0,0.1), 0 4px 3px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.alp-header-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.alp-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.45px;
+    color: #0f172b;
+}
+
+.alp-sub {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    color: #62748e;
+}
+
+.alp-close {
+    font-size: 18px;
+    color: #62748e;
+    cursor: default;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+/* ── BODY ────────────────────────────────────────────────── */
+.alp-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    background: #fff;
+}
+
+/* All sections start hidden; JS adds .alp-visible to each with a delay */
+.alp-section {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.38s ease, transform 0.38s ease;
+}
+.alp-section.alp-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Labels above each section */
+.alp-label {
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    color: #314158;
+}
+
+/* ── Section 1: Original Review ── */
+.alp-review-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 17px;
+    font-size: 14px;
+    line-height: 22.75px;
+    letter-spacing: -0.15px;
+    color: #45556c;
+}
+
+/* ── Section 2: Reply Language ── */
+.alp-lang-toggle {
+    display: flex;
+    gap: 12px;
+}
+.alp-lang {
+    flex: 1;
+    height: 46px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    color: #0f172b;
+    cursor: default;
+}
+.alp-lang--active {
+    background: #eef2ff;
+    border-color: #c6d2ff;
+    box-shadow: 0 1px 1.5px rgba(0,0,0,0.1), 0 1px 1px rgba(0,0,0,0.1);
+    color: #312c85;
+}
+.alp-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4f39f6;
+    flex-shrink: 0;
+}
+
+/* ── Section 3: Select Tone ── */
+.alp-tone-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.alp-tone {
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #fff;
+    padding: 13px;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    cursor: default;
+}
+.alp-tone--active {
+    background: #eef2ff;
+    border-color: #c6d2ff;
+    box-shadow: 0 1px 1.5px rgba(0,0,0,0.1), 0 1px 1px rgba(0,0,0,0.1);
+}
+.alp-tone--active .alp-dot {
+    margin-top: 7px;
+}
+.alp-tone-name {
+    margin: 0 0 4px;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    color: #0f172b;
+}
+.alp-tone--active .alp-tone-name {
+    color: #312c85;
+}
+.alp-tone-sub {
+    margin: 0;
+    font-size: 12px;
+    line-height: 19.5px;
+    color: #62748e;
+}
+.alp-tone--active .alp-tone-sub {
+    color: #4f39f6;
+}
+
+/* ── Section 4: Generated Reply ── */
+.alp-reply-hdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.alp-reply-hdr .alp-label {
+    margin: 0;
+}
+.alp-regen {
+    font-size: 12px;
+    line-height: 16px;
+    color: #4f39f6;
+    cursor: default;
+    white-space: nowrap;
+}
+.alp-reply-area {
+    position: relative;
+    border-radius: 14px;
+    border: 1px solid #e0e7ff;
+    background: linear-gradient(170deg, #eef2ff 0%, #faf5ff 100%);
+    padding: 15px;
+    min-height: 100px;
+}
+.alp-reply-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 19.5px;
+    letter-spacing: -0.15px;
+    color: #314158;
+    min-height: 1.4em;
+}
+.alp-reply-hint {
+    margin: 8px 0 0;
+    font-size: 12px;
+    line-height: 16px;
+    color: #62748e;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.alp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+}
+.alp-footer-actions {
+    display: flex;
+    gap: 12px;
+}
+.alp-btn-cancel {
+    background: transparent;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    color: #314158;
+    cursor: default;
+    padding: 10px 0;
+}
+.alp-btn-draft {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 1px 1.5px rgba(0,0,0,0.1), 0 1px 1px rgba(0,0,0,0.1);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    color: #314158;
+    padding: 10px 20px;
+    cursor: default;
+}
+.alp-btn-send {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, #312c85 0%, #372aac 100%);
+    box-shadow: 0 10px 7.5px rgba(49,44,133,0.2), 0 4px 3px rgba(49,44,133,0.2);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.15px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: default;
+}

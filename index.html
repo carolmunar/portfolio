@@ -28,10 +28,10 @@
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Our main stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=26">
+    <link rel="stylesheet" href="css/style.css?v=32">
 
     <style>
         /* Estylar hover preview: images 2 and 3 have white UI screenshots
@@ -219,7 +219,10 @@
             <div class="case-logo" style="background-color: #1e1a4d;">
                 <img src="logos/alphin.svg" alt="Alphin" loading="lazy">
             </div>
-            <p class="case-title">AI-Powered Review Replies for Local Businesses</p>
+            <div class="case-content">
+                <p class="case-title">AI-Powered Review Replies for Local Businesses</p>
+                <span class="case-see-more">See more &rarr;</span>
+            </div>
         </a>
 
         <!-- Case study 2: Adjust — black -->
@@ -227,7 +230,10 @@
             <div class="case-logo" style="background-color: #010101;">
                 <img src="logos/adjust.svg" alt="Adjust" loading="lazy">
             </div>
-            <p class="case-title">Reducing Mobile Analytics Onboarding from 3 Hours to 20 Minutes</p>
+            <div class="case-content">
+                <p class="case-title">Reducing Mobile Analytics Onboarding from 3 Hours to 20 Minutes</p>
+                <span class="case-see-more">See more &rarr;</span>
+            </div>
         </a>
 
         <!-- Case study 3: Agrofy — green -->
@@ -235,7 +241,10 @@
             <div class="case-logo" style="background-color: #81ba42;">
                 <img src="logos/agrofy.svg" alt="Agrofy" loading="lazy">
             </div>
-            <p class="case-title">From Quotations to Online Sales in Agribusiness</p>
+            <div class="case-content">
+                <p class="case-title">From Quotations to Online Sales in Agribusiness</p>
+                <span class="case-see-more">See more &rarr;</span>
+            </div>
         </a>
 
         <!-- Case study 4: Estylar — dark purple -->
@@ -243,17 +252,111 @@
             <div class="case-logo" style="background-color: #333366;">
                 <img src="logos/estylar.svg" alt="Estylar" loading="lazy">
             </div>
-            <p class="case-title">AI Body Scanner for Size Recommendations</p>
+            <div class="case-content">
+                <p class="case-title">AI Body Scanner for Size Recommendations</p>
+                <span class="case-see-more">See more &rarr;</span>
+            </div>
         </a>
 
         <!-- Preview area: sits to the right of the list.
              Each .preview-set holds all images for one project.
              JS fades in the right set on hover. -->
         <div class="project-preview-area" id="project-preview-area">
+            <!-- Alphin: animated AI Reply modal — matches Figma node 297:12994 -->
             <div class="preview-set" id="preview-alphin">
-                <img src="projects/img/hover/alphin_hover1.webp" alt="">
-                <img src="projects/img/hover/alphin_hover2.webp" alt="">
-                <img src="projects/img/hover/alphin_hover3.webp" alt="">
+                <div class="alp-card">
+
+                    <!-- Header: gradient icon + title + close -->
+                    <div class="alp-header">
+                        <div class="alp-icon-wrap" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                <path d="M9.5 3L11 7.5 15.5 9l-4.5 1.5L9.5 15 8 10.5 3.5 9 8 7.5 9.5 3z" fill="white"/>
+                                <path d="M18.5 14l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="alp-header-text">
+                            <p class="alp-title">AI Reply Generator</p>
+                            <p class="alp-sub">Responding to Dörte Sowinski's review</p>
+                        </div>
+                        <div class="alp-close" aria-hidden="true">&#x2715;</div>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="alp-body">
+
+                        <!-- 1: Original Review -->
+                        <div class="alp-section alp-s1">
+                            <p class="alp-label">Original Review</p>
+                            <div class="alp-review-box">
+                                Fantastisches Essen und exzellenter Service! Die Pasta war perfekt zubereitet und das Personal war sehr aufmerksam. Wir kommen auf jeden Fall wieder!
+                            </div>
+                        </div>
+
+                        <!-- 2: Reply Language -->
+                        <div class="alp-section alp-s2">
+                            <p class="alp-label">
+                                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M1 3h7M4.5 1v2M3 3c0 2 .8 4 4 5M6 3c-.5 1.5-2 3-3.5 4M9 14l2.5-6.5L14 14M9.8 12h3.4" stroke="#314158" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                Reply Language
+                            </p>
+                            <div class="alp-lang-toggle">
+                                <div class="alp-lang alp-lang--active"><span class="alp-dot"></span>Deutsch</div>
+                                <div class="alp-lang">English</div>
+                            </div>
+                        </div>
+
+                        <!-- 3: Select Tone -->
+                        <div class="alp-section alp-s3">
+                            <p class="alp-label">Select Tone</p>
+                            <div class="alp-tone-grid">
+                                <div class="alp-tone alp-tone--active">
+                                    <span class="alp-dot"></span>
+                                    <div><p class="alp-tone-name">Professional</p><p class="alp-tone-sub">Polished and business-focused</p></div>
+                                </div>
+                                <div class="alp-tone">
+                                    <div><p class="alp-tone-name">Friendly</p><p class="alp-tone-sub">Warm and approachable</p></div>
+                                </div>
+                                <div class="alp-tone">
+                                    <div><p class="alp-tone-name">Casual</p><p class="alp-tone-sub">Relaxed and conversational</p></div>
+                                </div>
+                                <div class="alp-tone">
+                                    <div><p class="alp-tone-name">Enthusiastic</p><p class="alp-tone-sub">Energetic and excited</p></div>
+                                </div>
+                                <div class="alp-tone">
+                                    <div><p class="alp-tone-name">Empathetic</p><p class="alp-tone-sub">Understanding and caring</p></div>
+                                </div>
+                                <div class="alp-tone">
+                                    <div><p class="alp-tone-name">Concise</p><p class="alp-tone-sub">Brief and to the point</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4: Generated Reply -->
+                        <div class="alp-section alp-s4">
+                            <div class="alp-reply-hdr">
+                                <p class="alp-label">Generated Reply</p>
+                                <span class="alp-regen">&#x21BA; Regenerate</span>
+                            </div>
+                            <div class="alp-reply-area">
+                                <p class="alp-reply-text" id="alp-reply-text"></p>
+                            </div>
+                            <p class="alp-reply-hint">Feel free to edit the reply before sending</p>
+                        </div>
+
+                    </div><!-- /alp-body -->
+
+                    <!-- Footer -->
+                    <div class="alp-footer">
+                        <button class="alp-btn-cancel">Cancel</button>
+                        <div class="alp-footer-actions">
+                            <button class="alp-btn-draft">Save Draft</button>
+                            <button class="alp-btn-send">
+                                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 2l12 6-12 6V9.5L10 8 2 6.5V2z" fill="white"/></svg>
+                                Send Reply
+                            </button>
+                        </div>
+                    </div>
+
+                </div><!-- /alp-card -->
             </div>
             <div class="preview-set" id="preview-adjust">
                 <img src="projects/img/hover/adjust_hover1.webp" alt="">
@@ -375,7 +478,7 @@
     </footer>
 
     <!-- Our JavaScript file (loaded at the bottom so HTML loads first) -->
-    <script src="js/main.js?v=7"></script>
+    <script src="js/main.js?v=15"></script>
 
 </body>
 </html>

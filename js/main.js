@@ -345,14 +345,10 @@ if (window.innerWidth > 768) {
 
     document.querySelectorAll('[data-project]').forEach(function(row) {
 
-        /* Only the logo box (coloured square) triggers the preview —
-           not the title text. We find the .case-logo inside each row. */
-        var logo = row.querySelector('.case-logo');
-        if (!logo) return;
-
-        logo.addEventListener('mouseenter', function() {
-            /* Hide all sets first, then show the matching one.
-               .filter(Boolean) skips any null entries (missing IDs) */
+        /* Trigger preview when hovering anywhere on the row —
+           logo box OR title text. mouseenter/mouseleave don't bubble,
+           so they fire exactly once when entering/leaving the whole row. */
+        row.addEventListener('mouseenter', function() {
             Object.values(previewMap).filter(Boolean).forEach(function(p) {
                 p.classList.remove('visible');
             });
@@ -360,8 +356,7 @@ if (window.innerWidth > 768) {
             if (preview) preview.classList.add('visible');
         });
 
-        logo.addEventListener('mouseleave', function() {
-            /* Hide all sets when the mouse leaves the logo */
+        row.addEventListener('mouseleave', function() {
             Object.values(previewMap).filter(Boolean).forEach(function(p) {
                 p.classList.remove('visible');
             });
@@ -490,3 +485,106 @@ if (typeof posthog !== 'undefined') {
     });
 
 } // end posthog check
+
+
+
+
+/* ============================================================
+   ALPHIN PREVIEW ANIMATION — faithful to Figma 297:12994
+   Sequence: sections fade in one by one, then the reply
+   text types character by character, then loops.
+   ============================================================ */
+(function () {
+
+    var replyEl   = document.getElementById('alp-reply-text');
+    var sections  = document.querySelectorAll('#preview-alphin .alp-section');
+    var previewEl = document.getElementById('preview-alphin');
+
+    if (!replyEl || !sections.length || !previewEl) return;
+
+    /* The generated reply text that types out */
+    var replyText = 'Vielen Dank für Ihre wunderbare Bewertung! Wir freuen uns sehr zu hören, dass Ihnen unsere Pasta geschmeckt hat und Sie unseren aufmerksamen Service geschätzt haben. Ihr Feedback bedeutet unserem Team sehr viel, und wir freuen uns darauf, Sie bald wieder bei uns begrüßen zu dürfen.';
+
+    var loopTimer = null;
+    var typeTimer = null;
+    var running   = false;
+
+    function clearAll() {
+        sections.forEach(function (s) { s.classList.remove('alp-visible'); });
+        replyEl.textContent = '';
+        clearInterval(typeTimer);
+        clearTimeout(loopTimer);
+    }
+
+    function typeText(text, el, onDone) {
+        var i = 0;
+        el.textContent = '';
+        typeTimer = setInterval(function () {
+            if (!running) { clearInterval(typeTimer); return; }
+            el.textContent += text[i];
+            i++;
+            if (i >= text.length) {
+                clearInterval(typeTimer);
+                if (onDone) onDone();
+            }
+        }, 18);
+    }
+
+    function runLoop() {
+        if (!running) return;
+        clearAll();
+
+        /* 1 — Original Review fades in */
+        setTimeout(function () {
+            if (!running) return;
+            sections[0] && sections[0].classList.add('alp-visible');
+        }, 300);
+
+        /* 2 — Reply Language fades in */
+        setTimeout(function () {
+            if (!running) return;
+            sections[1] && sections[1].classList.add('alp-visible');
+        }, 800);
+
+        /* 3 — Select Tone fades in */
+        setTimeout(function () {
+            if (!running) return;
+            sections[2] && sections[2].classList.add('alp-visible');
+        }, 1300);
+
+        /* 4 — Generated Reply section appears, then text types out */
+        setTimeout(function () {
+            if (!running) return;
+            sections[3] && sections[3].classList.add('alp-visible');
+            setTimeout(function () {
+                if (!running) return;
+                typeText(replyText, replyEl, function () {
+                    /* Pause 2 s after typing finishes, then restart */
+                    loopTimer = setTimeout(function () {
+                        if (running) runLoop();
+                    }, 2200);
+                });
+            }, 500);
+        }, 1900);
+    }
+
+    function startAnimation() {
+        if (running) return;
+        running = true;
+        runLoop();
+    }
+
+    function stopAnimation() {
+        running = false;
+        clearAll();
+    }
+
+    /* Attach to the whole Alphin row — matches the updated hover trigger above */
+    var alphinRow = document.querySelector('[data-project="alphin"]');
+
+    if (!alphinRow) return;
+
+    alphinRow.addEventListener('mouseenter', startAnimation);
+    alphinRow.addEventListener('mouseleave', stopAnimation);
+
+}());
