@@ -1577,6 +1577,22 @@ a.case-study--link:hover {
 /* The preview container needs a bit more height for the scaled modal */
 #preview-alphin { height: 500px; }
 
+/* ── MARI — video hover preview ── */
+#preview-mari video {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease,
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#preview-mari.visible video {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Card: natural width 640px, scaled to ~0.56 → ~358px visible.
    Position absolute so the scale transform doesn't push siblings. */
 #preview-alphin .alp-card {

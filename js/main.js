@@ -589,3 +589,35 @@ if (typeof posthog !== 'undefined') {
     alphinRow.addEventListener('mouseleave', stopAnimation);
 
 }());
+
+
+/* ============================================================
+   MARI HOVER VIDEO
+   Plays the first 5 seconds of heroMari.mp4 on hover, loops.
+   Desktop only — matches the existing hover preview guard.
+   ============================================================ */
+(function () {
+    if (window.innerWidth <= 768) return;
+
+    var mariVideo = document.getElementById('mari-hover-video');
+    var mariRow   = document.querySelector('[data-project="mari"]');
+    if (!mariVideo || !mariRow) return;
+
+    /* Loop back to start when the clip reaches 5 seconds */
+    mariVideo.addEventListener('timeupdate', function () {
+        if (mariVideo.currentTime >= 5) {
+            mariVideo.currentTime = 0;
+        }
+    });
+
+    mariRow.addEventListener('mouseenter', function () {
+        mariVideo.currentTime = 0;
+        mariVideo.play();
+    });
+
+    mariRow.addEventListener('mouseleave', function () {
+        mariVideo.pause();
+        mariVideo.currentTime = 0;
+    });
+
+}());

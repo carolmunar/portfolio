@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Our main stylesheet -->
-    <link rel="stylesheet" href="css/style.css?v=33">
+    <link rel="stylesheet" href="css/style.css?v=34">
 
     <style>
         /* Estylar hover preview: images 2 and 3 have white UI screenshots
@@ -383,10 +383,14 @@
                 <img src="projects/img/hover/estylar_hover3.webp" alt="">
             </div>
 
-            <!-- Mari: placeholder images — replace with real screenshots when ready -->
+            <!-- Mari: video preview — plays first 5s on hover, loops -->
             <div class="preview-set" id="preview-mari">
-                <img src="projects/img/mari1.webp" alt="Mari — Context Input screen" loading="lazy">
-                <img src="projects/img/mari2.webp" alt="Mari — AI Analysis loading state" loading="lazy">
+                <video id="mari-hover-video"
+                       src="projects/img/heroMari.mp4?v=1"
+                       muted
+                       playsinline
+                       preload="metadata">
+                </video>
             </div>
         </div>
 
@@ -495,7 +499,7 @@
     </footer>
 
     <!-- Our JavaScript file (loaded at the bottom so HTML loads first) -->
-    <script src="js/main.js?v=16"></script>
+    <script src="js/main.js?v=17"></script>
 
 </body>
 </html>
