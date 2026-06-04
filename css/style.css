@@ -1579,7 +1579,7 @@ a.case-study--link:hover {
 
 /* ── MARI — video hover preview ── */
 #preview-mari video {
-    width: 100%;
+    width: 105%;
     display: block;
     border-radius: 8px;
     opacity: 0;
