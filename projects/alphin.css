@@ -200,6 +200,29 @@ button:focus-visible {
     display: block;     /* removes the small gap that appears under inline images */
 }
 
+/* Hero video (Mari case study) */
+.cs-hero-video video {
+    width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Live demo link below hero video */
+.cs-live-demo-link {
+    display: block;
+    margin: 12px 68px 0;
+    font-family: 'TestSohneMono', 'Space Mono', monospace;
+    font-size: 14px;
+    color: #737373;
+    text-decoration: underline;
+    letter-spacing: -0.154px;
+}
+
+.cs-live-demo-link:hover {
+    color: #1e1e1e;
+}
+
 /* ── SECTION LAYOUT ──
    Two-column grid: label on left, content on right.
    Figma: container at 68px, h2 text at 132px (200px from page),
@@ -279,6 +302,10 @@ button:focus-visible {
     color: #1e1e1e !important;
     letter-spacing: -0.176px !important;
     line-height: 1.7 !important;
+}
+
+.cs-decision-title--medium {
+    font-weight: 600;
 }
 
 /* ── IMPACT TABLE ──
@@ -625,6 +652,10 @@ button:focus-visible {
         margin: 48px 20px 0;          /* mobile: 20px side margins */
     }
 
+    .cs-live-demo-link {
+        margin: 12px 20px 0;
+    }
+
     .cs-section {
         grid-template-columns: 1fr;  /* stack label above content */
         padding: 48px 20px 0;
@@ -768,7 +799,7 @@ button:focus-visible {
 
     /* ── BODY: reduce blur padding on mobile ── */
     body {
-        padding-bottom: 80px;   /* less than 120px desktop — blur overlay is shorter too */
+        padding-bottom: 32px;
     }
 
     /* ── NEXT LINK: less padding-top on mobile ── */
@@ -789,7 +820,7 @@ button:focus-visible {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 112px;
+    margin-top: 42px;
     padding: 0 68px 2.5rem 200px;
     /* Left 200px = matches where the nav line and role text start (68px margin + 132px indent).
        Right 68px  = matches the cs-footer's right margin, so "Made it with" aligns
@@ -842,7 +873,7 @@ button:focus-visible {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;              /* 16px between logos / copyright / credits */
-        margin-top: 92px;       /* 92px from end of project content to site footer */
+        margin-top: 42px;
         padding: 0 20px 2.5rem;
     }
 }
@@ -867,5 +898,5 @@ button:focus-visible {
 
 /* Push page content up so the footer always clears the blur overlay */
 body {
-    padding-bottom: 120px;
+    padding-bottom: 32px;
 }

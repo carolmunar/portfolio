@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estylar — Carol Munar</title>
+    <title>Estylar · Carol Munar</title>
     <link rel="icon" type="image/png" href="../favicon.png">
 
     <!-- SEO -->
@@ -13,7 +13,7 @@
     <!-- Open Graph -->
     <meta property="og:type"        content="website">
     <meta property="og:url"         content="https://www.carolmunar.com/projects/estylar">
-    <meta property="og:title"       content="Estylar — AI Body Scanner for Size Recommendations · Carol Munar">
+    <meta property="og:title"       content="Estylar · AI Body Scanner for Size Recommendations · Carol Munar">
     <meta property="og:description" content="How Carol Munar designed the end-to-end AI body scanning experience for Estylar, helping online shoppers find their perfect size and reducing return rates.">
     <meta property="og:image"       content="https://www.carolmunar.com/logos/og-image.png">
 
@@ -63,7 +63,7 @@
         }
 
         /* ── HERO VIDEO CONTAINER ──
-           Full-width image at 733px — taller than the default cs-image-wrap (398px).
+           Full-width image at 733px , taller than the default cs-image-wrap (398px).
            Uses the same gray background and border-radius as the rest of the case study. */
         .cs-hero-video {
             height: 733px;
@@ -82,14 +82,14 @@
 
         /* ── MOBILE SCREENS CONTAINER ──
            CSS grid: 3 equal columns, no gap.
-           Images flow automatically — 6 images fill 2 rows, 3 images fill 1 row.
+           Images flow automatically , 6 images fill 2 rows, 3 images fill 1 row.
            overflow: hidden clips border bleed at the rounded corners. */
         .cs-mobile-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             column-gap: 90px;   /* Figma: ~90px between the 3 phone columns */
             row-gap: 67px;      /* Figma: ~67px between the 2 rows */
-            /* No width: 100% — lets the block auto-size to parent minus margins:
+            /* No width: 100% , lets the block auto-size to parent minus margins:
                1440px − 68px − 68px = 1304px (the content column width) */
             margin: 92px 68px 0;
         }
@@ -98,7 +98,7 @@
         .cs-mobile-grid img {
             width: 100%;
             height: 667px;
-            object-fit: contain;  /* shows the full image — cover was cropping/zooming */
+            object-fit: contain;  /* shows the full image , cover was cropping/zooming */
             display: block;       /* removes the default inline gap below images */
             border-radius: 10px;  /* round corners on each phone since container no longer clips */
         }
@@ -113,7 +113,7 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            /* Year column no longer needs a fixed width — let flex size it */
+            /* Year column no longer needs a fixed width , let flex size it */
             .cs-title-area--estylar .cs-meta-item:first-child {
                 width: auto;
             }
@@ -140,7 +140,7 @@
         /* ── MOBILE BREAKPOINT (≤768px) ─────────────────────────────
            The generic rules in alphin.css handle the shared classes,
            but Estylar's custom modifier classes need their own mobile
-           rules here — otherwise the desktop pixel values win. */
+           rules here , otherwise the desktop pixel values win. */
         @media (max-width: 768px) {
 
             /* Title area: drop both columns, go single-column */
@@ -148,7 +148,7 @@
                 grid-template-columns: 1fr;
             }
 
-            /* Reset desktop alignment fixes — not needed when stacked */
+            /* Reset desktop alignment fixes , not needed when stacked */
             .cs-title-area--estylar .cs-meta-item:first-child {
                 width: auto;
             }
@@ -204,7 +204,7 @@
 <body>
 
     <!-- ============================================
-         HEADER — same as all case studies
+         HEADER , same as all case studies
          ============================================ -->
     <header class="cs-header">
         <div>
@@ -251,7 +251,7 @@
 
         <!-- ── HERO VIDEO ──
              YouTube embed replacing the static hero image.
-             /embed/ URL is required for iframes — the /watch?v= URL doesn't work in embeds. -->
+             /embed/ URL is required for iframes , the /watch?v= URL doesn't work in embeds. -->
         <div class="cs-hero-video">
             <iframe
                 src="https://www.youtube.com/embed/n3LanjGXWTE"
@@ -260,7 +260,7 @@
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
-                title="Estylar — AI body scanner product overview">
+                title="Estylar , AI body scanner product overview">
             </iframe>
         </div>
 
@@ -276,7 +276,7 @@
                 <p>
                     Online fashion has a sizing crisis. Shoppers can't try clothes on, so they
                     order multiple sizes, keep one, and return the rest. Return rates in fashion
-                    ecommerce sit at 30–40%—a cost most retailers quietly absorb.
+                    ecommerce sit at 30–40%, a cost most retailers quietly absorb.
                 </p>
                 <p>
                     Estylar was building a solution: an AI body scanner that used a short phone
@@ -292,7 +292,7 @@
                 <div class="cs-brief">
                     <p class="cs-label-orange">The Brief</p>
                     <p class="cs-brief-text">
-                        Design a scanning experience that feels effortless and earns trust—even
+                        Design a scanning experience that feels effortless and earns trust, even
                         when asking users to point a camera at their own body.
                     </p>
                 </div>
@@ -306,22 +306,22 @@
              Row 2: dp4 (border) | dp5 (border) | dp6 (no border) -->
         <div class="cs-mobile-grid">
             <img src="../projects/img/dp1.webp"
-                 alt="Estylar — welcome and scanning introduction"
+                 alt="Estylar , welcome and scanning introduction"
                  loading="lazy">
             <img src="../projects/img/dp2.webp"
-                 alt="Estylar — body position guidance"
+                 alt="Estylar , body position guidance"
                  loading="lazy">
             <img src="../projects/img/dp3.webp"
-                 alt="Estylar — scanning in progress"
+                 alt="Estylar , scanning in progress"
                  loading="lazy">
             <img src="../projects/img/dp4.webp"
-                 alt="Estylar — body measurements results"
+                 alt="Estylar , body measurements results"
                  loading="lazy">
             <img src="../projects/img/dp5.webp"
-                 alt="Estylar — size recommendation"
+                 alt="Estylar , size recommendation"
                  loading="lazy">
             <img src="../projects/img/dp6.webp"
-                 alt="Estylar — add to cart with recommended size"
+                 alt="Estylar , add to cart with recommended size"
                  loading="lazy">
         </div><!-- end mobile grid container 1 -->
 
@@ -340,7 +340,7 @@
                 </p>
                 <p>
                     First: people don't trust size charts. They've been burned. A "medium" in
-                    one brand is an "XL" in another. Most shoppers already had a workaround—
+                    one brand is an "XL" in another. Most shoppers already had a workaround, 
                     reading reviews, checking model measurements, ordering two sizes.
                 </p>
                 <p>
@@ -362,13 +362,13 @@
              All three have the #002855 border. -->
         <div class="cs-mobile-grid">
             <img src="../projects/img/dp7.webp"
-                 alt="Estylar — privacy explanation screen"
+                 alt="Estylar , privacy explanation screen"
                  loading="lazy">
             <img src="../projects/img/dp8.webp"
-                 alt="Estylar — alternative measurement flow"
+                 alt="Estylar , alternative measurement flow"
                  loading="lazy">
             <img src="../projects/img/dp9.webp"
-                 alt="Estylar — size history and profile"
+                 alt="Estylar , size history and profile"
                  loading="lazy">
         </div><!-- end mobile grid container 2 -->
 
@@ -382,7 +382,7 @@
             </div>
             <div class="cs-section-content">
                 <p>
-                    The biggest design challenge wasn't the scanning UI itself—it was the 30
+                    The biggest design challenge wasn't the scanning UI itself, it was the 30
                     seconds before it. Users needed to understand what was about to happen, why
                     it was safe, and what they'd get out of it. If we lost them there, they
                     never started the scan.
@@ -393,7 +393,7 @@
                     receive. Only then does the camera open.
                 </p>
                 <p>
-                    For the scanning itself, I built real-time guidance overlays—a silhouette
+                    For the scanning itself, I built real-time guidance overlays, a silhouette
                     guide that filled in as the AI confirmed correct body position. This gave
                     users feedback that something was actually working, which dramatically
                     reduced drop-off during the scan.
@@ -427,7 +427,7 @@
                         <tbody>
                             <tr>
                                 <td>Scan completion rate</td>
-                                <td data-label="Before">—</td>
+                                <td data-label="Before">n/a</td>
                                 <td data-label="After">74%</td>
                             </tr>
                             <tr>
@@ -437,7 +437,7 @@
                             </tr>
                             <tr>
                                 <td>Repeat scanner use</td>
-                                <td data-label="Before">—</td>
+                                <td data-label="Before">n/a</td>
                                 <td data-label="After">61% of users</td>
                             </tr>
                         </tbody>
@@ -465,14 +465,14 @@
                     <p class="cs-decision-title">Trust is a design problem, not a legal one.</p>
                     <p>
                         Adding a privacy policy link didn't move the needle. Showing users exactly
-                        what happens—step by step, in plain language—did. Transparency through
+                        what happens, step by step, in plain language, did. Transparency through
                         design is more powerful than compliance through text.
                     </p>
                 </div>
                 <div>
                     <p class="cs-decision-title">Feedback during a process matters as much as the outcome.</p>
                     <p>
-                        The scanning silhouette overlay wasn't technically necessary—the AI worked
+                        The scanning silhouette overlay wasn't technically necessary, the AI worked
                         without it. But it transformed a tense 15-second wait into a clear,
                         trackable task. Perceived progress is real progress.
                     </p>
@@ -482,7 +482,7 @@
                     <p>
                         There was no PM, no design system, no research team. I learned to move
                         fast on decisions I could reverse and slow down on the ones I couldn't.
-                        Defining what "done" looks like—and keeping the team aligned on it—was
+                        Defining what "done" looks like, and keeping the team aligned on it, was
                         as much of the work as designing the screens.
                     </p>
                 </div>
@@ -506,7 +506,7 @@
     </main>
 
     <!-- ============================================
-         SITE FOOTER — same as the index page
+         SITE FOOTER , same as the index page
          ============================================ -->
     <footer class="site-footer">
         <div class="footer-logos">
@@ -524,7 +524,7 @@
         <p class="footer-made">Made it with 🖤 and <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></p>
     </footer>
 
-    <!-- Progressive blur overlay — blur.js fills this with 8 inner layers -->
+    <!-- Progressive blur overlay , blur.js fills this with 8 inner layers -->
     <div id="scroll-blur" aria-hidden="true"></div>
     <script src="blur.js"></script>
 

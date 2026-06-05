@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mari — Carol Munar</title>
+    <title>Mari · Carol Munar</title>
     <link rel="icon" type="image/png" href="../favicon.png">
 
     <!-- SEO -->
-    <meta name="description" content="How Carol Munar designed Mari, an AI planning tool that takes a team from PRD to prioritized Kanban board without a single meeting.">
+    <meta name="description" content="How Carol Munar designed Mari, a four-step AI agent pipeline prototype built in 2 hours at a Cursor hackathon.">
     <link rel="canonical" href="https://www.carolmunar.com/projects/mari">
 
     <!-- Open Graph -->
     <meta property="og:type"        content="website">
     <meta property="og:url"         content="https://www.carolmunar.com/projects/mari">
-    <meta property="og:title"       content="Mari — AI Planning Tool · Carol Munar">
-    <meta property="og:description" content="How Carol Munar designed Mari, an AI planning tool that takes a team from PRD to prioritized Kanban board without a single meeting.">
+    <meta property="og:title"       content="Mari · AI Planning Prototype · Carol Munar">
+    <meta property="og:description" content="How Carol Munar designed Mari, a four-step AI agent pipeline prototype built in 2 hours at a Cursor hackathon.">
     <meta property="og:image"       content="https://www.carolmunar.com/logos/og-image.png">
 
     <!-- Same fonts as main portfolio -->
@@ -36,10 +36,6 @@
 </head>
 <body>
 
-    <!-- ============================================
-         HEADER
-         Fixed at the top. Same as all case studies.
-         ============================================ -->
     <header class="cs-header">
         <div>
             <a href="../index.html" class="cs-header-name">Carol Munar</a>
@@ -51,17 +47,12 @@
 
     <main class="cs-main">
 
-        <!-- ============================================
-             TITLE AREA
-             Left: "Mari" in the large company name style
-             Right: H1 title + metadata row
-             ============================================ -->
         <div class="cs-title-area">
             <div>
                 <span class="cs-company-name">Mari</span>
             </div>
             <div>
-                <h1 class="cs-h1">From PRD to Kanban Board — Without a Single Meeting</h1>
+                <h1 class="cs-h1">Four-Agent AI Planning Pipeline (Hackathon Prototype)</h1>
             </div>
             <div class="cs-meta">
                 <div class="cs-meta-item">
@@ -80,21 +71,24 @@
         </div>
 
 
-        <!-- ============================================
-             IMAGE 1 — Hero: Context Input screen
-             ============================================ -->
-        <div class="cs-image-wrap">
-            <img
-                src="img/homeContext.png"
-                alt="Mari — Context Input screen with Notion link field and Team Context panel">
+        <div class="cs-image-wrap cs-hero-video">
+            <video
+                id="mari-demo-video"
+                src="img/mariDemo.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="none"
+                aria-label="Mari product demo walkthrough">
+            </video>
         </div>
+        <a href="https://mari-eight-liart.vercel.app/planning/context"
+           class="cs-live-demo-link"
+           target="_blank"
+           rel="noopener">Live Demo</a>
 
 
-        <!-- ============================================
-             SECTION: PROBLEM
-             The core tension: teams have ideas but can't
-             agree on priority or ownership.
-             ============================================ -->
         <section class="cs-section">
             <div class="cs-section-label">
                 <h2>Problem</h2>
@@ -102,7 +96,7 @@
             <div class="cs-section-content">
                 <p>
                     Teams don't struggle to have ideas. They struggle to agree on what to
-                    build first and who owns what — and they waste hours in planning sessions
+                    build first and who owns what, and they waste hours in planning sessions
                     that could have been a document.
                 </p>
                 <p>
@@ -112,32 +106,31 @@
                     room.
                 </p>
                 <p>
-                    At a Cursor-organized hackathon, a five-person team set out to eliminate
-                    that meeting entirely.
+                    Mari was built in 2 hours at a hackathon hosted by Kaan Calgar, supported
+                    by Cursor and Antler. A five-person team set out to show what AI-assisted
+                    planning could look like when it feels trustworthy and legible, not like
+                    a black-box chat.
                 </p>
 
                 <div class="cs-brief">
                     <p class="cs-label-orange">The Brief</p>
                     <p class="cs-brief-text">
-                        Go from a PRD to a prioritized, assigned Kanban board without
-                        a single meeting.
+                        Design a guided workflow that turns a PRD and team context into a
+                        prioritized, assigned Kanban board, with clear approval steps along
+                        the way.
                     </p>
                 </div>
             </div>
         </section>
 
 
-        <!-- ============================================
-             SECTION: SOLUTION
-             Three key design decisions that shaped the product.
-             ============================================ -->
         <section class="cs-section">
             <div class="cs-section-label">
                 <h2>Solution</h2>
             </div>
             <div class="cs-section-content">
                 <p>
-                    I owned the full UX and UI — from flow definition to final screens.
+                    I owned the full UX and UI, from flow definition to final screens.
                     I worked alongside the developer to shape what the AI agents would
                     expose to the user at each step, and made the key decisions on how
                     much control to give users versus how much to let the agents handle.
@@ -151,7 +144,7 @@
                             <p>
                                 Most planning tools begin with an empty board or a template.
                                 We started with a document. The Context Input screen accepts
-                                a Notion link or a file upload — and the team panel sits right
+                                a Notion link or a file upload, and the team panel sits right
                                 beside it, already populated with names, roles, and availability.
                                 The brief exists. The people exist. The tool's job is to connect
                                 them, not make you recreate everything from scratch.
@@ -161,7 +154,7 @@
                             <p class="cs-decision-title">Make the AI reasoning visible while it works.</p>
                             <p>
                                 During analysis, the agent doesn't just show a spinner. It
-                                narrates what it's doing — "Extracting goals, constraints, and
+                                narrates what it's doing: "Extracting goals, constraints, and
                                 scope. Keeping only what is supported by your input." This was
                                 a deliberate trust decision. An AI that hands you a finished
                                 plan with no trace of its logic is one you'll second-guess or
@@ -172,7 +165,7 @@
                         <div>
                             <p class="cs-decision-title">Assign by role and availability, not by name.</p>
                             <p>
-                                The Team Context panel shows who's active and who isn't —
+                                The Team Context panel shows who's active and who isn't.
                                 David Kim is on PTO and toggled off. The AI maps tasks to
                                 available team members based on their function (Frontend,
                                 Backend, Design), not to whoever's name you typed in. Assignment
@@ -187,83 +180,128 @@
         </section>
 
 
-        <!-- ============================================
-             IMAGE 2 — First image after key decisions: iterations
-             Replace src when the file is added to projects/img/
-             ============================================ -->
         <div class="cs-image-wrap">
-            <img src="img/iteraction1.png" alt="Mari — Design iterations" loading="lazy">
-        </div>
-
-
-        <div class="cs-image-wrap">
-            <img src="img/asissmentMari.png" alt="Mari — Assignment view" loading="lazy">
+            <img src="img/iteration1.webp?v=2" alt="Mari, design iterations" loading="lazy">
         </div>
 
         <div class="cs-image-wrap">
-            <img src="img/matrixMari.png" alt="Mari — Priority matrix" loading="lazy">
+            <img src="img/asissmentMari.webp?v=2" alt="Mari, assignment view" loading="lazy">
         </div>
 
         <div class="cs-image-wrap">
-            <img src="img/kanbanMari.png" alt="Mari — Kanban board output" loading="lazy">
+            <img src="img/matrixMari.webp?v=2" alt="Mari, priority matrix" loading="lazy">
+        </div>
+
+        <div class="cs-image-wrap">
+            <img src="img/kanbanMari.webp?v=2" alt="Mari, Kanban board output" loading="lazy">
         </div>
 
 
-        <!-- ============================================
-             SECTION: IMPACT
-             ============================================ -->
         <section class="cs-section">
             <div class="cs-section-label">
-                <h2>Impact</h2>
+                <h2>Under the Hood</h2>
             </div>
             <div class="cs-section-content">
-                <div class="cs-table-wrap">
-                    <table class="cs-table">
-                        <thead>
-                            <tr>
-                                <th>Metric</th>
-                                <th>Before</th>
-                                <th>After</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Planning session length</td>
-                                <td data-label="Before">90 min</td>
-                                <td data-label="After">&lt; 2 min</td>
-                            </tr>
-                            <tr>
-                                <td>People required to kick off</td>
-                                <td data-label="Before">Full team</td>
-                                <td data-label="After">1 person</td>
-                            </tr>
-                            <tr>
-                                <td>Meetings needed</td>
-                                <td data-label="Before">At least 1</td>
-                                <td data-label="After">0</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <p>
+                    Mari is not one chatbot. It is a pipeline of specialized AI steps, each
+                    with a narrow job, a fixed output shape, and guardrails so the UI always
+                    gets predictable data. The interface walks the user through four screens.
+                    Behind the scenes, three steps use Gemini and one step is pure logic
+                    (no AI).
+                </p>
+                <p>
+                    Think orchestrated workflow, not "the AI figures everything out in one
+                    message." Each agent returns structured JSON the UI can trust. The user
+                    reviews context, then the matrix, then assignments, before the board
+                    appears. AI proposes. The human approves.
+                </p>
+
+                <div class="cs-brief">
+                    <p class="cs-label-orange">The Four Agents</p>
+                    <div class="cs-decisions">
+                        <div>
+                            <p class="cs-decision-title">1. Context</p>
+                            <p>
+                                Reads the PRD from a Notion link, file upload, or notes and
+                                turns messy input into a structured project summary: goals,
+                                constraints, and team snapshot. The agent is grounded on the
+                                actual document content so it cannot invent requirements that
+                                are not there.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title">2. Analysis</p>
+                            <p>
+                                Takes that summary and produces 8 to 15 tasks scored by effort
+                                and impact. Prioritization logic (quick wins, major projects)
+                                is enforced in code after the model responds, not left to the
+                                model to guess.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title">3. Assignment</p>
+                            <p>
+                                Maps each task to an available team member by role, with a match
+                                percentage and a plain-language reason. Availability rules
+                                (for example, David on PTO) are enforced in code before anything
+                                reaches the UI.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title">4. Kanban</p>
+                            <p>
+                                Deterministic only. No AI. It turns the assignment plan into a
+                                board with every card in To Do. In Progress, Review, and Done stay
+                                empty. Sprint has not started yet, and the board reflects that.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cs-brief">
+                    <p class="cs-label-orange">Why This Matters for Design</p>
+                    <div class="cs-decisions">
+                        <div>
+                            <p class="cs-decision-title cs-decision-title--medium">Specialization over one mega-prompt.</p>
+                            <p>
+                                Each step has a small scope, which means clearer screens and
+                                easier debugging when something goes wrong.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title cs-decision-title--medium">Structured outputs.</p>
+                            <p>
+                                Zod schemas act as a contract between the AI and the UI
+                                components. The matrix, table, and Kanban always get the fields
+                                they expect.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title cs-decision-title--medium">Human-in-the-loop.</p>
+                            <p>
+                                The user reviews context, matrix, and assignments before the
+                                board appears. AI proposes. The user approves.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="cs-decision-title cs-decision-title--medium">Guardrails outside the model.</p>
+                            <p>
+                                Availability, quadrant math, and board state are code rules,
+                                not model decisions. Behavior stays consistent even when the
+                                model drifts.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <p>
-                    The full flow — from PRD link to populated board — ran in under two minutes
-                    during the demo. The product compressed what normally takes a 90-minute
-                    planning session into something a single person can trigger alone,
-                    asynchronously.
-                </p>
-                <p>
-                    Mari wasn't named as a feature. It was named as a standard: the kind of
-                    project manager who comes in, reads the room, knows who should own what,
-                    and gets everyone moving without drama. That's what the product tries to be.
+                    Three Gemini calls. One logic step. React and Zustand on the frontend,
+                    Hono API on Vercel, Vercel AI SDK with schema-constrained outputs.
                 </p>
             </div>
         </section>
 
 
-        <!-- ============================================
-             SECTION: LEARNINGS
-             ============================================ -->
         <section class="cs-section">
             <div class="cs-section-label">
                 <h2>Learnings</h2>
@@ -274,14 +312,14 @@
                     <p>
                         Showing the AI's reasoning step by step made the output feel earned.
                         A finished plan with no visible logic is one users will override by
-                        instinct — even when the plan is correct.
+                        instinct, even when the plan is correct.
                     </p>
                 </div>
                 <div>
                     <p class="cs-decision-title">Start with what already exists.</p>
                     <p>
                         The brief exists. The team is assembled. The roles are known.
-                        Great planning tools don't ask you to rebuild the context — they
+                        Great planning tools don't ask you to rebuild the context. They
                         read it and move forward.
                     </p>
                 </div>
@@ -297,15 +335,11 @@
         </section>
 
 
-        <!-- ============================================
-             FOOTER
-             Role description + navigation to previous case study.
-             Mari is the last case study, so only a "Previous" link.
-             ============================================ -->
         <footer class="cs-footer">
             <p class="cs-footer-role">
                 Role: UX & UI Designer · Full flow definition, screen design,
-                AI agent interaction design · Cursor Hackathon June 2026
+                AI agent interaction design · Built in 2 hours · Cursor Hackathon,
+                June 2026 · Hosted by Kaan Calgar · Supported by Cursor and Antler
             </p>
             <a href="estylar.html" class="cs-next-link">← Previous: Estylar</a>
         </footer>
@@ -313,9 +347,6 @@
     </main>
 
 
-    <!-- ============================================
-         SITE FOOTER — same as all other pages
-         ============================================ -->
     <footer class="site-footer">
         <div class="footer-logos">
             <a href="https://www.linkedin.com/in/carolmunar/" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -332,9 +363,35 @@
         <p class="footer-made">Made it with 🖤 and <a href="https://claude.ai/code" target="_blank" rel="noopener">Claude Code</a></p>
     </footer>
 
-    <!-- Progressive blur overlay -->
     <div id="scroll-blur" aria-hidden="true"></div>
     <script src="blur.js"></script>
+
+    <script>
+        /* Mari hero demo: 2x speed, lazy-load when near viewport */
+        (function () {
+            var video = document.getElementById('mari-demo-video');
+            if (!video) return;
+
+            video.playbackRate = 2;
+
+            function startPlayback() {
+                video.play().catch(function () {});
+            }
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    if (entries[0].isIntersecting) {
+                        video.preload = 'auto';
+                        startPlayback();
+                        observer.disconnect();
+                    }
+                }, { rootMargin: '120px' });
+                observer.observe(video);
+            } else {
+                startPlayback();
+            }
+        }());
+    </script>
 
 </body>
 </html>

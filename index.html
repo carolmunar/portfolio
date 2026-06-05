@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carol Munar — Product Designer</title>
+    <title>Carol Munar · Product Designer</title>
     <link rel="icon" type="image/png" href="favicon.png">
 
     <!-- SEO -->
     <meta name="description" content="Carol Munar is a product designer helping startups and series A–D teams build stronger connections between their product and customers.">
     <link rel="canonical" href="https://www.carolmunar.com/">
 
-    <!-- Open Graph — controls how this page looks when shared on LinkedIn, Slack, etc. -->
+    <!-- Open Graph , controls how this page looks when shared on LinkedIn, Slack, etc. -->
     <meta property="og:type"        content="website">
     <meta property="og:url"         content="https://www.carolmunar.com/">
-    <meta property="og:title"       content="Carol Munar — Product Designer">
+    <meta property="og:title"       content="Carol Munar · Product Designer">
     <meta property="og:description" content="Carol Munar is a product designer helping startups and series A–D teams build stronger connections between their product and customers.">
     <meta property="og:image"       content="https://www.carolmunar.com/logos/og-image.png">
 
@@ -54,7 +54,7 @@
 </head>
 <body>
 
-<!-- <main> wraps all the visible page content — tells search engines "this is the main content" -->
+<!-- <main> wraps all the visible page content , tells search engines "this is the main content" -->
 <main>
 
     <!-- ============================================
@@ -70,7 +70,7 @@
             Each image is wrapped in a div with class "hero-object".
             They are positioned absolutely (like stickers on a board).
 
-            data-speed="0.2" — controls how much the object moves
+            data-speed="0.2" , controls how much the object moves
             when the mouse moves. Higher number = moves more = feels closer.
             Lower number = moves less = feels farther away.
         -->
@@ -93,7 +93,7 @@
             <img src="header/regal.webp" alt="">
         </div>
 
-        <!-- Items ON the bookshelf — same speed as regal so they move together -->
+        <!-- Items ON the bookshelf , same speed as regal so they move together -->
         <div class="hero-object" id="plantsuculent" data-speed="0.06">
             <img src="header/plantsuculent.webp" alt="">
         </div>
@@ -114,7 +114,7 @@
             <img src="header/pulpfiction.webp" alt="">
         </div>
 
-        <!-- FRAME: center portrait collage — no .webp available yet, using .png -->
+        <!-- FRAME: center portrait collage , no .webp available yet, using .png -->
         <div class="hero-object portrait-frame" id="frame" data-speed="0.18">
             <img src="header/frame.webp" alt="Carol Munar portrait">
         </div>
@@ -133,7 +133,7 @@
         <!-- data-element="plantsmall" triggers the easter egg tooltip on hover -->
         <div class="hero-object" id="plantsmall" data-speed="0.18" data-element="plantsmall">
             <img src="header/plantsmall.webp" alt="">
-            <!-- Easter egg tooltip — hidden by default, shown on hover -->
+            <!-- Easter egg tooltip , hidden by default, shown on hover -->
             <div class="plantbig-tooltip">
                 <p>Are you searching for my <a href="CarolMunar_CV_SeniorProductDesigner.pdf" download>CV</a> or <a href="https://www.linkedin.com/in/carolmunar/" target="_blank" rel="noopener">LinkedIn</a>?</p>
             </div>
@@ -143,7 +143,7 @@
         <!-- data-element="chiva" lets CSS target it for the hover tooltip -->
         <div class="hero-object chiva" id="chiva" data-speed="0.06" data-element="chiva">
             <img src="header/chiva.webp" alt="">
-            <!-- chivaHover tooltip — hidden by default, shows on hover via CSS -->
+            <!-- chivaHover tooltip , hidden by default, shows on hover via CSS -->
             <div class="chiva-tooltip">
                 <p>I'm from Colombia, lived 13 years in Argentina.</p>
                 <p>Based in Berlin</p>
@@ -154,7 +154,7 @@
             <img src="header/chair.webp" alt="">
         </div>
 
-        <!-- FullHD-only elements — hidden on smaller screens, shown at 1800px+ -->
+        <!-- FullHD-only elements , hidden on smaller screens, shown at 1800px+ -->
         <div class="hero-object" id="kommode" data-speed="0.06">
             <img src="header/kommode.webp" alt="">
         </div>
@@ -174,7 +174,7 @@
                 "h1" is the big main message below it
             -->
             <p class="greeting">Hola! I'm Carol Munar.</p>
-            <h1>I help startups and series A—D&nbsp;teams to establish a strong connection between their product and&nbsp;customers</h1>
+            <h1>I help startups and series A-D&nbsp;teams to establish a strong connection between their product and&nbsp;customers</h1>
         </div>
 
     </section>
@@ -185,10 +185,10 @@
          ============================================ -->
     <section class="section-currently-working">
 
-        <!-- Section heading — same font/size as hero h1 -->
+        <!-- Section heading , same font/size as hero h1 -->
         <h2 class="section-title">Currently working</h2>
 
-        <!-- Small label above the description — Elternpop logo sits inline after the text -->
+        <!-- Small label above the description , Elternpop logo sits inline after the text -->
         <p class="work-label">Designing something new called
             <img src="logos/ElternpopLogo.svg"      alt="Elternpop" class="work-inline-logo" id="elternpop-logo-dark">
             <img src="logos/ElternpopLogoLight.svg" alt="Elternpop" class="work-inline-logo" id="elternpop-logo-light">
@@ -212,18 +212,18 @@
 
         <h2 class="section-title">Recent experiences</h2>
 
-        <!-- Case study 1: Mari — deep teal -->
+        <!-- Case study 1: Mari , deep teal -->
         <a href="projects/mari.html" class="case-study case-study--link" data-project="mari">
             <div class="case-logo" style="background-color: #00FFB2;">
                 <img src="logos/Mari.svg" alt="Mari" loading="lazy">
             </div>
             <div class="case-content">
-                <p class="case-title">From PRD to Kanban Board — Without a Single Meeting</p>
+                <p class="case-title">Four-Agent AI Planning Pipeline (Hackathon Prototype)</p>
                 <span class="case-see-more">See more &rarr;</span>
             </div>
         </a>
 
-        <!-- Case study 2: Alphin — dark navy -->
+        <!-- Case study 2: Alphin , dark navy -->
         <!-- Wrapped in <a> so clicking anywhere on the row opens the case study -->
         <!-- data-project="alphin" lets JS find this row for the hover preview -->
         <a href="projects/alphin.html" class="case-study case-study--link" data-project="alphin">
@@ -236,7 +236,7 @@
             </div>
         </a>
 
-        <!-- Case study 3: Adjust — black -->
+        <!-- Case study 3: Adjust , black -->
         <a href="projects/adjust.html" class="case-study case-study--link" data-project="adjust">
             <div class="case-logo" style="background-color: #010101;">
                 <img src="logos/adjust.svg" alt="Adjust" loading="lazy">
@@ -247,7 +247,7 @@
             </div>
         </a>
 
-        <!-- Case study 4: Agrofy — green -->
+        <!-- Case study 4: Agrofy , green -->
         <a href="projects/agrofy.html" class="case-study case-study--link" data-project="agrofy">
             <div class="case-logo" style="background-color: #81ba42;">
                 <img src="logos/agrofy.svg" alt="Agrofy" loading="lazy">
@@ -258,7 +258,7 @@
             </div>
         </a>
 
-        <!-- Case study 5: Estylar — dark purple -->
+        <!-- Case study 5: Estylar , dark purple -->
         <a href="projects/estylar.html" class="case-study case-study--link" data-project="estylar">
             <div class="case-logo" style="background-color: #333366;">
                 <img src="logos/estylar.svg" alt="Estylar" loading="lazy">
@@ -273,7 +273,7 @@
              Each .preview-set holds all images for one project.
              JS fades in the right set on hover. -->
         <div class="project-preview-area" id="project-preview-area">
-            <!-- Alphin: animated AI Reply modal — matches Figma node 297:12994 -->
+            <!-- Alphin: animated AI Reply modal , matches Figma node 297:12994 -->
             <div class="preview-set" id="preview-alphin">
                 <div class="alp-card">
 
@@ -383,7 +383,7 @@
                 <img src="projects/img/hover/estylar_hover3.webp" alt="">
             </div>
 
-            <!-- Mari: video preview — plays first 5s on hover, loops -->
+            <!-- Mari: video preview , plays first 5s on hover, loops -->
             <div class="preview-set" id="preview-mari">
                 <video id="mari-hover-video"
                        src="projects/img/heroMari.mp4?v=1"
@@ -398,7 +398,7 @@
 
 
     <!-- ============================================
-         PROBLEMS I SOLVE / HOW I WORK — two columns
+         PROBLEMS I SOLVE / HOW I WORK , two columns
          ============================================ -->
     <section class="section-howwork">
 
@@ -425,7 +425,7 @@
          Each paragraph starts invisible (opacity:0).
          JavaScript watches the page scroll and adds
          the class .is-visible when each paragraph
-         enters the viewport — that triggers a CSS
+         enters the viewport , that triggers a CSS
          transition (fade in + slide up).
          ============================================ -->
     <section class="section-about">
