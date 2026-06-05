@@ -415,11 +415,12 @@ if (!isTouchDevice) {
 
    Events tracked:
    1. case_study_clicked  — which project the visitor opened
-   2. cv_downloaded       — CV link clicked (easter egg tooltip)
-   3. dark_mode_toggled   — switch toggled, captures new mode
-   4. easter_egg_hovered  — chiva or plantsmall tooltip revealed
-   5. say_hola_clicked    — nav contact link clicked
-   6. portfolio_time_spent — seconds on page, fires on tab close
+   2. cv_downloaded       — CV link clicked (about section or plantsmall)
+   3. linkedin_clicked    — LinkedIn link clicked inside plantsmall
+   4. dark_mode_toggled   — switch toggled, captures new mode
+   5. easter_egg_hovered  — chiva or plantsmall tooltip revealed
+   6. say_hola_clicked    — nav contact link clicked
+   7. portfolio_time_spent — seconds on page, fires on tab close
    ============================================================ */
 
 if (typeof posthog !== 'undefined') {
@@ -444,12 +445,31 @@ if (typeof posthog !== 'undefined') {
         });
     });
 
-    /* ── 3. CV download ── */
+    /* ── 3. CV download — about section (plantsmall tracked separately below) ── */
     document.querySelectorAll('a[href*=".pdf"][download]').forEach(function(link) {
+        if (link.closest('#plantsmall')) return;
         link.addEventListener('click', function() {
             posthog.capture('cv_downloaded');
         });
     });
+
+    /* ── 3b. plantsmall easter egg link clicks ── */
+    var plantsmallContainer = document.getElementById('plantsmall');
+    if (plantsmallContainer) {
+        var plantsmallCv = plantsmallContainer.querySelector('a[href*=".pdf"][download]');
+        if (plantsmallCv) {
+            plantsmallCv.addEventListener('click', function() {
+                posthog.capture('cv_downloaded', { element: 'plantsmall' });
+            });
+        }
+
+        var plantsmallLinkedin = plantsmallContainer.querySelector('a[href*="linkedin.com"]');
+        if (plantsmallLinkedin) {
+            plantsmallLinkedin.addEventListener('click', function() {
+                posthog.capture('linkedin_clicked', { element: 'plantsmall' });
+            });
+        }
+    }
 
     /* ── 4. Dark mode toggle ── */
     var switchEl = document.getElementById('lightswitch');

@@ -357,18 +357,8 @@ button:focus-visible {
     border-top: 1px solid #e5e7eb;
 }
 
-/* ── FOOTER ──
-   Role description + "Next / Previous" navigation.
-   padding-left: 132px aligns text at 68+132=200px from page edge
-   (same x-position as the h2 section labels). */
-.cs-footer {
-    margin: 42px 68px 0;        /* 42px from last section to role text */
-    padding: 0 0 0 132px;       /* 68px margin + 132px = 200px from page = inside layout */
-    display: flex;
-    flex-direction: column;
-    gap: 49px;                  /* 49px gap + 1px border + 42px padding = 92px role→nav */
-}
-
+/* ── ROLE (lives inside last section's content column) ──
+   .cs-section-content already adds 24px gap above this block. */
 .cs-footer-role {
     font-size: 14px;
     color: #666;
@@ -376,36 +366,46 @@ button:focus-visible {
     line-height: 1.6;
 }
 
+.cs-footer-role-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ── CASE STUDY NAV (prev / next) ──
+   72px below role, left edge aligned with fixed header nav (97px).
+   margin-left calc keeps alignment when .cs-main is centered >1440px.
+   No divider line above the links. */
+.cs-footer {
+    margin-top: 72px;
+    margin-left: calc(97px - max(0px, (100vw - 1440px) / 2));
+    margin-right: calc(68px - max(0px, (100vw - 1440px) / 2));
+    padding: 0;
+    border-top: none;
+}
+
 .cs-next-link {
     font-size: 16px;
     color: #1e1e1e;
     text-decoration: none;
     letter-spacing: -0.176px;
-    border-top: 1px solid #e5e7eb;
-    padding-top: 42px;                  /* 42px from line to nav text */
     display: block;
-    max-width: 1040px;
+    border-top: none;
 }
 
 .cs-next-link:hover {
     text-decoration: underline;
 }
 
-/* ── FOOTER NAV (two-way: prev + next) ──
-   Used on pages with both directions.
-   The border-top sits between the role text and the nav row. */
+/* ── FOOTER NAV (two-way: prev + next) ── */
 .cs-footer-nav {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #e5e7eb;
-    padding-top: 42px;                  /* 42px from line to nav text */
-    max-width: 1040px;
+    border-top: none;
 }
 
-/* When links are inside a nav row, the nav container already has the border */
 .cs-footer-nav .cs-next-link {
-    border-top: none;
-    padding-top: 0;
+    width: auto;
 }
 
 /* ── STEPS GUIDE BLOCK ──
@@ -677,9 +677,15 @@ button:focus-visible {
     }
 
     .cs-footer {
-        margin: 92px 20px 0;         /* 92px from last section to role text on mobile */
-        padding: 0 0 48px 0;         /* remove desktop indent; margin handles top spacing */
-        gap: 16px;                   /* compact gap between role and nav on mobile */
+        margin-top: 72px;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0 20px;
+    }
+
+    .cs-footer-nav {
+        flex-direction: column;
+        gap: 16px;
     }
 
     /* ── SITE FOOTER mobile styles moved below base .site-footer
@@ -802,29 +808,17 @@ button:focus-visible {
         padding-bottom: 32px;
     }
 
-    /* ── NEXT LINK: less padding-top on mobile ── */
-    .cs-next-link {
-        padding-top: 24px;
-    }
-
-    .cs-footer-nav {
-        padding-top: 24px;
-    }
 }
 
 
-/* ── SITE FOOTER — same visual as the index page footer ──
-   200px padding each side matches the home page (13.9vw at 1440px)
-   and keeps logos/credits inside the same layout column as the content. */
+/* ── SITE FOOTER — full width, 92px below case study nav ── */
 .site-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 42px;
-    padding: 0 68px 2.5rem 200px;
-    /* Left 200px = matches where the nav line and role text start (68px margin + 132px indent).
-       Right 68px  = matches the cs-footer's right margin, so "Made it with" aligns
-                     with the right edge of "Next →" / "← Previous". */
+    width: 100%;
+    margin-top: 92px;
+    padding: 0 68px 32px 97px;  /* left edge matches .cs-header (97px) */
 }
 
 .footer-logos {
@@ -873,8 +867,8 @@ button:focus-visible {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;              /* 16px between logos / copyright / credits */
-        margin-top: 42px;
-        padding: 0 20px 2.5rem;
+        margin-top: 92px;
+        padding: 0 20px 32px;
     }
 }
 
