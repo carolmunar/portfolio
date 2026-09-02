@@ -714,6 +714,10 @@ body.dark-mode #switch-off-img { display: block; }
 /* Elternpop logo sits inline after "Designing something new called".
    height: 25px matches the exact logo frame height in Figma (133×25px).
    vertical-align: middle centres it on the text baseline. */
+.work-label a {
+    text-decoration: none;   /* keep logo looking like a logo, not underlined text */
+}
+
 .work-inline-logo {
     height: 25px;
     vertical-align: middle;
